@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AQA 5.4.3 Supplement – Diatomic Elements</title>
+  <style>
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:#0b1020;
+      color:#eef2ff;
+    }
+    .wrap{
+      max-width:900px;
+      margin:0 auto;
+      padding:28px 18px 48px;
+      display:grid;
+      gap:16px;
+    }
+    h1{margin:0;}
+    h2{margin:0 0 8px;}
+    .card{
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:16px;
+      padding:16px;
+      background:rgba(255,255,255,.06);
+    }
+    .muted{color:rgba(238,242,255,.75);}
+    .callout{
+      border-left:4px solid #7c5cff;
+      padding:10px 12px;
+      background:rgba(255,255,255,.05);
+      border-radius:12px;
+    }
+    ul{margin:8px 0 0 18px;}
+    .mnemonic{
+      font-size:1.2rem;
+      font-weight:800;
+      letter-spacing:.04em;
+      background:rgba(124,92,255,.15);
+      padding:10px 14px;
+      border-radius:14px;
+      display:inline-block;
+      margin-top:8px;
+    }
+    .q{
+      margin-top:12px;
+      padding:12px;
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:14px;
+      background:rgba(0,0,0,.2);
+    }
+    .opts{display:grid; gap:8px; margin-top:8px;}
+    label{
+      display:grid;
+      grid-template-columns:22px 1fr;
+      gap:8px;
+      cursor:pointer;
+      align-items:start;
+    }
+    button{
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.25);
+      background:#7c5cff;
+      color:white;
+      font-weight:800;
+      cursor:pointer;
+    }
+    button.secondary{
+      background:rgba(255,255,255,.10);
+      border-color:rgba(255,255,255,.22);
+    }
+    .btnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center;}
+    .good{color:#2ecc71; font-weight:800;}
+    .bad{color:#ff5c7a; font-weight:800;}
+    .warn{color:#ffd166; font-weight:800;}
+    .result{margin-top:8px;}
+    .explain{margin-top:6px; color:rgba(238,242,255,.75); line-height:1.35;}
+    .scoreBox{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.06);
+      font-weight:800;
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <h1>5.4.3 Supplementary Quiz – Diatomic Elements</h1>
+  <div class="muted">
+    This short module supports <b>5.4.3 Electrolysis</b> by reinforcing diatomic elements
+    and why products like <b>Cl₂</b> form at the anode.
+  </div>
+
+  <div class="card">
+    <h2>Why this matters</h2>
+    <div class="callout">
+      In electrolysis questions, AQA expects you to already know that some elements exist naturally as
+      <b>diatomic molecules</b> (pairs of atoms). This is assumed knowledge, not usually re-taught in 5.4.3.
+    </div>
+    <ul class="muted">
+      <li>Writing <b>Cl</b> instead of <b>Cl₂</b> in an equation can lose marks</li>
+      <li>You’re rarely asked to explain <i>why</i> they’re diatomic — you mainly need to <b>remember the formulas</b></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>The diatomic elements to remember</h2>
+    <div class="muted">If these elements are written on their own in equations, they are diatomic:</div>
+    <div class="mnemonic">Have No Fear Of Ice Cold Beer</div>
+    <ul class="muted">
+      <li>H₂ – Hydrogen</li>
+      <li>N₂ – Nitrogen</li>
+      <li>F₂ – Fluorine</li>
+      <li>O₂ – Oxygen</li>
+      <li>I₂ – Iodine</li>
+      <li>Cl₂ – Chlorine</li>
+      <li>Br₂ – Bromine</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Syllabus links (where this comes from)</h2>
+    <ul class="muted">
+      <li><b>5.1</b> Atomic structure & periodic table – halogens occur as diatomic molecules</li>
+      <li><b>5.2</b> Bonding – covalent molecules examples include H₂, O₂, Cl₂</li>
+      <li><b>5.4.3</b> Electrolysis – products (e.g. Cl₂) rely on the above knowledge</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Mini Quiz</h2>
+
+    <!-- Correct answer indexes are 0-based -->
+    <div class="q" data-a="1" data-exp="Chlorine atoms pair up: chlorine exists naturally as diatomic molecules, so the element is written as Cl₂ (like H₂ and O₂).">
+      <b>1)</b> At the anode in electrolysis of molten NaCl, why is the product written as <b>Cl₂</b> (not Cl)?
+      <div class="opts">
+        <label><input type="radio" name="q1"> Because chloride ions have a 2− charge</label>
+        <label><input type="radio" name="q1"> Because elemental chlorine exists as a diatomic molecule</label>
+        <label><input type="radio" name="q1"> Because electrolysis always makes gases</label>
+        <label><input type="radio" name="q1"> Because chloride ions gain two electrons</label>
+      </div>
+      <div class="result"></div>
+    </div>
+
+    <div class="q" data-a="1" data-exp="When chlorine is present as the element (not an ion), it is written as Cl₂. Sodium, copper and aluminium are not diatomic elements.">
+      <b>2)</b> Which of the following is written correctly for the <b>element on its own</b>?
+      <div class="opts">
+        <label><input type="radio" name="q2"> Na₂</label>
+        <label><input type="radio" name="q2"> Cl₂</label>
+        <label><input type="radio" name="q2"> Cu₂</label>
+        <label><input type="radio" name="q2"> Al₂</label>
+      </div>
+      <div class="result"></div>
+    </div>
+
+    <div class="q" data-a="0" data-exp="At the anode, chloride ions are oxidised: 2Cl⁻ → Cl₂ + 2e⁻. Two chloride ions are needed to make one Cl₂ molecule.">
+      <b>3)</b> Complete the half-equation at the anode:
+      <div class="muted" style="margin-top:6px;"><b>2Cl⁻ → _____ + 2e⁻</b></div>
+      <div class="opts">
+        <label><input type="radio" name="q3"> Cl₂</label>
+        <label><input type="radio" name="q3"> Cl</label>
+        <label><input type="radio" name="q3"> 2Cl</label>
+        <label><input type="radio" name="q3"> Cl⁻</label>
+      </div>
+      <div class="result"></div>
+    </div>
+
+    <div class="q" data-a="3" data-exp="‘Have No Fear Of Ice Cold Beer’ helps recall H₂, N₂, F₂, O₂, I₂, Cl₂, Br₂.">
+      <b>4)</b> Which mnemonic correctly lists the diatomic elements?
+      <div class="opts">
+        <label><input type="radio" name="q4"> Please Stop Calling Me A Careless Zebra</label>
+        <label><input type="radio" name="q4"> Big Friendly Elephants Climb Hills</label>
+        <label><input type="radio" name="q4"> Cats Like Sleeping Indoors</label>
+        <label><input type="radio" name="q4"> Have No Fear Of Ice Cold Beer</label>
+      </div>
+      <div class="result"></div>
+    </div>
+
+    <div class="btnRow">
+      <button onclick="mark()">Mark quiz</button>
+      <button class="secondary" onclick="resetQuiz()">Reset quiz</button>
+      <div class="scoreBox" id="scoreBox" style="display:none;"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function mark(){
+  let correct = 0;
+  let total = 0;
+
+  document.querySelectorAll(".q").forEach((q)=>{
+    total++;
+    const ans = Number(q.dataset.a);
+    const inputs = [...q.querySelectorAll("input[type=radio]")];
+    const chosen = inputs.find(i => i.checked);
+    const res = q.querySelector(".result");
+
+    if(!chosen){
+      res.innerHTML = `<div class="warn">No answer selected</div>`;
+      return;
+    }
+
+    const idx = inputs.indexOf(chosen);
+    const ok = idx === ans;
+    if(ok) correct++;
+
+    const exp = q.dataset.exp || "";
+    const chosenText = chosen.parentElement.innerText.trim();
+    const correctText = inputs[ans].parentElement.innerText.trim();
+
+    res.innerHTML = `
+      <div class="${ok ? "good" : "bad"}">${ok ? "✔ Correct" : "✘ Incorrect"}</div>
+      <div class="muted"><b>Your answer:</b> ${chosenText}</div>
+      ${ok ? "" : `<div class="muted"><b>Correct answer:</b> ${correctText}</div>`}
+      <div class="explain"><b>Why:</b> ${exp}</div>
+    `;
+  });
+
+  const sb = document.getElementById("scoreBox");
+  const pct = Math.round((correct/total)*100);
+  sb.style.display = "block";
+  sb.textContent = `Score: ${correct}/${total} (${pct}%)`;
+}
+
+function resetQuiz(){
+  // Clear selections
+  document.querySelectorAll("input[type=radio]").forEach(i => i.checked = false);
+
+  // Clear results
+  document.querySelectorAll(".result").forEach(r => r.innerHTML = "");
+
+  // Hide score
+  const sb = document.getElementById("scoreBox");
+  sb.style.display = "none";
+  sb.textContent = "";
+
+  // Scroll back to top of quiz card nicely
+  document.querySelector(".card:last-of-type").scrollIntoView({behavior:"smooth", block:"start"});
+}
+</script>
+
+</body>
+</html>
