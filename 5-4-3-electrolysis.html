@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AQA 5.4.3 Tutorial – Electrolysis</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:rgba(255,255,255,.08); --card2:rgba(255,255,255,.06);
+      --text:#eef2ff; --muted:rgba(238,242,255,.75); --border:rgba(255,255,255,.14);
+      --accent:#7c5cff; --good:#2ecc71; --bad:#ff5c7a; --warn:#ffd166;
+    }
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:radial-gradient(1200px 650px at 10% 0%, rgba(124,92,255,.25), transparent 50%),
+                 radial-gradient(900px 550px at 90% 10%, rgba(46,204,113,.18), transparent 55%),
+                 linear-gradient(180deg, var(--bg), #050817);
+      color:var(--text);
+    }
+    header{max-width:1100px; margin:0 auto; padding:28px 18px 10px;}
+    h1{margin:0 0 8px; font-size:1.65rem;}
+    .sub{color:var(--muted); line-height:1.35; max-width:980px;}
+    .wrap{max-width:1100px; margin:0 auto; padding:12px 18px 48px; display:grid; gap:14px;}
+    .toolbar{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:var(--card);
+    }
+    .pill{padding:8px 10px; border-radius:999px; border:1px solid var(--border);
+      background:rgba(0,0,0,.18); color:var(--muted); font-size:.92rem; white-space:nowrap;}
+    button{
+      border:1px solid var(--border); background:rgba(255,255,255,.08); color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:650;
+    }
+    button:hover{border-color:rgba(255,255,255,.28);}
+    button.primary{
+      background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.55));
+      border-color:rgba(124,92,255,.65);
+    }
+    button.danger{
+      background:linear-gradient(135deg, rgba(255,92,122,.95), rgba(255,92,122,.45));
+      border-color:rgba(255,92,122,.6);
+    }
+    .card{padding:16px; border-radius:16px; border:1px solid var(--border); background:var(--card);}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:12px;}
+    h2{margin:0 0 10px; font-size:1.25rem;}
+    h3{margin:0 0 8px; font-size:1.05rem;}
+    .muted{color:var(--muted);}
+    .callout{
+      border-left:3px solid rgba(124,92,255,.7); padding:10px 12px; background:rgba(255,255,255,.05);
+      border-radius:12px; margin-top:10px; color:var(--muted); line-height:1.45;
+    }
+    .kbox{
+      border:1px solid var(--border); border-radius:14px; padding:12px; background:var(--card2);
+    }
+    ul{margin:8px 0 0 18px; color:var(--muted);}
+    .diagram{
+      border:1px dashed rgba(255,255,255,.24); border-radius:14px; padding:12px; background:rgba(0,0,0,.16);
+      color:var(--muted); line-height:1.35;
+    }
+    .q{
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.06);
+      margin-top:10px;
+    }
+    .opts{display:grid; gap:8px; margin-top:10px;}
+    label.opt{
+      display:grid; grid-template-columns:22px 1fr; gap:10px; align-items:start;
+      padding:10px 12px; border-radius:14px; border:1px solid var(--border);
+      background:rgba(0,0,0,.14); cursor:pointer;
+    }
+    label.opt:hover{border-color:rgba(255,255,255,.28);}
+    input[type="radio"]{margin-top:3px;}
+    .resultLine{margin-top:10px; font-weight:700;}
+    .good{color:#b7f7cd;}
+    .bad{color:#ffc1cb;}
+    details{border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.05); padding:10px 12px;}
+    summary{cursor:pointer; font-weight:750;}
+    .flash{
+      display:grid; gap:10px; align-items:center;
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(0,0,0,.16);
+    }
+    .flashFace{font-size:1.05rem; line-height:1.35;}
+    .flashBtns{display:flex; gap:10px; flex-wrap:wrap;}
+    .tiny{font-size:.92rem;}
+    textarea{
+      width:100%; min-height:90px; border-radius:12px; border:1px solid var(--border);
+      padding:10px; background:rgba(0,0,0,.18); color:var(--text);
+      resize:vertical;
+    }
+    .scoreBox{
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(255,255,255,.06);
+    }
+    .tag{
+      display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--border);
+      font-weight:800; font-size:.85rem; margin-left:8px;
+    }
+    .tag.good{background:rgba(46,204,113,.18); border-color:rgba(46,204,113,.35);}
+    .tag.bad{background:rgba(255,92,122,.16); border-color:rgba(255,92,122,.35);}
+    .phrase{
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.14);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .phrase button{ padding:8px 10px; border-radius:12px; }
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background:rgba(0,0,0,.75); border:1px solid rgba(255,255,255,.18);
+      color:var(--text); padding:10px 12px; border-radius:14px;
+      display:none; z-index:9999; font-weight:700;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>AQA 5.4.3 Tutorial – Electrolysis</h1>
+  <div class="sub">
+    This lesson covers <b>electrolysis</b>: what it is, how ions move, what happens at the
+    <b>cathode</b> and <b>anode</b>, predicting products (molten vs aqueous), and why electrolysis is used to extract some metals.
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <span class="pill" id="pillSection">Section: 5.4.3</span>
+      <span class="pill" id="pillProgress">Progress: 0%</span>
+      <span class="pill" id="pillChecks">Checks: 0/4 done</span>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <button id="btnJumpNotes">Jump to Notes</button>
+      <button id="btnJumpPhrases">Mark-scheme phrases</button>
+      <button id="btnJumpFlash">Jump to Flashcards</button>
+      <button class="primary" id="btnJumpQuiz">Jump to Final Quiz</button>
+      <button class="danger" id="btnReset">Reset progress</button>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="card" id="notes">
+    <h2>Core idea for 5.4.3</h2>
+    <div class="callout">
+      <b>Electrolysis</b> is the <b>decomposition</b> of an <b>ionic compound</b> using electricity.
+      It only works when ions can move (in a <b>molten</b> ionic compound or an <b>aqueous solution</b>).
+    </div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.4.3.1 The process of electrolysis</h3>
+        <ul>
+          <li>Needs <b>electrodes</b> and an <b>electrolyte</b> (molten or aqueous ionic compound).</li>
+          <li>Positive ions (<b>cations</b>) move to the <b>cathode (–)</b>.</li>
+          <li>Negative ions (<b>anions</b>) move to the <b>anode (+)</b>.</li>
+          <li><b>Reduction</b> happens at the cathode (gain of electrons).</li>
+          <li><b>Oxidation</b> happens at the anode (loss of electrons).</li>
+        </ul>
+        <div class="diagram tiny" style="margin-top:10px;">
+          Handy memory: <b>OIL RIG</b> (Oxidation Is Loss, Reduction Is Gain) + Cathode is <b>negative</b>.
+        </div>
+
+        <div class="q" data-check="movement">
+          <b>Quick check (movement)</b><br>
+          During electrolysis, cations move to the…
+          <div class="opts" id="opts_movement"></div>
+          <button class="primary" onclick="markCheck('movement')">Mark</button>
+          <div class="resultLine" id="res_movement"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_movement"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.4.3.2 Electrolysis of molten ionic compounds</h3>
+        <ul>
+          <li>Only the ions from the compound are present (no water ions).</li>
+          <li>At the <b>cathode</b>: metal ions are reduced to the metal.</li>
+          <li>At the <b>anode</b>: non-metal ions form non-metals (often gases).</li>
+          <li>Example (molten lead bromide): Pb²⁺ → Pb, and 2Br⁻ → Br₂</li>
+        </ul>
+
+        <div class="q" data-check="molten">
+          <b>Quick check (molten)</b><br>
+          In molten lead bromide, the product at the cathode is…
+          <div class="opts" id="opts_molten"></div>
+          <button class="primary" onclick="markCheck('molten')">Mark</button>
+          <div class="resultLine" id="res_molten"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_molten"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Electrolysis of aqueous solutions (foundation-friendly rules)</h3>
+        <ul>
+          <li>Water adds extra ions: <b>H⁺</b> and <b>OH⁻</b>.</li>
+          <li>At the <b>cathode</b>: if the metal is <b>more reactive than hydrogen</b>, hydrogen gas is produced; otherwise the metal is produced.</li>
+          <li>At the <b>anode</b>: if halide ions (Cl⁻, Br⁻, I⁻) are present, halogen is produced; otherwise oxygen is produced from OH⁻.</li>
+        </ul>
+        <div class="callout tiny">
+          AQA often uses examples like <b>aqueous copper sulfate</b> and <b>brine (NaCl)</b>.
+        </div>
+
+        <div class="q" data-check="aqueous">
+          <b>Quick check (aqueous)</b><br>
+          In aqueous copper sulfate with inert electrodes, what forms at the cathode?
+          <div class="opts" id="opts_aqueous"></div>
+          <button class="primary" onclick="markCheck('aqueous')">Mark</button>
+          <div class="resultLine" id="res_aqueous"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_aqueous"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.4.3.3 Using electrolysis to extract metals</h3>
+        <ul>
+          <li>Very reactive metals (above carbon) can’t be extracted by carbon reduction.</li>
+          <li>They are extracted by <b>electrolysis of molten compounds</b> (e.g. aluminium from aluminium oxide).</li>
+          <li>Electrolysis uses <b>a lot of energy</b> (electricity cost is important).</li>
+        </ul>
+
+        <div class="q" data-check="extract">
+          <b>Quick check (extraction)</b><br>
+          Aluminium is extracted by electrolysis because…
+          <div class="opts" id="opts_extract"></div>
+          <button class="primary" onclick="markCheck('extract')">Mark</button>
+          <div class="resultLine" id="res_extract"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_extract"></div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <details style="margin-top:12px;">
+      <summary>Key vocabulary</summary>
+      <div class="muted tiny" style="margin-top:10px; line-height:1.5;">
+        <b>Electrolyte</b> – molten or dissolved ionic compound containing mobile ions.<br>
+        <b>Electrode</b> – conductor where ions gain/lose electrons (cathode/anode).<br>
+        <b>Cathode</b> – negative electrode; reduction happens here.<br>
+        <b>Anode</b> – positive electrode; oxidation happens here.<br>
+        <b>Inert electrode</b> – does not react (e.g. graphite/platinum).<br>
+        <b>Decomposition</b> – breaking down a compound into simpler substances/elements.
+      </div>
+    </details>
+  </div>
+
+  <!-- MARK-SCHEME PHRASES -->
+  <div class="card" id="phrases">
+    <h2>Common mark-scheme phrases (copy-friendly)</h2>
+    <div class="muted">Click “Copy” to grab a phrase you can paste into a model answer.</div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Core electrolysis</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Electrolysis is the decomposition of an ionic compound using electricity.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“It only works when ions are free to move (molten or aqueous).”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Electrodes & ion movement</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Cations move to the cathode (negative) and are reduced (gain electrons).”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Anions move to the anode (positive) and are oxidised (lose electrons).”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Molten vs aqueous</h3>
+        <div class="phrase">
+          <div class="muted"><b>“In molten electrolysis, only the compound’s ions are present.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“In aqueous solutions, H⁺ and OH⁻ from water compete at the electrodes.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Extraction link</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Metals above carbon are extracted by electrolysis because carbon cannot reduce their compounds.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Electrolysis is expensive because it uses a lot of electrical energy.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: In “explain” questions: name the electrode, state ion movement, then say oxidation/reduction with electrons.
+    </div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="card" id="flashcards">
+    <h2>Flashcards (retrieval practice)</h2>
+    <div class="muted">Click <b>Flip</b> then rate yourself. Aim for “Good” twice in a row.</div>
+    <div class="flash" style="margin-top:12px;">
+      <div class="flashFace" id="flashFace"></div>
+      <div class="muted tiny" id="flashHint"></div>
+      <div class="flashBtns">
+        <button id="btnFlip" class="primary">Flip</button>
+        <button id="btnAgain">Again</button>
+        <button id="btnGood">Good</button>
+        <button id="btnNext">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTES / EXPORT -->
+  <div class="card">
+    <h2>My notes (optional)</h2>
+    <div class="muted">Write what you find hardest. Export to copy/paste into a revision log.</div>
+    <textarea id="notesBox" placeholder="Example: I mix up anode/cathode and which is oxidation/reduction..."></textarea>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+      <button id="btnExport" class="primary">Export notes (copy)</button>
+      <button id="btnClearNotes">Clear notes</button>
+      <span class="pill" id="pillCopied" style="display:none;">Copied!</span>
+    </div>
+  </div>
+
+  <!-- FINAL QUIZ -->
+  <div class="card" id="finalQuiz">
+    <h2>Final quiz (mixed)</h2>
+    <div class="muted">Try this without looking back. Then check the review to see what to revise.</div>
+    <div id="quizArea" style="margin-top:12px;"></div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center;">
+      <button class="primary" id="btnMarkFinal">Mark final quiz</button>
+      <button id="btnRetryFinal">Retry final quiz</button>
+      <span class="pill" id="pillFinalScore" style="display:none;"></span>
+    </div>
+    <div id="finalReview" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+  // -------------------------
+  // Quick checks (4)
+  // -------------------------
+  const checks = {
+    movement: {
+      options: ["Anode (+)","Cathode (–)","Both electrodes","Neither electrode"],
+      answer: 1,
+      explanation: "Cations (positive ions) are attracted to the negative electrode: the cathode."
+    },
+    molten: {
+      options: ["Bromine gas","Lead metal","Hydrogen gas","Oxygen gas"],
+      answer: 1,
+      explanation: "In molten PbBr₂, Pb²⁺ ions go to the cathode and gain electrons to form lead metal."
+    },
+    aqueous: {
+      options: ["Hydrogen gas","Copper metal","Oxygen gas","Chlorine gas"],
+      answer: 1,
+      explanation: "In aqueous CuSO₄ with inert electrodes, Cu²⁺ is less reactive than hydrogen, so copper forms at the cathode."
+    },
+    extract: {
+      options: [
+        "Aluminium is less reactive than carbon",
+        "Carbon can reduce aluminium oxide easily",
+        "Aluminium is more reactive than carbon so carbon reduction doesn’t work",
+        "Aluminium is a non-metal"
+      ],
+      answer: 2,
+      explanation: "Aluminium is above carbon in the reactivity series, so its compounds are too stable to be reduced by carbon."
+    }
+  };
+
+  // -------------------------
+  // Flashcards
+  // -------------------------
+  const flashcards = [
+    {front:"Define electrolysis.", back:"The decomposition of an ionic compound using electricity.", hint:"Decomposition + electricity."},
+    {front:"When does electrolysis work?", back:"When ions can move: molten ionic compounds or aqueous solutions.", hint:"Ions must be mobile."},
+    {front:"Which electrode is the cathode and what happens there?", back:"Cathode is negative; reduction happens (gain of electrons).", hint:"Cathode = negative."},
+    {front:"Which electrode is the anode and what happens there?", back:"Anode is positive; oxidation happens (loss of electrons).", hint:"Anode = positive."},
+    {front:"Where do cations go? Where do anions go?", back:"Cations → cathode. Anions → anode.", hint:"Opposites attract."},
+    {front:"Molten PbBr₂: what forms at each electrode?", back:"Cathode: Pb. Anode: Br₂.", hint:"Metal at cathode; non-metal at anode."},
+    {front:"Aqueous CuSO₄ (inert electrodes): cathode product?", back:"Copper forms at the cathode.", hint:"Cu is less reactive than H."},
+    {front:"Why is aluminium extracted by electrolysis?", back:"It is above carbon, so carbon reduction won’t work.", hint:"Too reactive / compound too stable."},
+    {front:"Why is electrolysis expensive?", back:"It uses a lot of electrical energy.", hint:"Energy cost."}
+  ];
+
+  // -------------------------
+  // Final quiz (10)
+  // -------------------------
+  const finalQuiz = [
+    {id:"F1", q:"Electrolysis is the…", options:["Formation of ions","Decomposition of an ionic compound using electricity","Burning of fuel","Neutralisation reaction"], a:1,
+     exp:"Electrolysis breaks down ionic compounds using an electric current."},
+    {id:"F2", q:"Electrolysis only works when…", options:["Electrons can move","Ions can move (molten or aqueous)","The compound is solid","The compound is a metal"], a:1,
+     exp:"Solid ionic lattices don’t allow ion movement; molten or aqueous do."},
+    {id:"F3", q:"Cations move to the…", options:["Anode (+)","Cathode (–)","Salt bridge","Neither"], a:1,
+     exp:"Positive ions are attracted to the negative electrode (cathode)."},
+    {id:"F4", q:"Oxidation happens at the…", options:["Cathode","Anode","Both","Neither"], a:1,
+     exp:"Anions lose electrons at the anode → oxidation."},
+    {id:"F5", q:"Reduction happens at the…", options:["Cathode","Anode","Both","Neither"], a:0,
+     exp:"Cations gain electrons at the cathode → reduction."},
+    {id:"F6", q:"Molten NaCl: products are…", options:["Na at cathode and Cl₂ at anode","H₂ at cathode and O₂ at anode","Na₂ at cathode and Cl at anode","Na at anode and Cl₂ at cathode"], a:0,
+     exp:"Na⁺ is reduced to sodium at the cathode; Cl⁻ is oxidised to chlorine at the anode."},
+    {id:"F7", q:"Why can aluminium not be extracted by carbon reduction?", options:["Aluminium is less reactive than carbon","Aluminium is more reactive than carbon","Carbon is not reactive enough with oxygen","Aluminium oxide does not exist"], a:1,
+     exp:"Al is above carbon; Al₂O₃ is too stable to be reduced by carbon."},
+    {id:"F8", q:"Aqueous CuSO₄ (inert electrodes): cathode product?", options:["Hydrogen","Copper","Oxygen","Chlorine"], a:1,
+     exp:"Copper is deposited because Cu²⁺ is reduced in preference to H⁺."},
+    {id:"F9", q:"At the anode during electrolysis, anions are…", options:["Reduced (gain electrons)","Oxidised (lose electrons)","Neutralised","Condensed"], a:1,
+     exp:"Anions lose electrons at the anode → oxidation."},
+    {id:"F10", q:"Electrolysis is expensive mainly because…", options:["It needs high pressure","It uses a lot of electrical energy","It always uses rare metals","It creates too much heat"], a:1,
+     exp:"Electricity use is the main cost driver in electrolysis."}
+  ];
+
+  // -------------------------
+  // State
+  // -------------------------
+  const state = {
+    checksDone: {movement:false, molten:false, aqueous:false, extract:false},
+    finalAnswers: {},
+    flashIndex: 0,
+    flashFlipped: false
+  };
+
+  function $(id){ return document.getElementById(id); }
+  function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:"smooth", block:"start"}); }
+
+  function setPills(){
+    const doneCount = Object.values(state.checksDone).filter(Boolean).length;
+    const progress = Math.round(((doneCount) / 4) * 60 + (Object.keys(state.finalAnswers).length / finalQuiz.length) * 40);
+    $("pillProgress").textContent = `Progress: ${progress}%`;
+    $("pillChecks").textContent = `Checks: ${doneCount}/4 done`;
+  }
+
+  function renderCheck(key){
+    const c = checks[key];
+    const wrap = $("opts_"+key);
+    wrap.innerHTML = "";
+    c.options.forEach((opt, i) => {
+      const lab = document.createElement("label");
+      lab.className = "opt";
+      const inp = document.createElement("input");
+      inp.type = "radio";
+      inp.name = "chk_"+key;
+      inp.value = i;
+      const div = document.createElement("div");
+      div.textContent = opt;
+      lab.appendChild(inp);
+      lab.appendChild(div);
+      wrap.appendChild(lab);
+    });
+    $("exp_"+key).textContent = c.explanation;
+  }
+
+  function markCheck(key){
+    const c = checks[key];
+    const chosen = document.querySelector(`input[name="chk_${key}"]:checked`);
+    const res = $("res_"+key);
+    if(!chosen){
+      res.innerHTML = `<span style="color:var(--warn)"><b>Please choose an answer first.</b></span>`;
+      return;
+    }
+    const val = Number(chosen.value);
+    const ok = val === c.answer;
+    state.checksDone[key] = true;
+
+    res.innerHTML = ok
+      ? `<span class="good">✔ Correct</span> <span class="muted tiny">— ${c.options[c.answer]}</span>`
+      : `<span class="bad">✘ Incorrect</span> <span class="muted tiny">— Correct: ${c.options[c.answer]}</span>`;
+
+    setPills();
+  }
+
+  // Flashcards
+  function renderFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = false;
+    $("flashFace").textContent = card.front;
+    $("flashHint").textContent = "Hint: " + card.hint;
+    $("btnFlip").textContent = "Flip";
+  }
+  function flipFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = !state.flashFlipped;
+    $("flashFace").textContent = state.flashFlipped ? card.back : card.front;
+    $("btnFlip").textContent = state.flashFlipped ? "Show question" : "Flip";
+  }
+  function nextFlash(){
+    state.flashIndex = (state.flashIndex + 1) % flashcards.length;
+    renderFlash();
+  }
+
+  // Notes export
+  async function exportNotes(){
+    const txt = $("notesBox").value.trim();
+    if(!txt){
+      alert("No notes yet. Write a couple of lines first.");
+      return;
+    }
+    await navigator.clipboard.writeText(txt);
+    $("pillCopied").style.display = "inline-block";
+    setTimeout(()=> $("pillCopied").style.display = "none", 1200);
+  }
+
+  // Final quiz
+  function renderFinalQuiz(){
+    const qa = $("quizArea");
+    qa.innerHTML = "";
+    finalQuiz.forEach((q, idx) => {
+      const card = document.createElement("div");
+      card.className = "q";
+      card.innerHTML = `<b>Q${idx+1}.</b> ${q.q}`;
+      const opts = document.createElement("div");
+      opts.className = "opts";
+
+      q.options.forEach((opt, i) => {
+        const lab = document.createElement("label");
+        lab.className = "opt";
+        const inp = document.createElement("input");
+        inp.type = "radio";
+        inp.name = "final_"+q.id;
+        inp.value = i;
+        if(state.finalAnswers[q.id] === i) inp.checked = true;
+        inp.addEventListener("change", () => {
+          state.finalAnswers[q.id] = i;
+          setPills();
+        });
+        const div = document.createElement("div");
+        div.textContent = opt;
+        lab.appendChild(inp);
+        lab.appendChild(div);
+        opts.appendChild(lab);
+      });
+
+      card.appendChild(opts);
+      qa.appendChild(card);
+    });
+    setPills();
+  }
+
+  function markFinal(){
+    let correct = 0;
+    const total = finalQuiz.length;
+    const review = [];
+
+    finalQuiz.forEach((q) => {
+      const chosen = (q.id in state.finalAnswers) ? state.finalAnswers[q.id] : null;
+      const ok = chosen === q.a;
+      if(ok) correct++;
+      review.push({q, chosen, ok});
+    });
+
+    const pct = Math.round((correct/total)*100);
+    $("pillFinalScore").style.display = "inline-block";
+    $("pillFinalScore").textContent = `Final quiz score: ${correct}/${total} (${pct}%)`;
+
+    const fr = $("finalReview");
+    fr.innerHTML = review.map((r, i) => {
+      const tag = r.ok ? `<span class="tag good">Correct</span>` : `<span class="tag bad">Incorrect</span>`;
+      const your = (r.chosen===null) ? "<i>(blank)</i>" : r.q.options[r.chosen];
+      const cor = r.q.options[r.q.a];
+
+      return `
+        <div class="scoreBox" style="margin-top:10px;">
+          <div><b>Q${i+1}.</b> ${r.q.q} ${tag}</div>
+          <div class="muted" style="margin-top:6px;"><b>Your answer:</b> ${your}</div>
+          <div class="muted"><b>Correct answer:</b> ${cor}</div>
+          <div class="callout tiny"><b>Why:</b> ${r.q.exp}</div>
+        </div>
+      `;
+    }).join("");
+
+    scrollToId("finalReview");
+  }
+
+  function retryFinal(){
+    state.finalAnswers = {};
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+    renderFinalQuiz();
+    scrollToId("finalQuiz");
+  }
+
+  function resetAll(){
+    state.checksDone = {movement:false, molten:false, aqueous:false, extract:false};
+    state.finalAnswers = {};
+    state.flashIndex = 0;
+    state.flashFlipped = false;
+
+    $("notesBox").value = "";
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+
+    Object.keys(checks).forEach(renderCheck);
+    renderFlash();
+    renderFinalQuiz();
+    setPills();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  // Mark-scheme phrase copier (template feature)
+  function showToast(msg){
+    const t = $("toast");
+    t.textContent = msg;
+    t.style.display = "block";
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=> t.style.display="none", 1100);
+  }
+  async function copyPhrase(btn){
+    const text = btn.parentElement.querySelector("div").innerText.trim();
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast("Copied!");
+    }catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      showToast("Copied!");
+    }
+  }
+
+  // Buttons
+  $("btnJumpNotes").addEventListener("click", ()=>scrollToId("notes"));
+  $("btnJumpPhrases").addEventListener("click", ()=>scrollToId("phrases"));
+  $("btnJumpFlash").addEventListener("click", ()=>scrollToId("flashcards"));
+  $("btnJumpQuiz").addEventListener("click", ()=>scrollToId("finalQuiz"));
+  $("btnReset").addEventListener("click", resetAll);
+
+  $("btnFlip").addEventListener("click", flipFlash);
+  $("btnNext").addEventListener("click", nextFlash);
+  $("btnAgain").addEventListener("click", ()=>nextFlash());
+  $("btnGood").addEventListener("click", ()=>nextFlash());
+
+  $("btnExport").addEventListener("click", exportNotes);
+  $("btnClearNotes").addEventListener("click", ()=>{$("notesBox").value="";});
+  $("btnMarkFinal").addEventListener("click", markFinal);
+  $("btnRetryFinal").addEventListener("click", retryFinal);
+
+  // Init
+  Object.keys(checks).forEach(renderCheck);
+  renderFlash();
+  renderFinalQuiz();
+  setPills();
+</script>
+</body>
+</html>
