@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AQA 5.2.1.2 Tutorial – Ionic Bonding</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:rgba(255,255,255,.08); --card2:rgba(255,255,255,.06);
+      --text:#eef2ff; --muted:rgba(238,242,255,.75); --border:rgba(255,255,255,.14);
+      --accent:#7c5cff; --good:#2ecc71; --bad:#ff5c7a; --warn:#ffd166;
+    }
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:radial-gradient(1200px 650px at 10% 0%, rgba(124,92,255,.25), transparent 50%),
+                 radial-gradient(900px 550px at 90% 10%, rgba(46,204,113,.18), transparent 55%),
+                 linear-gradient(180deg, var(--bg), #050817);
+      color:var(--text);
+    }
+    header{max-width:1100px; margin:0 auto; padding:28px 18px 10px;}
+    h1{margin:0 0 8px; font-size:1.65rem;}
+    .sub{color:var(--muted); line-height:1.35; max-width:980px;}
+    .wrap{max-width:1100px; margin:0 auto; padding:12px 18px 48px; display:grid; gap:14px;}
+    .toolbar{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:var(--card);
+    }
+    .pill{padding:8px 10px; border-radius:999px; border:1px solid var(--border);
+      background:rgba(0,0,0,.18); color:var(--muted); font-size:.92rem; white-space:nowrap;}
+    button{
+      border:1px solid var(--border); background:rgba(255,255,255,.08); color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:650;
+    }
+    button:hover{border-color:rgba(255,255,255,.28);}
+    button.primary{
+      background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.55));
+      border-color:rgba(124,92,255,.65);
+    }
+    button.danger{
+      background:linear-gradient(135deg, rgba(255,92,122,.95), rgba(255,92,122,.45));
+      border-color:rgba(255,92,122,.6);
+    }
+    .card{padding:16px; border-radius:16px; border:1px solid var(--border); background:var(--card);}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:12px;}
+    h2{margin:0 0 10px; font-size:1.25rem;}
+    h3{margin:0 0 8px; font-size:1.05rem;}
+    .muted{color:var(--muted);}
+    .callout{
+      border-left:3px solid rgba(124,92,255,.7); padding:10px 12px; background:rgba(255,255,255,.05);
+      border-radius:12px; margin-top:10px; color:var(--muted); line-height:1.45;
+    }
+    .kbox{
+      border:1px solid var(--border); border-radius:14px; padding:12px; background:var(--card2);
+    }
+    ul{margin:8px 0 0 18px; color:var(--muted);}
+    .diagram{
+      border:1px dashed rgba(255,255,255,.24); border-radius:14px; padding:12px; background:rgba(0,0,0,.16);
+      color:var(--muted); line-height:1.35;
+    }
+    .q{
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.06);
+      margin-top:10px;
+    }
+    .opts{display:grid; gap:8px; margin-top:10px;}
+    label.opt{
+      display:grid; grid-template-columns:22px 1fr; gap:10px; align-items:start;
+      padding:10px 12px; border-radius:14px; border:1px solid var(--border);
+      background:rgba(0,0,0,.14); cursor:pointer;
+    }
+    label.opt:hover{border-color:rgba(255,255,255,.28);}
+    input[type="radio"]{margin-top:3px;}
+    .resultLine{margin-top:10px; font-weight:700;}
+    .good{color:#b7f7cd;}
+    .bad{color:#ffc1cb;}
+    details{border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.05); padding:10px 12px;}
+    summary{cursor:pointer; font-weight:750;}
+    .flash{
+      display:grid; gap:10px; align-items:center;
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(0,0,0,.16);
+    }
+    .flashFace{font-size:1.05rem; line-height:1.35;}
+    .flashBtns{display:flex; gap:10px; flex-wrap:wrap;}
+    .tiny{font-size:.92rem;}
+    textarea{
+      width:100%; min-height:90px; border-radius:12px; border:1px solid var(--border);
+      padding:10px; background:rgba(0,0,0,.18); color:var(--text);
+      resize:vertical;
+    }
+    .scoreBox{
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(255,255,255,.06);
+    }
+    .tag{
+      display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--border);
+      font-weight:800; font-size:.85rem; margin-left:8px;
+    }
+    .tag.good{background:rgba(46,204,113,.18); border-color:rgba(46,204,113,.35);}
+    .tag.bad{background:rgba(255,92,122,.16); border-color:rgba(255,92,122,.35);}
+    .phrase{
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.14);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .phrase button{ padding:8px 10px; border-radius:12px; }
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background:rgba(0,0,0,.75); border:1px solid rgba(255,255,255,.18);
+      color:var(--text); padding:10px 12px; border-radius:14px;
+      display:none; z-index:9999; font-weight:700;
+    }
+    .twoCol{
+      display:grid; grid-template-columns:1fr; gap:12px;
+    }
+    @media (min-width: 860px){
+      .twoCol{grid-template-columns: 1.1fr .9fr;}
+    }
+    code.k{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background:rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.14);
+      padding:2px 6px;
+      border-radius:8px;
+      color:rgba(238,242,255,.92);
+      white-space:nowrap;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>AQA 5.2.1.2 Tutorial – Ionic bonding</h1>
+  <div class="sub">
+    This module focuses on <b>ionic bonding</b> (within 5.2.1 Chemical bonds). You’ll practise:
+    electron transfer, ion charges, formula reasoning, and exam-style “explain what happens” questions like
+    <b>calcium + chlorine → calcium chloride</b>.
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <span class="pill" id="pillSection">Section: 5.2.1.2</span>
+      <span class="pill" id="pillProgress">Progress: 0%</span>
+      <span class="pill" id="pillChecks">Checks: 0/4 done</span>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <button id="btnJumpNotes">Jump to Notes</button>
+      <button id="btnJumpPhrases">Mark-scheme phrases</button>
+      <button id="btnJumpFlash">Jump to Flashcards</button>
+      <button class="primary" id="btnJumpQuiz">Jump to Final Quiz</button>
+      <button class="danger" id="btnReset">Reset progress</button>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="card" id="notes">
+    <h2>Core idea for 5.2.1.2</h2>
+    <div class="callout">
+      <b>Ionic bonding</b> happens when a <b>metal</b> transfers electrons to a <b>non-metal</b>.
+      This forms <b>ions</b>. The <b>electrostatic attraction</b> between oppositely charged ions is the <b>ionic bond</b>.
+    </div>
+
+    <div class="twoCol" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>How ions form</h3>
+        <ul>
+          <li><b>Metals lose electrons</b> → <b>positive ions (cations)</b></li>
+          <li><b>Non-metals gain electrons</b> → <b>negative ions (anions)</b></li>
+          <li>The number of electrons transferred links to the <b>ion charge</b></li>
+        </ul>
+        <div class="diagram tiny" style="margin-top:10px;">
+          Examples: <br>
+          <code class="k">Na → Na⁺ + e⁻</code> (Group 1 metal) <br>
+          <code class="k">Mg → Mg²⁺ + 2e⁻</code> (Group 2 metal) <br>
+          <code class="k">Cl + e⁻ → Cl⁻</code> (Group 7 non-metal)
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>How formulas work (GCSE-level)</h3>
+        <ul>
+          <li>Ionic compounds have <b>overall charge = 0</b></li>
+          <li>So the charges must “balance”</li>
+          <li>Example: Ca²⁺ needs two Cl⁻ → formula is <b>CaCl₂</b></li>
+        </ul>
+        <div class="diagram tiny" style="margin-top:10px;">
+          Charge balancing quick method: <br>
+          Ca<sup>2+</sup> and Cl<sup>-</sup> → “cross over” numbers → CaCl₂
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.2.1.2.1 Quick check: ion formation</h3>
+        <div class="q" data-check="ionform">
+          A metal forms a positive ion by…
+          <div class="opts" id="opts_ionform"></div>
+          <button class="primary" onclick="markCheck('ionform')">Mark</button>
+          <div class="resultLine" id="res_ionform"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_ionform"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.2.1.2.2 Quick check: which pair makes ionic?</h3>
+        <div class="q" data-check="pair">
+          Which pair is most likely to form an ionic compound?
+          <div class="opts" id="opts_pair"></div>
+          <button class="primary" onclick="markCheck('pair')">Mark</button>
+          <div class="resultLine" id="res_pair"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_pair"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.2.1.2.3 Quick check: formula reasoning</h3>
+        <div class="q" data-check="formula">
+          What is the formula for magnesium chloride?
+          <div class="opts" id="opts_formula"></div>
+          <button class="primary" onclick="markCheck('formula')">Mark</button>
+          <div class="resultLine" id="res_formula"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_formula"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.2.1.2.4 Quick check: calcium + chlorine</h3>
+        <div class="q" data-check="cacl2">
+          Calcium reacts with chlorine to form calcium chloride (CaCl₂). Which statement is correct?
+          <div class="opts" id="opts_cacl2"></div>
+          <button class="primary" onclick="markCheck('cacl2')">Mark</button>
+          <div class="resultLine" id="res_cacl2"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_cacl2"></div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <details style="margin-top:12px;">
+      <summary>Exam tip: what “explain what happens” usually wants</summary>
+      <div class="muted tiny" style="margin-top:10px; line-height:1.55;">
+        AQA usually wants: <br>
+        1) who loses/gains electrons, <br>
+        2) which ions form (with charges), <br>
+        3) that opposite charges attract (ionic bond), <br>
+        4) (sometimes) why the formula has that ratio (charge balance).
+      </div>
+    </details>
+  </div>
+
+  <!-- MARK-SCHEME PHRASES -->
+  <div class="card" id="phrases">
+    <h2>Common mark-scheme phrases (copy-friendly)</h2>
+    <div class="muted">Use these as building blocks for 2–4 mark explanations.</div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Electron transfer</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Electrons are transferred from the metal to the non-metal.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“The metal loses electrons to form a positive ion (cation).”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Ion formation</h3>
+        <div class="phrase">
+          <div class="muted"><b>“The non-metal gains electrons to form a negative ion (anion).”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Oppositely charged ions attract. This electrostatic attraction is the ionic bond.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Formulas</h3>
+        <div class="phrase">
+          <div class="muted"><b>“The formula shows the ratio of ions needed to make the overall charge zero.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Two chloride ions are needed to balance one calcium ion (Ca²⁺), so the formula is CaCl₂.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Link to the chlorine question</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Calcium loses two electrons; each chlorine atom gains one electron, forming Ca²⁺ and 2Cl⁻.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: Write charges clearly. If you include ion charges, you usually pick up marks quickly.
+    </div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="card" id="flashcards">
+    <h2>Flashcards (retrieval practice)</h2>
+    <div class="muted">Click <b>Flip</b> then rate yourself. Aim for “Good” twice in a row.</div>
+
+    <div class="flash" style="margin-top:12px;">
+      <div class="flashFace" id="flashFace"></div>
+      <div class="muted tiny" id="flashHint"></div>
+      <div class="flashBtns">
+        <button id="btnFlip" class="primary">Flip</button>
+        <button id="btnAgain">Again</button>
+        <button id="btnGood">Good</button>
+        <button id="btnNext">Next</button>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: Say the answer out loud before flipping. If wrong, press “Again”.
+    </div>
+  </div>
+
+  <!-- NOTES / EXPORT -->
+  <div class="card">
+    <h2>My notes (optional)</h2>
+    <div class="muted">Write what’s confusing. Export to copy/paste into a revision log.</div>
+    <textarea id="notesBox" placeholder="Example: I keep forgetting which side loses electrons, and how to balance charges for formulas..."></textarea>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+      <button id="btnExport" class="primary">Export notes (copy)</button>
+      <button id="btnClearNotes">Clear notes</button>
+      <span class="pill" id="pillCopied" style="display:none;">Copied!</span>
+    </div>
+  </div>
+
+  <!-- FINAL QUIZ -->
+  <div class="card" id="finalQuiz">
+    <h2>Final quiz (mixed + application)</h2>
+    <div class="muted">
+      Try this without looking back. Then use the review to decide what to revise.
+      Questions include the past-paper style Ca + Cl₂ explanation and a similar transfer question.
+    </div>
+
+    <div id="quizArea" style="margin-top:12px;"></div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center;">
+      <button class="primary" id="btnMarkFinal">Mark final quiz</button>
+      <button id="btnRetryFinal">Retry final quiz</button>
+      <span class="pill" id="pillFinalScore" style="display:none;"></span>
+    </div>
+    <div id="finalReview" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+  // -------------------------
+  // Quick checks (4)
+  // -------------------------
+  const checks = {
+    ionform: {
+      options: [
+        "gaining electrons",
+        "losing electrons",
+        "gaining protons",
+        "sharing electrons equally"
+      ],
+      answer: 1,
+      explanation: "Metals form positive ions by losing electrons. Losing negative charge leaves a net positive ion."
+    },
+    pair: {
+      options: [
+        "sodium and chlorine",
+        "hydrogen and chlorine",
+        "oxygen and nitrogen",
+        "chlorine and bromine"
+      ],
+      answer: 0,
+      explanation: "Ionic bonding is most likely between a metal and a non-metal (e.g., sodium + chlorine). The other pairs are non-metal + non-metal."
+    },
+    formula: {
+      options: [
+        "MgCl",
+        "MgCl₂",
+        "Mg₂Cl",
+        "Mg₂Cl₂"
+      ],
+      answer: 1,
+      explanation: "Magnesium forms Mg²⁺ and chlorine forms Cl⁻. Two chloride ions are needed to balance one Mg²⁺ → MgCl₂."
+    },
+    cacl2: {
+      options: [
+        "Calcium gains 2 electrons and chlorine loses 2 electrons.",
+        "Calcium loses 2 electrons and each chlorine atom gains 1 electron.",
+        "Calcium and chlorine share electrons equally.",
+        "Chlorine ions become Cl₂ without any electron transfer."
+      ],
+      answer: 1,
+      explanation: "Calcium is Group 2 so it loses 2 electrons to form Ca²⁺. Each chlorine atom gains 1 electron to form Cl⁻, so two chlorines are needed."
+    }
+  };
+
+  // -------------------------
+  // Flashcards
+  // -------------------------
+  const flashcards = [
+    {front:"What is ionic bonding?", back:"Electrostatic attraction between oppositely charged ions formed by electron transfer.", hint:"Transfer → ions → attraction."},
+    {front:"Which types of elements usually form ionic compounds?", back:"A metal and a non-metal.", hint:"Left side + right side of periodic table."},
+    {front:"How does a metal form a positive ion (cation)?", back:"It loses one or more electrons.", hint:"Lose electrons → + charge."},
+    {front:"How does a non-metal form a negative ion (anion)?", back:"It gains one or more electrons.", hint:"Gain electrons → − charge."},
+    {front:"What ion does calcium form and why?", back:"Ca²⁺ because it loses 2 electrons (Group 2).", hint:"Group number tells electrons lost for Group 1/2."},
+    {front:"What ion does chlorine form and why?", back:"Cl⁻ because it gains 1 electron (Group 7).", hint:"Group 7 gains 1 to fill shell."},
+    {front:"Why is the formula calcium chloride CaCl₂?", back:"Ca²⁺ needs two Cl⁻ ions to balance the charge to zero.", hint:"Overall charge must be 0."},
+    {front:"In words, what holds an ionic compound together?", back:"Strong electrostatic attraction between positive and negative ions.", hint:"Opposites attract."},
+    {front:"What does the formula of an ionic compound represent?", back:"The ratio of ions needed for overall charge = 0.", hint:"Not a ‘molecule’ ratio—ion ratio."}
+  ];
+
+  // -------------------------
+  // Final quiz (10)
+  // -------------------------
+  const finalQuiz = [
+    {id:"F1", q:"Which statement best describes ionic bonding?", options:[
+      "Atoms share electrons in pairs",
+      "Electrons are transferred and oppositely charged ions attract",
+      "Protons move between atoms",
+      "Only weak intermolecular forces are involved"
+    ], a:1, exp:"Ionic bonding involves electron transfer and electrostatic attraction between ions."},
+
+    {id:"F2", q:"A metal forms a positive ion by…", options:[
+      "gaining electrons",
+      "losing electrons",
+      "gaining neutrons",
+      "sharing electrons"
+    ], a:1, exp:"Losing electrons leaves a net positive ion (cation)."},
+
+    {id:"F3", q:"Chlorine forms which ion in ionic compounds?", options:["Cl⁺","Cl²⁺","Cl⁻","Cl²⁻"], a:2,
+     exp:"Chlorine is Group 7 and gains 1 electron → Cl⁻."},
+
+    {id:"F4", q:"Calcium forms which ion in ionic compounds?", options:["Ca⁺","Ca²⁺","Ca⁻","Ca³⁺"], a:1,
+     exp:"Calcium is Group 2 and loses 2 electrons → Ca²⁺."},
+
+    {id:"F5", q:"What is the formula for magnesium oxide?", options:["MgO","Mg₂O","MgO₂","Mg₂O₂"], a:0,
+     exp:"Mg²⁺ and O²⁻ balance 1:1 → MgO."},
+
+    {id:"F6", q:"What is the formula for aluminium chloride?", options:["AlCl","AlCl₂","AlCl₃","Al₂Cl₃"], a:2,
+     exp:"Al³⁺ needs three Cl⁻ ions to balance → AlCl₃."},
+
+    {id:"F7", q:"Past-paper style: Calcium reacts with chlorine to make calcium chloride. What happens to the atoms?", options:[
+      "Calcium loses 2 electrons; each chlorine atom gains 1 electron forming Ca²⁺ and 2Cl⁻",
+      "Calcium gains 2 electrons; chlorine loses 2 electrons forming Ca²⁻ and Cl⁺",
+      "Calcium and chlorine share electrons equally",
+      "Chlorine becomes Cl₂ without any electron transfer"
+    ], a:0, exp:"Calcium loses 2 electrons → Ca²⁺. Each chlorine gains 1 → Cl⁻, so two chlorines are needed: CaCl₂."},
+
+    {id:"F8", q:"Transfer question: Magnesium reacts with fluorine to make magnesium fluoride. Which explanation is correct?", options:[
+      "Magnesium gains 2 electrons and fluorine loses 2 electrons",
+      "Magnesium loses 2 electrons; each fluorine atom gains 1 electron to form Mg²⁺ and 2F⁻",
+      "Magnesium and fluorine share electrons equally",
+      "Fluorine forms F³⁻ because it is very reactive"
+    ], a:1, exp:"Mg is Group 2 → Mg²⁺. Each F gains 1 → F⁻. Two F⁻ are needed → MgF₂."},
+
+    {id:"F9", q:"Why does the formula of an ionic compound have a ratio like CaCl₂?", options:[
+      "Because ions always form diatomic molecules",
+      "Because overall charge must be zero",
+      "Because calcium atoms are twice as big as chlorine atoms",
+      "Because chlorine can only exist as Cl₂"
+    ], a:1, exp:"Ionic compounds are electrically neutral overall, so charges must balance."},
+
+    {id:"F10", q:"Which pair is most likely to form an ionic compound?", options:[
+      "carbon and oxygen",
+      "sodium and chlorine",
+      "chlorine and bromine",
+      "hydrogen and nitrogen"
+    ], a:1, exp:"Ionic is most likely between a metal and a non-metal (Na + Cl)."}
+  ];
+
+  // -------------------------
+  // State
+  // -------------------------
+  const state = {
+    checksDone: {ionform:false, pair:false, formula:false, cacl2:false},
+    finalAnswers: {},
+    flashIndex: 0,
+    flashFlipped: false
+  };
+
+  function $(id){ return document.getElementById(id); }
+  function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:"smooth", block:"start"}); }
+
+  function setPills(){
+    const doneCount = Object.values(state.checksDone).filter(Boolean).length;
+    const progress = Math.round(((doneCount) / 4) * 60 + (Object.keys(state.finalAnswers).length / finalQuiz.length) * 40);
+    $("pillProgress").textContent = `Progress: ${progress}%`;
+    $("pillChecks").textContent = `Checks: ${doneCount}/4 done`;
+  }
+
+  function renderCheck(key){
+    const c = checks[key];
+    const wrap = $("opts_"+key);
+    wrap.innerHTML = "";
+    c.options.forEach((opt, i) => {
+      const lab = document.createElement("label");
+      lab.className = "opt";
+      const inp = document.createElement("input");
+      inp.type = "radio";
+      inp.name = "chk_"+key;
+      inp.value = i;
+      const div = document.createElement("div");
+      div.textContent = opt;
+      lab.appendChild(inp);
+      lab.appendChild(div);
+      wrap.appendChild(lab);
+    });
+    $("exp_"+key).textContent = c.explanation;
+  }
+
+  function markCheck(key){
+    const c = checks[key];
+    const chosen = document.querySelector(`input[name="chk_${key}"]:checked`);
+    const res = $("res_"+key);
+    if(!chosen){
+      res.innerHTML = `<span style="color:var(--warn)"><b>Please choose an answer first.</b></span>`;
+      return;
+    }
+    const val = Number(chosen.value);
+    const ok = val === c.answer;
+    state.checksDone[key] = true;
+
+    res.innerHTML = ok
+      ? `<span class="good">✔ Correct</span> <span class="muted tiny">— ${c.options[c.answer]}</span>`
+      : `<span class="bad">✘ Incorrect</span> <span class="muted tiny">— Correct: ${c.options[c.answer]}</span>`;
+
+    setPills();
+  }
+
+  // Flashcards
+  function renderFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = false;
+    $("flashFace").textContent = card.front;
+    $("flashHint").textContent = "Hint: " + card.hint;
+    $("btnFlip").textContent = "Flip";
+  }
+  function flipFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = !state.flashFlipped;
+    $("flashFace").textContent = state.flashFlipped ? card.back : card.front;
+    $("btnFlip").textContent = state.flashFlipped ? "Show question" : "Flip";
+  }
+  function nextFlash(){
+    state.flashIndex = (state.flashIndex + 1) % flashcards.length;
+    renderFlash();
+  }
+
+  // Notes export
+  async function exportNotes(){
+    const txt = $("notesBox").value.trim();
+    if(!txt){
+      alert("No notes yet. Write a couple of lines first.");
+      return;
+    }
+    await navigator.clipboard.writeText(txt);
+    $("pillCopied").style.display = "inline-block";
+    setTimeout(()=> $("pillCopied").style.display = "none", 1200);
+  }
+
+  // Final quiz
+  function renderFinalQuiz(){
+    const qa = $("quizArea");
+    qa.innerHTML = "";
+    finalQuiz.forEach((q, idx) => {
+      const card = document.createElement("div");
+      card.className = "q";
+      card.innerHTML = `<b>Q${idx+1}.</b> ${q.q}`;
+      const opts = document.createElement("div");
+      opts.className = "opts";
+
+      q.options.forEach((opt, i) => {
+        const lab = document.createElement("label");
+        lab.className = "opt";
+        const inp = document.createElement("input");
+        inp.type = "radio";
+        inp.name = "final_"+q.id;
+        inp.value = i;
+        if(state.finalAnswers[q.id] === i) inp.checked = true;
+        inp.addEventListener("change", () => {
+          state.finalAnswers[q.id] = i;
+          setPills();
+        });
+        const div = document.createElement("div");
+        div.textContent = opt;
+        lab.appendChild(inp);
+        lab.appendChild(div);
+        opts.appendChild(lab);
+      });
+
+      card.appendChild(opts);
+      qa.appendChild(card);
+    });
+    setPills();
+  }
+
+  function markFinal(){
+    let correct = 0;
+    const total = finalQuiz.length;
+    const review = [];
+
+    finalQuiz.forEach((q) => {
+      const chosen = (q.id in state.finalAnswers) ? state.finalAnswers[q.id] : null;
+      const ok = chosen === q.a;
+      if(ok) correct++;
+      review.push({q, chosen, ok});
+    });
+
+    const pct = Math.round((correct/total)*100);
+    $("pillFinalScore").style.display = "inline-block";
+    $("pillFinalScore").textContent = `Final quiz score: ${correct}/${total} (${pct}%)`;
+
+    const fr = $("finalReview");
+    fr.innerHTML = review.map((r, i) => {
+      const tag = r.ok ? `<span class="tag good">Correct</span>` : `<span class="tag bad">Incorrect</span>`;
+      const your = (r.chosen===null) ? "<i>(blank)</i>" : r.q.options[r.chosen];
+      const cor = r.q.options[r.q.a];
+
+      return `
+        <div class="scoreBox" style="margin-top:10px;">
+          <div><b>Q${i+1}.</b> ${r.q.q} ${tag}</div>
+          <div class="muted" style="margin-top:6px;"><b>Your answer:</b> ${your}</div>
+          ${r.ok ? "" : `<div class="muted"><b>Correct answer:</b> ${cor}</div>`}
+          <div class="callout tiny"><b>Why:</b> ${r.q.exp}</div>
+        </div>
+      `;
+    }).join("");
+
+    scrollToId("finalReview");
+  }
+
+  function retryFinal(){
+    state.finalAnswers = {};
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+    renderFinalQuiz();
+    scrollToId("finalQuiz");
+  }
+
+  function resetAll(){
+    state.checksDone = {ionform:false, pair:false, formula:false, cacl2:false};
+    state.finalAnswers = {};
+    state.flashIndex = 0;
+    state.flashFlipped = false;
+
+    $("notesBox").value = "";
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+
+    Object.keys(checks).forEach(renderCheck);
+    renderFlash();
+    renderFinalQuiz();
+    setPills();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  // Mark-scheme phrase copier (template feature)
+  function showToast(msg){
+    const t = $("toast");
+    t.textContent = msg;
+    t.style.display = "block";
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=> t.style.display="none", 1100);
+  }
+  async function copyPhrase(btn){
+    const text = btn.parentElement.querySelector("div").innerText.trim();
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast("Copied!");
+    }catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      showToast("Copied!");
+    }
+  }
+
+  // Buttons
+  $("btnJumpNotes").addEventListener("click", ()=>scrollToId("notes"));
+  $("btnJumpPhrases").addEventListener("click", ()=>scrollToId("phrases"));
+  $("btnJumpFlash").addEventListener("click", ()=>scrollToId("flashcards"));
+  $("btnJumpQuiz").addEventListener("click", ()=>scrollToId("finalQuiz"));
+  $("btnReset").addEventListener("click", resetAll);
+
+  $("btnFlip").addEventListener("click", flipFlash);
+  $("btnNext").addEventListener("click", nextFlash);
+  $("btnAgain").addEventListener("click", ()=>nextFlash());
+  $("btnGood").addEventListener("click", ()=>nextFlash());
+
+  $("btnExport").addEventListener("click", exportNotes);
+  $("btnClearNotes").addEventListener("click", ()=>{$("notesBox").value="";});
+  $("btnMarkFinal").addEventListener("click", markFinal);
+  $("btnRetryFinal").addEventListener("click", retryFinal);
+
+  // Init
+  Object.keys(checks).forEach(renderCheck);
+  renderFlash();
+  renderFinalQuiz();
+  setPills();
+</script>
+</body>
+</html>
