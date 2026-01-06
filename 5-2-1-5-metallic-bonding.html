@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AQA 5.2.1.5 Tutorial – Metallic bonding</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:rgba(255,255,255,.08); --card2:rgba(255,255,255,.06);
+      --text:#eef2ff; --muted:rgba(238,242,255,.75); --border:rgba(255,255,255,.14);
+      --accent:#7c5cff; --good:#2ecc71; --bad:#ff5c7a; --warn:#ffd166;
+    }
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:radial-gradient(1200px 650px at 10% 0%, rgba(124,92,255,.25), transparent 50%),
+                 radial-gradient(900px 550px at 90% 10%, rgba(46,204,113,.18), transparent 55%),
+                 linear-gradient(180deg, var(--bg), #050817);
+      color:var(--text);
+    }
+    header{max-width:1100px; margin:0 auto; padding:28px 18px 10px;}
+    h1{margin:0 0 8px; font-size:1.65rem;}
+    .sub{color:var(--muted); line-height:1.35; max-width:980px;}
+    .wrap{max-width:1100px; margin:0 auto; padding:12px 18px 48px; display:grid; gap:14px;}
+    .toolbar{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:var(--card);
+    }
+    .pill{padding:8px 10px; border-radius:999px; border:1px solid var(--border);
+      background:rgba(0,0,0,.18); color:var(--muted); font-size:.92rem; white-space:nowrap;}
+    button{
+      border:1px solid var(--border); background:rgba(255,255,255,.08); color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:650;
+    }
+    button:hover{border-color:rgba(255,255,255,.28);}
+    button.primary{
+      background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.55));
+      border-color:rgba(124,92,255,.65);
+    }
+    button.danger{
+      background:linear-gradient(135deg, rgba(255,92,122,.95), rgba(255,92,122,.45));
+      border-color:rgba(255,92,122,.6);
+    }
+    .card{padding:16px; border-radius:16px; border:1px solid var(--border); background:var(--card);}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:12px;}
+    h2{margin:0 0 10px; font-size:1.25rem;}
+    h3{margin:0 0 8px; font-size:1.05rem;}
+    .muted{color:var(--muted);}
+    .callout{
+      border-left:3px solid rgba(124,92,255,.7); padding:10px 12px; background:rgba(255,255,255,.05);
+      border-radius:12px; margin-top:10px; color:var(--muted); line-height:1.45;
+    }
+    .kbox{
+      border:1px solid var(--border); border-radius:14px; padding:12px; background:var(--card2);
+    }
+    ul{margin:8px 0 0 18px; color:var(--muted);}
+    .diagram{
+      border:1px dashed rgba(255,255,255,.24); border-radius:14px; padding:12px; background:rgba(0,0,0,.16);
+      color:var(--muted); line-height:1.45;
+    }
+    .q{
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.06);
+      margin-top:10px;
+    }
+    .opts{display:grid; gap:8px; margin-top:10px;}
+    label.opt{
+      display:grid; grid-template-columns:22px 1fr; gap:10px; align-items:start;
+      padding:10px 12px; border-radius:14px; border:1px solid var(--border);
+      background:rgba(0,0,0,.14); cursor:pointer;
+    }
+    label.opt:hover{border-color:rgba(255,255,255,.28);}
+    input[type="radio"]{margin-top:3px;}
+    .resultLine{margin-top:10px; font-weight:700;}
+    .good{color:#b7f7cd;}
+    .bad{color:#ffc1cb;}
+    details{border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.05); padding:10px 12px;}
+    summary{cursor:pointer; font-weight:750;}
+    .flash{
+      display:grid; gap:10px; align-items:center;
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(0,0,0,.16);
+    }
+    .flashFace{font-size:1.05rem; line-height:1.35;}
+    .flashBtns{display:flex; gap:10px; flex-wrap:wrap;}
+    .tiny{font-size:.92rem;}
+    textarea{
+      width:100%; min-height:90px; border-radius:12px; border:1px solid var(--border);
+      padding:10px; background:rgba(0,0,0,.18); color:var(--text);
+      resize:vertical;
+    }
+    .scoreBox{
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(255,255,255,.06);
+    }
+    .tag{
+      display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--border);
+      font-weight:800; font-size:.85rem; margin-left:8px;
+    }
+    .tag.good{background:rgba(46,204,113,.18); border-color:rgba(46,204,113,.35);}
+    .tag.bad{background:rgba(255,92,122,.16); border-color:rgba(255,92,122,.35);}
+    .phrase{
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.14);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .phrase button{ padding:8px 10px; border-radius:12px; }
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background:rgba(0,0,0,.75); border:1px solid rgba(255,255,255,.18);
+      color:var(--text); padding:10px 12px; border-radius:14px;
+      display:none; z-index:9999; font-weight:700;
+    }
+    .twoCol{
+      display:grid; grid-template-columns:1fr; gap:12px;
+    }
+    @media (min-width: 860px){
+      .twoCol{grid-template-columns: 1.1fr .9fr;}
+    }
+    code.k{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background:rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.14);
+      padding:2px 6px;
+      border-radius:8px;
+      color:rgba(238,242,255,.92);
+      white-space:nowrap;
+    }
+
+    /* small pattern table */
+    table.pattern{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.12);
+      margin-top:10px;
+    }
+    table.pattern th, table.pattern td{
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      vertical-align:top;
+      text-align:left;
+      color:var(--muted);
+      line-height:1.35;
+    }
+    table.pattern th{
+      color:var(--text);
+      font-weight:800;
+      background:rgba(255,255,255,.06);
+    }
+    table.pattern tr:last-child td{border-bottom:none;}
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>AQA 5.2.1.5 Tutorial – Metallic bonding</h1>
+  <div class="sub">
+    This module covers <b>metallic bonding</b>: a giant structure of atoms, <b>delocalised electrons</b>,
+    and how this model explains key metal properties (conductivity, malleability, high melting points).
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <span class="pill" id="pillSection">Section: 5.2.1.5</span>
+      <span class="pill" id="pillProgress">Progress: 0%</span>
+      <span class="pill" id="pillChecks">Checks: 0/4 done</span>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <button id="btnJumpNotes">Jump to Notes</button>
+      <button id="btnJumpPhrases">Mark-scheme phrases</button>
+      <button id="btnJumpFlash">Jump to Flashcards</button>
+      <button class="primary" id="btnJumpQuiz">Jump to Final Quiz</button>
+      <button class="danger" id="btnReset">Reset progress</button>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="card" id="notes">
+    <h2>Core idea for 5.2.1.5</h2>
+    <div class="callout">
+      Metals consist of a <b>giant structure</b> of atoms arranged in a regular pattern.
+      Their outer-shell electrons are <b>delocalised</b> (free to move). The attraction between
+      <b>positive metal ions</b> and the <b>delocalised electrons</b> forms strong <b>metallic bonds</b>.
+    </div>
+
+    <div class="twoCol" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>What the metallic model says</h3>
+        <ul>
+          <li>Metal atoms lose some outer electrons into a “sea” of <b>delocalised electrons</b></li>
+          <li>Metal ions become <b>positive</b> and sit in a <b>regular lattice</b></li>
+          <li>Electrostatic attraction between ions and electrons = <b>metallic bond</b></li>
+        </ul>
+
+        <div class="diagram tiny" style="margin-top:10px;">
+          Metal lattice idea (words-only diagram): <br>
+          <code class="k">positive ions</code> in layers + a <code class="k">sea of delocalised electrons</code> moving between them.
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Pattern table (model → property)</h3>
+        <div class="muted tiny">These are common “explain why…” questions.</div>
+
+        <table class="pattern">
+          <thead>
+            <tr>
+              <th>Property of metals</th>
+              <th>Metallic model explanation</th>
+              <th>Key phrase to include</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Conduct electricity</b></td>
+              <td>Electrons are free to move and carry charge through the metal</td>
+              <td>“<b>Delocalised electrons</b> are free to move”</td>
+            </tr>
+            <tr>
+              <td><b>High melting/boiling points</b></td>
+              <td>Strong attraction between positive ions and delocalised electrons needs lots of energy to overcome</td>
+              <td>“<b>Strong metallic bonds</b>”</td>
+            </tr>
+            <tr>
+              <td><b>Malleable/ductile</b></td>
+              <td>Layers of ions can slide, but attraction to delocalised electrons still holds structure together</td>
+              <td>“Layers can <b>slide</b> without breaking bonds”</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout tiny">
+          Exam tip: For conductivity, mention <b>electrons</b> (not “ions moving” — that’s for molten ionic compounds).
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.2.1.5.1 Quick check: what is delocalised?</h3>
+        <div class="q" data-check="deloc">
+          In a metal, “delocalised electrons” means…
+          <div class="opts" id="opts_deloc"></div>
+          <button class="primary" onclick="markCheck('deloc')">Mark</button>
+          <div class="resultLine" id="res_deloc"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_deloc"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.2.1.5.2 Quick check: why do metals conduct?</h3>
+        <div class="q" data-check="conduct">
+          Metals conduct electricity mainly because…
+          <div class="opts" id="opts_conduct"></div>
+          <button class="primary" onclick="markCheck('conduct')">Mark</button>
+          <div class="resultLine" id="res_conduct"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_conduct"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.2.1.5.3 Quick check: why high melting point?</h3>
+        <div class="q" data-check="mp">
+          Many metals have high melting points because…
+          <div class="opts" id="opts_mp"></div>
+          <button class="primary" onclick="markCheck('mp')">Mark</button>
+          <div class="resultLine" id="res_mp"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_mp"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.2.1.5.4 Quick check: malleability</h3>
+        <div class="q" data-check="malleable">
+          Metals can be hammered into shape because…
+          <div class="opts" id="opts_malleable"></div>
+          <button class="primary" onclick="markCheck('malleable')">Mark</button>
+          <div class="resultLine" id="res_malleable"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_malleable"></div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <details style="margin-top:12px;">
+      <summary>Common confusion check</summary>
+      <div class="muted tiny" style="margin-top:10px; line-height:1.55;">
+        <b>Metal conductivity</b>: electrons move. <br>
+        <b>Ionic conductivity</b>: ions move only when molten or dissolved. <br>
+        If a question says “<i>solid sodium chloride doesn’t conduct</i>”, that’s <b>ions fixed in place</b>, not metallic bonding.
+      </div>
+    </details>
+  </div>
+
+  <!-- MARK-SCHEME PHRASES -->
+  <div class="card" id="phrases">
+    <h2>Common mark-scheme phrases (copy-friendly)</h2>
+    <div class="muted">Use these for “explain why metals…” questions.</div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Metal structure</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Metals have a giant structure of atoms arranged in a regular pattern (a lattice).”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“The outer-shell electrons are delocalised and free to move through the structure.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Metallic bond</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Strong electrostatic attraction between positive metal ions and delocalised electrons forms metallic bonding.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“A lot of energy is needed to overcome strong metallic bonds.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Conductivity</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Delocalised electrons carry electrical charge through the metal.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Malleability</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Layers of metal ions can slide, but attraction to delocalised electrons keeps the structure together.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: If you include <b>delocalised electrons</b> + <b>electrostatic attraction</b>, you’re usually using AQA’s wording.
+    </div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="card" id="flashcards">
+    <h2>Flashcards (retrieval practice)</h2>
+    <div class="muted">Click <b>Flip</b> then rate yourself. Aim for “Good” twice in a row.</div>
+
+    <div class="flash" style="margin-top:12px;">
+      <div class="flashFace" id="flashFace"></div>
+      <div class="muted tiny" id="flashHint"></div>
+      <div class="flashBtns">
+        <button id="btnFlip" class="primary">Flip</button>
+        <button id="btnAgain">Again</button>
+        <button id="btnGood">Good</button>
+        <button id="btnNext">Next</button>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: For every “why” question, link the property to <b>delocalised electrons</b> or <b>strong attraction</b>.
+    </div>
+  </div>
+
+  <!-- NOTES / EXPORT -->
+  <div class="card">
+    <h2>My notes (optional)</h2>
+    <div class="muted">Write what’s confusing. Export to copy/paste into a revision log.</div>
+    <textarea id="notesBox" placeholder="Example: I confuse metallic bonding with ionic bonding, or I forget why electrons matter for conductivity..."></textarea>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+      <button id="btnExport" class="primary">Export notes (copy)</button>
+      <button id="btnClearNotes">Clear notes</button>
+      <span class="pill" id="pillCopied" style="display:none;">Copied!</span>
+    </div>
+  </div>
+
+  <!-- FINAL QUIZ -->
+  <div class="card" id="finalQuiz">
+    <h2>Final quiz (model + application + transfer)</h2>
+    <div class="muted">
+      Includes “explain why…” and transfer questions that are unlikely to match a past paper word-for-word.
+    </div>
+
+    <div id="quizArea" style="margin-top:12px;"></div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center;">
+      <button class="primary" id="btnMarkFinal">Mark final quiz</button>
+      <button id="btnRetryFinal">Retry final quiz</button>
+      <span class="pill" id="pillFinalScore" style="display:none;"></span>
+    </div>
+    <div id="finalReview" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+  // -------------------------
+  // Quick checks (4)
+  // -------------------------
+  const checks = {
+    deloc: {
+      options: [
+        "electrons fixed to one atom and not moving",
+        "electrons shared only between two atoms",
+        "outer-shell electrons free to move through the whole metal structure",
+        "neutrons moving around the lattice"
+      ],
+      answer: 2,
+      explanation: "Delocalised electrons are not tied to one atom; they move through the whole metal lattice."
+    },
+    conduct: {
+      options: [
+        "because metal ions move freely in the solid",
+        "because delocalised electrons carry charge through the metal",
+        "because protons travel from atom to atom",
+        "because metals have covalent bonds between molecules"
+      ],
+      answer: 1,
+      explanation: "In metals, delocalised electrons are free to move and carry electrical charge."
+    },
+    mp: {
+      options: [
+        "metal ions are weakly attracted to each other",
+        "strong attraction between positive ions and delocalised electrons needs lots of energy to overcome",
+        "metals are made of small molecules that melt easily",
+        "metals have no bonding"
+      ],
+      answer: 1,
+      explanation: "Metallic bonds are strong electrostatic attractions, so high energy is needed to melt."
+    },
+    malleable: {
+      options: [
+        "layers of ions can slide and the metallic bonding still holds the structure together",
+        "the metal is made of soft molecules",
+        "electrons stop moving when hammered",
+        "the lattice breaks into separate molecules"
+      ],
+      answer: 0,
+      explanation: "Metal ions are in layers; they can slide while attraction to delocalised electrons remains."
+    }
+  };
+
+  // -------------------------
+  // Flashcards
+  // -------------------------
+  const flashcards = [
+    {front:"What is metallic bonding?", back:"Electrostatic attraction between positive metal ions and delocalised electrons.", hint:"Positive ions + ‘sea’ of electrons."},
+    {front:"What does ‘delocalised electrons’ mean in metals?", back:"Outer electrons are free to move through the whole metal structure.", hint:"Not fixed to one atom."},
+    {front:"Why do metals conduct electricity?", back:"Delocalised electrons move and carry electrical charge.", hint:"Electrons carry charge."},
+    {front:"Why do many metals have high melting points?", back:"Strong metallic bonds (strong attraction between ions and electrons) need lots of energy to overcome.", hint:"Strong attraction."},
+    {front:"Why are metals malleable/ductile?", back:"Layers of metal ions can slide, but attraction to delocalised electrons still holds the structure together.", hint:"Layers slide."},
+    {front:"What structure do metals have?", back:"A giant lattice / giant structure of atoms arranged in a regular pattern.", hint:"Giant structure."},
+    {front:"Quick contrast: what carries charge in ionic vs metallic substances?", back:"Metallic: electrons. Ionic (molten/aq): ions. Solid ionic: doesn’t conduct (ions fixed).", hint:"Electrons vs ions."},
+    {front:"If a question says ‘strong bonding’, what words should you include for metals?", back:"Strong electrostatic attraction between positive ions and delocalised electrons.", hint:"AQA phrase."}
+  ];
+
+  // -------------------------
+  // Final quiz (10)
+  // -------------------------
+  const finalQuiz = [
+    {id:"F1", q:"Metallic bonding is best described as…", options:[
+      "attraction between positive and negative ions",
+      "shared pairs of electrons between two non-metals",
+      "electrostatic attraction between positive metal ions and delocalised electrons",
+      "weak intermolecular forces between molecules"
+    ], a:2, exp:"Metallic bonding is attraction between positive ions and delocalised electrons."},
+
+    {id:"F2", q:"What does ‘delocalised’ mean in a metal?", options:[
+      "electrons are fixed in place",
+      "electrons belong to one specific atom",
+      "electrons are free to move through the structure",
+      "electrons only exist in pairs"
+    ], a:2, exp:"Delocalised electrons move through the whole metal lattice."},
+
+    {id:"F3", q:"Why does copper conduct electricity?", options:[
+      "its ions move freely in the solid",
+      "it has delocalised electrons that carry charge",
+      "it is made of molecules that slide past each other",
+      "it has ionic bonds"
+    ], a:1, exp:"In metals, delocalised electrons carry charge through the lattice."},
+
+    {id:"F4", q:"Many metals have high melting points because…", options:[
+      "they have weak forces between molecules",
+      "there is strong attraction between positive ions and delocalised electrons",
+      "they contain many neutrons",
+      "they do not have bonding"
+    ], a:1, exp:"Strong metallic bonding needs lots of energy to overcome."},
+
+    {id:"F5", q:"Metals are malleable because…", options:[
+      "layers of ions can slide and bonding remains",
+      "the electrons stop moving when hit",
+      "metals are made of gases",
+      "they have covalent bonds only"
+    ], a:0, exp:"Layers of metal ions can slide while attraction to delocalised electrons remains."},
+
+    {id:"F6", q:"Which statement is correct?", options:[
+      "Solid sodium chloride conducts because electrons move",
+      "Solid sodium chloride conducts because ions move",
+      "Solid sodium chloride does not conduct because ions are fixed in place",
+      "Solid sodium chloride conducts because metallic bonds form"
+    ], a:2, exp:"Solid ionic compounds don’t conduct: ions are fixed. (Metals conduct due to electrons.)"},
+
+    {id:"F7", q:"Transfer question: Explain why aluminium is a good electrical conductor.", options:[
+      "Aluminium ions move through the solid metal",
+      "Aluminium has delocalised electrons that can move and carry charge",
+      "Aluminium forms molecules with weak forces",
+      "Aluminium has no outer electrons"
+    ], a:1, exp:"Delocalised electrons move and carry charge through the metal."},
+
+    {id:"F8", q:"Transfer question: A metal is heated and melts at a very high temperature. What is the best explanation?", options:[
+      "it has very weak bonds between molecules",
+      "it has strong metallic bonds that need lots of energy to overcome",
+      "it is ionic so electrons move",
+      "its ions are neutral so no attraction"
+    ], a:1, exp:"High melting points come from strong attraction between ions and delocalised electrons."},
+
+    {id:"F9", q:"Which phrase is most AQA-mark-scheme accurate for metal bonding?", options:[
+      "atoms share electrons to form ions",
+      "strong electrostatic attraction between positive metal ions and delocalised electrons",
+      "weak forces between molecules",
+      "transfer of protons to form a lattice"
+    ], a:1, exp:"This is the key AQA definition phrase."},
+
+    {id:"F10", q:"Transfer question: Why can metals be drawn into wires (ductile)?", options:[
+      "layers of ions slide and metallic bonding still holds the structure together",
+      "electrons are trapped so the wire stays strong",
+      "metals are made of small molecules that stretch",
+      "the nuclei repel so it becomes thinner"
+    ], a:0, exp:"Layers can slide while attraction to delocalised electrons continues to hold the lattice together."}
+  ];
+
+  // -------------------------
+  // State
+  // -------------------------
+  const state = {
+    checksDone: {deloc:false, conduct:false, mp:false, malleable:false},
+    finalAnswers: {},
+    flashIndex: 0,
+    flashFlipped: false
+  };
+
+  function $(id){ return document.getElementById(id); }
+  function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:"smooth", block:"start"}); }
+
+  function setPills(){
+    const doneCount = Object.values(state.checksDone).filter(Boolean).length;
+    const progress = Math.round(((doneCount) / 4) * 60 + (Object.keys(state.finalAnswers).length / finalQuiz.length) * 40);
+    $("pillProgress").textContent = `Progress: ${progress}%`;
+    $("pillChecks").textContent = `Checks: ${doneCount}/4 done`;
+  }
+
+  function renderCheck(key){
+    const c = checks[key];
+    const wrap = $("opts_"+key);
+    wrap.innerHTML = "";
+    c.options.forEach((opt, i) => {
+      const lab = document.createElement("label");
+      lab.className = "opt";
+      const inp = document.createElement("input");
+      inp.type = "radio";
+      inp.name = "chk_"+key;
+      inp.value = i;
+      const div = document.createElement("div");
+      div.textContent = opt;
+      lab.appendChild(inp);
+      lab.appendChild(div);
+      wrap.appendChild(lab);
+    });
+    $("exp_"+key).textContent = c.explanation;
+  }
+
+  function markCheck(key){
+    const c = checks[key];
+    const chosen = document.querySelector(`input[name="chk_${key}"]:checked`);
+    const res = $("res_"+key);
+    if(!chosen){
+      res.innerHTML = `<span style="color:var(--warn)"><b>Please choose an answer first.</b></span>`;
+      return;
+    }
+    const val = Number(chosen.value);
+    const ok = val === c.answer;
+    state.checksDone[key] = true;
+
+    res.innerHTML = ok
+      ? `<span class="good">✔ Correct</span> <span class="muted tiny">— ${c.options[c.answer]}</span>`
+      : `<span class="bad">✘ Incorrect</span> <span class="muted tiny">— Correct: ${c.options[c.answer]}</span>`;
+
+    setPills();
+  }
+
+  // Flashcards
+  function renderFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = false;
+    $("flashFace").textContent = card.front;
+    $("flashHint").textContent = "Hint: " + card.hint;
+    $("btnFlip").textContent = "Flip";
+  }
+  function flipFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = !state.flashFlipped;
+    $("flashFace").textContent = state.flashFlipped ? card.back : card.front;
+    $("btnFlip").textContent = state.flashFlipped ? "Show question" : "Flip";
+  }
+  function nextFlash(){
+    state.flashIndex = (state.flashIndex + 1) % flashcards.length;
+    renderFlash();
+  }
+
+  // Notes export
+  async function exportNotes(){
+    const txt = $("notesBox").value.trim();
+    if(!txt){
+      alert("No notes yet. Write a couple of lines first.");
+      return;
+    }
+    await navigator.clipboard.writeText(txt);
+    $("pillCopied").style.display = "inline-block";
+    setTimeout(()=> $("pillCopied").style.display = "none", 1200);
+  }
+
+  // Final quiz
+  function renderFinalQuiz(){
+    const qa = $("quizArea");
+    qa.innerHTML = "";
+    finalQuiz.forEach((q, idx) => {
+      const card = document.createElement("div");
+      card.className = "q";
+      card.innerHTML = `<b>Q${idx+1}.</b> ${q.q}`;
+      const opts = document.createElement("div");
+      opts.className = "opts";
+
+      q.options.forEach((opt, i) => {
+        const lab = document.createElement("label");
+        lab.className = "opt";
+        const inp = document.createElement("input");
+        inp.type = "radio";
+        inp.name = "final_"+q.id;
+        inp.value = i;
+        if(state.finalAnswers[q.id] === i) inp.checked = true;
+        inp.addEventListener("change", () => {
+          state.finalAnswers[q.id] = i;
+          setPills();
+        });
+        const div = document.createElement("div");
+        div.textContent = opt;
+        lab.appendChild(inp);
+        lab.appendChild(div);
+        opts.appendChild(lab);
+      });
+
+      card.appendChild(opts);
+      qa.appendChild(card);
+    });
+    setPills();
+  }
+
+  function markFinal(){
+    let correct = 0;
+    const total = finalQuiz.length;
+    const review = [];
+
+    finalQuiz.forEach((q) => {
+      const chosen = (q.id in state.finalAnswers) ? state.finalAnswers[q.id] : null;
+      const ok = chosen === q.a;
+      if(ok) correct++;
+      review.push({q, chosen, ok});
+    });
+
+    const pct = Math.round((correct/total)*100);
+    $("pillFinalScore").style.display = "inline-block";
+    $("pillFinalScore").textContent = `Final quiz score: ${correct}/${total} (${pct}%)`;
+
+    const fr = $("finalReview");
+    fr.innerHTML = review.map((r, i) => {
+      const tag = r.ok ? `<span class="tag good">Correct</span>` : `<span class="tag bad">Incorrect</span>`;
+      const your = (r.chosen===null) ? "<i>(blank)</i>" : r.q.options[r.chosen];
+      const cor = r.q.options[r.q.a];
+
+      return `
+        <div class="scoreBox" style="margin-top:10px;">
+          <div><b>Q${i+1}.</b> ${r.q.q} ${tag}</div>
+          <div class="muted" style="margin-top:6px;"><b>Your answer:</b> ${your}</div>
+          ${r.ok ? "" : `<div class="muted"><b>Correct answer:</b> ${cor}</div>`}
+          <div class="callout tiny"><b>Why:</b> ${r.q.exp}</div>
+        </div>
+      `;
+    }).join("");
+
+    scrollToId("finalReview");
+  }
+
+  function retryFinal(){
+    state.finalAnswers = {};
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+    renderFinalQuiz();
+    scrollToId("finalQuiz");
+  }
+
+  function resetAll(){
+    state.checksDone = {deloc:false, conduct:false, mp:false, malleable:false};
+    state.finalAnswers = {};
+    state.flashIndex = 0;
+    state.flashFlipped = false;
+
+    $("notesBox").value = "";
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+
+    Object.keys(checks).forEach(renderCheck);
+    renderFlash();
+    renderFinalQuiz();
+    setPills();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  // Mark-scheme phrase copier (template feature)
+  function showToast(msg){
+    const t = $("toast");
+    t.textContent = msg;
+    t.style.display = "block";
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=> t.style.display="none", 1100);
+  }
+  async function copyPhrase(btn){
+    const text = btn.parentElement.querySelector("div").innerText.trim();
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast("Copied!");
+    }catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      showToast("Copied!");
+    }
+  }
+
+  // Buttons
+  $("btnJumpNotes").addEventListener("click", ()=>scrollToId("notes"));
+  $("btnJumpPhrases").addEventListener("click", ()=>scrollToId("phrases"));
+  $("btnJumpFlash").addEventListener("click", ()=>scrollToId("flashcards"));
+  $("btnJumpQuiz").addEventListener("click", ()=>scrollToId("finalQuiz"));
+  $("btnReset").addEventListener("click", resetAll);
+
+  $("btnFlip").addEventListener("click", flipFlash);
+  $("btnNext").addEventListener("click", nextFlash);
+  $("btnAgain").addEventListener("click", ()=>nextFlash());
+  $("btnGood").addEventListener("click", ()=>nextFlash());
+
+  $("btnExport").addEventListener("click", exportNotes);
+  $("btnClearNotes").addEventListener("click", ()=>{$("notesBox").value="";});
+  $("btnMarkFinal").addEventListener("click", markFinal);
+  $("btnRetryFinal").addEventListener("click", retryFinal);
+
+  // Init
+  Object.keys(checks).forEach(renderCheck);
+  renderFlash();
+  renderFinalQuiz();
+  setPills();
+</script>
+</body>
+</html>
