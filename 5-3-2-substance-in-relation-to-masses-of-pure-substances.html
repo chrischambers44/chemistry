@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AQA 5.3.2 Tutorial – Use of amount of substance in relation to masses of pure substances</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:rgba(255,255,255,.08); --card2:rgba(255,255,255,.06);
+      --text:#eef2ff; --muted:rgba(238,242,255,.75); --border:rgba(255,255,255,.14);
+      --accent:#7c5cff; --good:#2ecc71; --bad:#ff5c7a; --warn:#ffd166;
+    }
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:radial-gradient(1200px 650px at 10% 0%, rgba(124,92,255,.25), transparent 50%),
+                 radial-gradient(900px 550px at 90% 10%, rgba(46,204,113,.18), transparent 55%),
+                 linear-gradient(180deg, var(--bg), #050817);
+      color:var(--text);
+    }
+    header{max-width:1100px; margin:0 auto; padding:28px 18px 10px;}
+    h1{margin:0 0 8px; font-size:1.65rem;}
+    .sub{color:var(--muted); line-height:1.35; max-width:980px;}
+    .wrap{max-width:1100px; margin:0 auto; padding:12px 18px 48px; display:grid; gap:14px;}
+    .toolbar{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:var(--card);
+    }
+    .pill{padding:8px 10px; border-radius:999px; border:1px solid var(--border);
+      background:rgba(0,0,0,.18); color:var(--muted); font-size:.92rem; white-space:nowrap;}
+    button{
+      border:1px solid var(--border); background:rgba(255,255,255,.08); color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:650;
+    }
+    button:hover{border-color:rgba(255,255,255,.28);}
+    button.primary{
+      background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.55));
+      border-color:rgba(124,92,255,.65);
+    }
+    button.danger{
+      background:linear-gradient(135deg, rgba(255,92,122,.95), rgba(255,92,122,.45));
+      border-color:rgba(255,92,122,.6);
+    }
+    .card{padding:16px; border-radius:16px; border:1px solid var(--border); background:var(--card);}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:12px;}
+    h2{margin:0 0 10px; font-size:1.25rem;}
+    h3{margin:0 0 8px; font-size:1.05rem;}
+    .muted{color:var(--muted);}
+    .callout{
+      border-left:3px solid rgba(124,92,255,.7); padding:10px 12px; background:rgba(255,255,255,.05);
+      border-radius:12px; margin-top:10px; color:var(--muted); line-height:1.45;
+    }
+    .kbox{
+      border:1px solid var(--border); border-radius:14px; padding:12px; background:var(--card2);
+    }
+    ul{margin:8px 0 0 18px; color:var(--muted);}
+    .diagram{
+      border:1px dashed rgba(255,255,255,.24); border-radius:14px; padding:12px; background:rgba(0,0,0,.16);
+      color:var(--muted); line-height:1.45;
+    }
+    .q{
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.06);
+      margin-top:10px;
+    }
+    .opts{display:grid; gap:8px; margin-top:10px;}
+    label.opt{
+      display:grid; grid-template-columns:22px 1fr; gap:10px; align-items:start;
+      padding:10px 12px; border-radius:14px; border:1px solid var(--border);
+      background:rgba(0,0,0,.14); cursor:pointer;
+    }
+    label.opt:hover{border-color:rgba(255,255,255,.28);}
+    input[type="radio"]{margin-top:3px;}
+    .resultLine{margin-top:10px; font-weight:700;}
+    .good{color:#b7f7cd;}
+    .bad{color:#ffc1cb;}
+    details{border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.05); padding:10px 12px;}
+    summary{cursor:pointer; font-weight:750;}
+    .flash{
+      display:grid; gap:10px; align-items:center;
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(0,0,0,.16);
+    }
+    .flashFace{font-size:1.05rem; line-height:1.35;}
+    .flashBtns{display:flex; gap:10px; flex-wrap:wrap;}
+    .tiny{font-size:.92rem;}
+    textarea{
+      width:100%; min-height:90px; border-radius:12px; border:1px solid var(--border);
+      padding:10px; background:rgba(0,0,0,.18); color:var(--text);
+      resize:vertical;
+    }
+    .scoreBox{
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(255,255,255,.06);
+    }
+    .tag{
+      display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--border);
+      font-weight:800; font-size:.85rem; margin-left:8px;
+    }
+    .tag.good{background:rgba(46,204,113,.18); border-color:rgba(46,204,113,.35);}
+    .tag.bad{background:rgba(255,92,122,.16); border-color:rgba(255,92,122,.35);}
+    .phrase{
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.14);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .phrase button{ padding:8px 10px; border-radius:12px; }
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background:rgba(0,0,0,.75); border:1px solid rgba(255,255,255,.18);
+      color:var(--text); padding:10px 12px; border-radius:14px;
+      display:none; z-index:9999; font-weight:700;
+    }
+    .twoCol{
+      display:grid; grid-template-columns:1fr; gap:12px;
+    }
+    @media (min-width: 860px){
+      .twoCol{grid-template-columns: 1.1fr .9fr;}
+    }
+    code.k{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background:rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.14);
+      padding:2px 6px;
+      border-radius:8px;
+      color:rgba(238,242,255,.92);
+      white-space:nowrap;
+    }
+    table.pattern{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.12);
+      margin-top:10px;
+    }
+    table.pattern th, table.pattern td{
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      vertical-align:top;
+      text-align:left;
+      color:var(--muted);
+      line-height:1.35;
+    }
+    table.pattern th{
+      color:var(--text);
+      font-weight:800;
+      background:rgba(255,255,255,.06);
+    }
+    table.pattern tr:last-child td{border-bottom:none;}
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>AQA 5.3.2 Tutorial – Use of amount of substance (moles)</h1>
+  <div class="sub">
+    This module covers <b>5.3.2</b>: using the <b>mole</b> to connect <b>mass</b>, <b>particles</b> and
+    <b>balanced equations</b> (reacting masses). It’s where questions like
+    “How much H₂ is needed to make a mass of NH₃?” come from.
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <span class="pill" id="pillSection">Section: 5.3.2</span>
+      <span class="pill" id="pillProgress">Progress: 0%</span>
+      <span class="pill" id="pillChecks">Checks: 0/4 done</span>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <button id="btnJumpNotes">Jump to Notes</button>
+      <button id="btnJumpPhrases">Mark-scheme phrases</button>
+      <button id="btnJumpFlash">Jump to Flashcards</button>
+      <button class="primary" id="btnJumpQuiz">Jump to Final Quiz</button>
+      <button class="danger" id="btnReset">Reset progress</button>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="card" id="notes">
+    <h2>Core ideas for 5.3.2</h2>
+
+    <div class="callout">
+      The <b>mole</b> is a way of counting particles. In GCSE calculations, it links:
+      <b>mass ↔ moles ↔ balanced equation ratios</b>.
+    </div>
+
+    <div class="twoCol" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.3.2.1 The mole (foundation idea)</h3>
+        <ul>
+          <li><b>n</b> = amount of substance in moles</li>
+          <li><b>m</b> = mass in grams</li>
+          <li><b>M<sub>r</sub></b> = relative formula mass (from 5.3.1)</li>
+        </ul>
+        <div class="diagram">
+          Main equation: <br>
+          <b>n = m ÷ M<sub>r</sub></b>  &nbsp; (and rearrange: <b>m = n × M<sub>r</sub></b>)
+        </div>
+
+        <div class="diagram tiny" style="margin-top:10px;">
+          Example: How many moles in 36 g of water (M<sub>r</sub>=18)? <br>
+          n = 36 ÷ 18 = <b>2 mol</b>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.3.2.2 Reacting masses from equations (core skill)</h3>
+        <div class="muted">
+          The <b>coefficients</b> in a balanced equation show the <b>mole ratio</b>.
+          You use them to convert between moles of different substances.
+        </div>
+
+        <table class="pattern">
+          <thead>
+            <tr>
+              <th>Step</th>
+              <th>What you do</th>
+              <th>Key check</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>1</b></td>
+              <td>Write the <b>balanced equation</b></td>
+              <td>Coefficients correct</td>
+            </tr>
+            <tr>
+              <td><b>2</b></td>
+              <td>Calculate the <b>M<sub>r</sub></b> values you need</td>
+              <td>Use correct A<sub>r</sub></td>
+            </tr>
+            <tr>
+              <td><b>3</b></td>
+              <td>Convert given mass → <b>moles</b> (n = m ÷ M<sub>r</sub>)</td>
+              <td>Units in grams</td>
+            </tr>
+            <tr>
+              <td><b>4</b></td>
+              <td>Use the <b>mole ratio</b> from equation to find moles needed/made</td>
+              <td>Use coefficients as ratios</td>
+            </tr>
+            <tr>
+              <td><b>5</b></td>
+              <td>Convert moles → mass (m = n × M<sub>r</sub>)</td>
+              <td>Answer in grams</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout tiny">
+          Very common trap: students try to use masses directly from the equation.
+          The equation gives <b>mole ratios</b>, not mass ratios.
+        </div>
+      </div>
+    </div>
+
+    <div class="kbox" style="margin-top:12px;">
+      <h3>Worked example (like the ammonia question)</h3>
+      <div class="diagram">
+        Reaction: <code class="k">N₂ + 3H₂ → 2NH₃</code><br><br>
+        If you want <b>34 g</b> of NH₃, what mass of H₂ is needed?<br><br>
+        1) M<sub>r</sub>(NH₃) = 14 + 3×1 = <b>17</b><br>
+        2) n(NH₃) = 34 ÷ 17 = <b>2 mol</b><br>
+        3) Ratio: 3 mol H₂ makes 2 mol NH₃ → for 2 mol NH₃ you need <b>3 mol H₂</b><br>
+        4) M<sub>r</sub>(H₂)=2 → mass = 3 × 2 = <b>6 g</b>
+      </div>
+      <div class="muted tiny" style="margin-top:8px;">
+        Notice: the “2” and “3” in the equation are the key ratio.
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.3.2 Check 1: mole equation</h3>
+        <div class="q" data-check="moleeq">
+          Which equation links mass, moles and M<sub>r</sub>?
+          <div class="opts" id="opts_moleeq"></div>
+          <button class="primary" onclick="markCheck('moleeq')">Mark</button>
+          <div class="resultLine" id="res_moleeq"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_moleeq"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.3.2 Check 2: M<sub>r</sub> of ammonia</h3>
+        <div class="q" data-check="mrnh3">
+          What is M<sub>r</sub> of NH₃? (N=14, H=1)
+          <div class="opts" id="opts_mrnh3"></div>
+          <button class="primary" onclick="markCheck('mrnh3')">Mark</button>
+          <div class="resultLine" id="res_mrnh3"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_mrnh3"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.3.2 Check 3: moles from mass</h3>
+        <div class="q" data-check="molesfrommass">
+          How many moles are in 10 g of CaCO₃? (Ca=40, C=12, O=16)
+          <div class="opts" id="opts_molesfrommass"></div>
+          <button class="primary" onclick="markCheck('molesfrommass')">Mark</button>
+          <div class="resultLine" id="res_molesfrommass"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_molesfrommass"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.3.2 Check 4: ratio thinking</h3>
+        <div class="q" data-check="ratio">
+          In <code class="k">2H₂ + O₂ → 2H₂O</code>, how many moles of H₂O are made from 4 moles of H₂ (if O₂ is in excess)?
+          <div class="opts" id="opts_ratio"></div>
+          <button class="primary" onclick="markCheck('ratio')">Mark</button>
+          <div class="resultLine" id="res_ratio"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_ratio"></div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <details style="margin-top:12px;">
+      <summary>Exam tip: “limiting reactant” (light-touch)</summary>
+      <div class="muted tiny" style="margin-top:10px; line-height:1.55;">
+        Sometimes the question says one reactant is in <b>excess</b>. That means the other one is limiting
+        and controls how much product forms. If it says “oxygen is in excess”, don’t calculate oxygen.
+      </div>
+    </details>
+  </div>
+
+  <!-- MARK-SCHEME PHRASES -->
+  <div class="card" id="phrases">
+    <h2>Common mark-scheme phrases (copy-friendly)</h2>
+    <div class="muted">Use these in calculation explanations and method marks.</div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Moles + M<sub>r</sub></h3>
+        <div class="phrase">
+          <div class="muted"><b>“Number of moles = mass ÷ relative formula mass (n = m ÷ Mᵣ).”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Mᵣ is calculated by adding the relative atomic masses in the formula.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Using the equation ratio</h3>
+        <div class="phrase">
+          <div class="muted"><b>“The coefficients in the balanced equation give the mole ratio.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Use the mole ratio to convert from moles of one substance to another.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Finishing the calculation</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Mass = moles × Mᵣ (m = n × Mᵣ).”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Common warning</h3>
+        <div class="phrase">
+          <div class="muted"><b>“The equation gives mole ratios, not mass ratios.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: Even if the arithmetic goes wrong, writing the correct method steps can still earn marks.
+    </div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="card" id="flashcards">
+    <h2>Flashcards (retrieval practice)</h2>
+    <div class="muted">Click <b>Flip</b> then rate yourself. Aim for “Good” twice in a row.</div>
+
+    <div class="flash" style="margin-top:12px;">
+      <div class="flashFace" id="flashFace"></div>
+      <div class="muted tiny" id="flashHint"></div>
+      <div class="flashBtns">
+        <button id="btnFlip" class="primary">Flip</button>
+        <button id="btnAgain">Again</button>
+        <button id="btnGood">Good</button>
+        <button id="btnNext">Next</button>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: Force yourself to say the <b>equation</b> and the <b>ratio</b> out loud before doing numbers.
+    </div>
+  </div>
+
+  <!-- NOTES / EXPORT -->
+  <div class="card">
+    <h2>My notes (optional)</h2>
+    <div class="muted">Write what’s confusing. Export to copy/paste into a revision log.</div>
+    <textarea id="notesBox" placeholder="Example: I forget to use ratios, or I mix up n=m÷Mr, or I struggle with NH3 questions..."></textarea>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+      <button id="btnExport" class="primary">Export notes (copy)</button>
+      <button id="btnClearNotes">Clear notes</button>
+      <span class="pill" id="pillCopied" style="display:none;">Copied!</span>
+    </div>
+  </div>
+
+  <!-- FINAL QUIZ -->
+  <div class="card" id="finalQuiz">
+    <h2>Final quiz (moles + reacting masses)</h2>
+    <div class="muted">
+      Includes recall + application + transfer questions (unlikely to match a past paper exactly).
+      Calculations are kept “GCSE-friendly” with clean numbers.
+    </div>
+
+    <div id="quizArea" style="margin-top:12px;"></div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center;">
+      <button class="primary" id="btnMarkFinal">Mark final quiz</button>
+      <button id="btnRetryFinal">Retry final quiz</button>
+      <span class="pill" id="pillFinalScore" style="display:none;"></span>
+    </div>
+    <div id="finalReview" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+  // -------------------------
+  // Quick checks (4)
+  // -------------------------
+  const checks = {
+    moleeq: {
+      options: [
+        "n = Mᵣ ÷ m",
+        "n = m ÷ Mᵣ",
+        "m = n ÷ Mᵣ",
+        "Mᵣ = n ÷ m"
+      ],
+      answer: 1,
+      explanation: "Number of moles n = mass m (g) ÷ relative formula mass Mᵣ."
+    },
+    mrnh3: {
+      options: ["14", "15", "16", "17"],
+      answer: 3,
+      explanation: "Mᵣ(NH₃) = 14 + 3×1 = 17."
+    },
+    molesfrommass: {
+      options: ["0.10 mol", "0.20 mol", "0.50 mol", "1.0 mol"],
+      answer: 0,
+      explanation: "Mᵣ(CaCO₃)=40+12+3×16=100. n=10÷100=0.10 mol."
+    },
+    ratio: {
+      options: ["1 mol", "2 mol", "4 mol", "8 mol"],
+      answer: 2,
+      explanation: "2 mol H₂ makes 2 mol H₂O, so the ratio is 1:1 for H₂:H₂O. 4 mol H₂ → 4 mol H₂O."
+    }
+  };
+
+  // -------------------------
+  // Flashcards
+  // -------------------------
+  const flashcards = [
+    {front:"What does ‘mole’ mean?", back:"A way of counting particles (amount of substance).", hint:"Counting unit."},
+    {front:"What is the equation linking moles, mass and Mᵣ?", back:"n = m ÷ Mᵣ", hint:"Divide mass by Mᵣ."},
+    {front:"How do you find Mᵣ?", back:"Add up the Aᵣ values of the atoms in the formula.", hint:"Sum of Aᵣ."},
+    {front:"What do coefficients in a balanced equation represent?", back:"The mole ratio of reactants and products.", hint:"Ratio, not masses."},
+    {front:"Steps for reacting mass questions (in order)", back:"Balance → Mᵣ → mass→moles → ratio → moles→mass.", hint:"5-step method."},
+    {front:"Why can’t you use masses directly from the equation?", back:"The equation shows mole ratios, not mass ratios.", hint:"Moles matter."},
+    {front:"In N₂ + 3H₂ → 2NH₃, what is the H₂:NH₃ mole ratio?", back:"3 : 2", hint:"Use coefficients."},
+    {front:"How do you convert moles to mass?", back:"m = n × Mᵣ", hint:"Multiply."}
+  ];
+
+  // -------------------------
+  // Final quiz (10)
+  // -------------------------
+  const finalQuiz = [
+    {id:"F1", q:"Which formula is correct for calculating moles from mass?", options:[
+      "n = Mᵣ ÷ m","n = m ÷ Mᵣ","m = n ÷ Mᵣ","Mᵣ = m ÷ n"
+    ], a:1, exp:"n = m ÷ Mᵣ (m in grams)."},
+    {id:"F2", q:"What is Mᵣ of H₂? (H=1)", options:["1","2","16","18"], a:1, exp:"H₂ has two H atoms: 2×1=2."},
+    {id:"F3", q:"How many moles are in 9 g of water? (Mᵣ(H₂O)=18)", options:[
+      "0.25","0.50","1.0","2.0"
+    ], a:1, exp:"n=9÷18=0.50 mol."},
+    {id:"F4", q:"In 2Mg + O₂ → 2MgO, 3 moles of O₂ would make how many moles of MgO (if Mg is in excess)?", options:[
+      "2","3","4","6"
+    ], a:3, exp:"1 mol O₂ makes 2 mol MgO. 3 mol O₂ makes 6 mol MgO."},
+    {id:"F5", q:"What is Mᵣ of CO₂? (C=12, O=16)", options:["28","32","40","44"], a:3, exp:"12 + 2×16 = 44."},
+    {id:"F6", q:"Transfer: In N₂ + 3H₂ → 2NH₃, how many moles of NH₃ form from 6 moles of H₂ (N₂ in excess)?", options:[
+      "2","3","4","6"
+    ], a:2, exp:"Ratio 3 H₂ → 2 NH₃. If H₂ is 6 (double), NH₃ is 4."},
+    {id:"F7", q:"Transfer: If 34 g of NH₃ is made, how many moles is that? (Mᵣ(NH₃)=17)", options:[
+      "1","2","3","4"
+    ], a:1, exp:"n=34÷17=2 mol."},
+    {id:"F8", q:"Transfer: Using N₂ + 3H₂ → 2NH₃, what mass of H₂ is needed to make 34 g NH₃? (Mᵣ(H₂)=2)", options:[
+      "2 g","3 g","6 g","12 g"
+    ], a:2, exp:"34 g NH₃ = 2 mol NH₃. Need 3 mol H₂. Mass = 3×2=6 g."},
+    {id:"F9", q:"Which statement is true?", options:[
+      "Balanced equations give mass ratios directly",
+      "Balanced equations give mole ratios",
+      "Mᵣ is the same as Aᵣ for all substances",
+      "n = Mᵣ × m"
+    ], a:1, exp:"Coefficients represent moles, not masses."},
+    {id:"F10", q:"Transfer: CaCO₃ has Mᵣ = 100. How many grams are in 0.25 mol CaCO₃?", options:[
+      "2.5 g","25 g","40 g","250 g"
+    ], a:1, exp:"m = n×Mᵣ = 0.25×100 = 25 g."}
+  ];
+
+  // -------------------------
+  // State
+  // -------------------------
+  const state = {
+    checksDone: {moleeq:false, mrnh3:false, molesfrommass:false, ratio:false},
+    finalAnswers: {},
+    flashIndex: 0,
+    flashFlipped: false
+  };
+
+  function $(id){ return document.getElementById(id); }
+  function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:"smooth", block:"start"}); }
+
+  function setPills(){
+    const doneCount = Object.values(state.checksDone).filter(Boolean).length;
+    const progress = Math.round(((doneCount) / 4) * 60 + (Object.keys(state.finalAnswers).length / finalQuiz.length) * 40);
+    $("pillProgress").textContent = `Progress: ${progress}%`;
+    $("pillChecks").textContent = `Checks: ${doneCount}/4 done`;
+  }
+
+  function renderCheck(key){
+    const c = checks[key];
+    const wrap = $("opts_"+key);
+    wrap.innerHTML = "";
+    c.options.forEach((opt, i) => {
+      const lab = document.createElement("label");
+      lab.className = "opt";
+      const inp = document.createElement("input");
+      inp.type = "radio";
+      inp.name = "chk_"+key;
+      inp.value = i;
+      const div = document.createElement("div");
+      div.textContent = opt;
+      lab.appendChild(inp);
+      lab.appendChild(div);
+      wrap.appendChild(lab);
+    });
+    $("exp_"+key).textContent = c.explanation;
+  }
+
+  function markCheck(key){
+    const c = checks[key];
+    const chosen = document.querySelector(`input[name="chk_${key}"]:checked`);
+    const res = $("res_"+key);
+    if(!chosen){
+      res.innerHTML = `<span style="color:var(--warn)"><b>Please choose an answer first.</b></span>`;
+      return;
+    }
+    const val = Number(chosen.value);
+    const ok = val === c.answer;
+    state.checksDone[key] = true;
+
+    res.innerHTML = ok
+      ? `<span class="good">✔ Correct</span> <span class="muted tiny">— ${c.options[c.answer]}</span>`
+      : `<span class="bad">✘ Incorrect</span> <span class="muted tiny">— Correct: ${c.options[c.answer]}</span>`;
+
+    setPills();
+  }
+
+  // Flashcards
+  function renderFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = false;
+    $("flashFace").textContent = card.front;
+    $("flashHint").textContent = "Hint: " + card.hint;
+    $("btnFlip").textContent = "Flip";
+  }
+  function flipFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = !state.flashFlipped;
+    $("flashFace").textContent = state.flashFlipped ? card.back : card.front;
+    $("btnFlip").textContent = state.flashFlipped ? "Show question" : "Flip";
+  }
+  function nextFlash(){
+    state.flashIndex = (state.flashIndex + 1) % flashcards.length;
+    renderFlash();
+  }
+
+  // Notes export
+  async function exportNotes(){
+    const txt = $("notesBox").value.trim();
+    if(!txt){
+      alert("No notes yet. Write a couple of lines first.");
+      return;
+    }
+    await navigator.clipboard.writeText(txt);
+    $("pillCopied").style.display = "inline-block";
+    setTimeout(()=> $("pillCopied").style.display = "none", 1200);
+  }
+
+  // Final quiz
+  function renderFinalQuiz(){
+    const qa = $("quizArea");
+    qa.innerHTML = "";
+    finalQuiz.forEach((q, idx) => {
+      const card = document.createElement("div");
+      card.className = "q";
+      card.innerHTML = `<b>Q${idx+1}.</b> ${q.q}`;
+      const opts = document.createElement("div");
+      opts.className = "opts";
+
+      q.options.forEach((opt, i) => {
+        const lab = document.createElement("label");
+        lab.className = "opt";
+        const inp = document.createElement("input");
+        inp.type = "radio";
+        inp.name = "final_"+q.id;
+        inp.value = i;
+        if(state.finalAnswers[q.id] === i) inp.checked = true;
+        inp.addEventListener("change", () => {
+          state.finalAnswers[q.id] = i;
+          setPills();
+        });
+        const div = document.createElement("div");
+        div.textContent = opt;
+        lab.appendChild(inp);
+        lab.appendChild(div);
+        opts.appendChild(lab);
+      });
+
+      card.appendChild(opts);
+      qa.appendChild(card);
+    });
+    setPills();
+  }
+
+  function markFinal(){
+    let correct = 0;
+    const total = finalQuiz.length;
+    const review = [];
+
+    finalQuiz.forEach((q) => {
+      const chosen = (q.id in state.finalAnswers) ? state.finalAnswers[q.id] : null;
+      const ok = chosen === q.a;
+      if(ok) correct++;
+      review.push({q, chosen, ok});
+    });
+
+    const pct = Math.round((correct/total)*100);
+    $("pillFinalScore").style.display = "inline-block";
+    $("pillFinalScore").textContent = `Final quiz score: ${correct}/${total} (${pct}%)`;
+
+    const fr = $("finalReview");
+    fr.innerHTML = review.map((r, i) => {
+      const tag = r.ok ? `<span class="tag good">Correct</span>` : `<span class="tag bad">Incorrect</span>`;
+      const your = (r.chosen===null) ? "<i>(blank)</i>" : r.q.options[r.chosen];
+      const cor = r.q.options[r.q.a];
+
+      return `
+        <div class="scoreBox" style="margin-top:10px;">
+          <div><b>Q${i+1}.</b> ${r.q.q} ${tag}</div>
+          <div class="muted" style="margin-top:6px;"><b>Your answer:</b> ${your}</div>
+          ${r.ok ? "" : `<div class="muted"><b>Correct answer:</b> ${cor}</div>`}
+          <div class="callout tiny"><b>Why:</b> ${r.q.exp}</div>
+        </div>
+      `;
+    }).join("");
+
+    scrollToId("finalReview");
+  }
+
+  function retryFinal(){
+    state.finalAnswers = {};
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+    renderFinalQuiz();
+    scrollToId("finalQuiz");
+  }
+
+  function resetAll(){
+    state.checksDone = {moleeq:false, mrnh3:false, molesfrommass:false, ratio:false};
+    state.finalAnswers = {};
+    state.flashIndex = 0;
+    state.flashFlipped = false;
+
+    $("notesBox").value = "";
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+
+    Object.keys(checks).forEach(renderCheck);
+    renderFlash();
+    renderFinalQuiz();
+    setPills();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  // Mark-scheme phrase copier (template feature)
+  function showToast(msg){
+    const t = $("toast");
+    t.textContent = msg;
+    t.style.display = "block";
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=> t.style.display="none", 1100);
+  }
+  async function copyPhrase(btn){
+    const text = btn.parentElement.querySelector("div").innerText.trim();
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast("Copied!");
+    }catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      showToast("Copied!");
+    }
+  }
+
+  // Buttons
+  $("btnJumpNotes").addEventListener("click", ()=>scrollToId("notes"));
+  $("btnJumpPhrases").addEventListener("click", ()=>scrollToId("phrases"));
+  $("btnJumpFlash").addEventListener("click", ()=>scrollToId("flashcards"));
+  $("btnJumpQuiz").addEventListener("click", ()=>scrollToId("finalQuiz"));
+  $("btnReset").addEventListener("click", resetAll);
+
+  $("btnFlip").addEventListener("click", flipFlash);
+  $("btnNext").addEventListener("click", nextFlash);
+  $("btnAgain").addEventListener("click", ()=>nextFlash());
+  $("btnGood").addEventListener("click", ()=>nextFlash());
+
+  $("btnExport").addEventListener("click", exportNotes);
+  $("btnClearNotes").addEventListener("click", ()=>{$("notesBox").value="";});
+  $("btnMarkFinal").addEventListener("click", markFinal);
+  $("btnRetryFinal").addEventListener("click", retryFinal);
+
+  // Init
+  Object.keys(checks).forEach(renderCheck);
+  renderFlash();
+  renderFinalQuiz();
+  setPills();
+</script>
+</body>
+</html>
