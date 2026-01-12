@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AQA 5.1.1 Tutorial – A simple model of the atom, symbols, relative atomic mass, electronic charge and isotopes</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:rgba(255,255,255,.08); --card2:rgba(255,255,255,.06);
+      --text:#eef2ff; --muted:rgba(238,242,255,.75); --border:rgba(255,255,255,.14);
+      --accent:#7c5cff; --good:#2ecc71; --bad:#ff5c7a; --warn:#ffd166;
+    }
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:radial-gradient(1200px 650px at 10% 0%, rgba(124,92,255,.25), transparent 50%),
+                 radial-gradient(900px 550px at 90% 10%, rgba(46,204,113,.18), transparent 55%),
+                 linear-gradient(180deg, var(--bg), #050817);
+      color:var(--text);
+    }
+    header{max-width:1100px; margin:0 auto; padding:28px 18px 10px;}
+    h1{margin:0 0 8px; font-size:1.65rem;}
+    .sub{color:var(--muted); line-height:1.35; max-width:980px;}
+    .wrap{max-width:1100px; margin:0 auto; padding:12px 18px 48px; display:grid; gap:14px;}
+    .toolbar{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:var(--card);
+    }
+    .pill{padding:8px 10px; border-radius:999px; border:1px solid var(--border);
+      background:rgba(0,0,0,.18); color:var(--muted); font-size:.92rem; white-space:nowrap;}
+    button{
+      border:1px solid var(--border); background:rgba(255,255,255,.08); color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:650;
+    }
+    button:hover{border-color:rgba(255,255,255,.28);}
+    button.primary{
+      background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.55));
+      border-color:rgba(124,92,255,.65);
+    }
+    button.danger{
+      background:linear-gradient(135deg, rgba(255,92,122,.95), rgba(255,92,122,.45));
+      border-color:rgba(255,92,122,.6);
+    }
+    .card{padding:16px; border-radius:16px; border:1px solid var(--border); background:var(--card);}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:12px;}
+    h2{margin:0 0 10px; font-size:1.25rem;}
+    h3{margin:0 0 8px; font-size:1.05rem;}
+    .muted{color:var(--muted);}
+    .callout{
+      border-left:3px solid rgba(124,92,255,.7); padding:10px 12px; background:rgba(255,255,255,.05);
+      border-radius:12px; margin-top:10px; color:var(--muted); line-height:1.45;
+    }
+    .kbox{
+      border:1px solid var(--border); border-radius:14px; padding:12px; background:var(--card2);
+    }
+    ul{margin:8px 0 0 18px; color:var(--muted);}
+    .diagram{
+      border:1px dashed rgba(255,255,255,.24); border-radius:14px; padding:12px; background:rgba(0,0,0,.16);
+      color:var(--muted); line-height:1.45;
+    }
+    .q{
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.06);
+      margin-top:10px;
+    }
+    .opts{display:grid; gap:8px; margin-top:10px;}
+    label.opt{
+      display:grid; grid-template-columns:22px 1fr; gap:10px; align-items:start;
+      padding:10px 12px; border-radius:14px; border:1px solid var(--border);
+      background:rgba(0,0,0,.14); cursor:pointer;
+    }
+    label.opt:hover{border-color:rgba(255,255,255,.28);}
+    input[type="radio"]{margin-top:3px;}
+    .resultLine{margin-top:10px; font-weight:700;}
+    .good{color:#b7f7cd;}
+    .bad{color:#ffc1cb;}
+    details{border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.05); padding:10px 12px;}
+    summary{cursor:pointer; font-weight:750;}
+    .flash{
+      display:grid; gap:10px; align-items:center;
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(0,0,0,.16);
+    }
+    .flashFace{font-size:1.05rem; line-height:1.35;}
+    .flashBtns{display:flex; gap:10px; flex-wrap:wrap;}
+    .tiny{font-size:.92rem;}
+    textarea{
+      width:100%; min-height:90px; border-radius:12px; border:1px solid var(--border);
+      padding:10px; background:rgba(0,0,0,.18); color:var(--text);
+      resize:vertical;
+    }
+    .scoreBox{
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(255,255,255,.06);
+    }
+    .tag{
+      display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--border);
+      font-weight:800; font-size:.85rem; margin-left:8px;
+    }
+    .tag.good{background:rgba(46,204,113,.18); border-color:rgba(46,204,113,.35);}
+    .tag.bad{background:rgba(255,92,122,.16); border-color:rgba(255,92,122,.35);}
+    .phrase{
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.14);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .phrase button{ padding:8px 10px; border-radius:12px; }
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background:rgba(0,0,0,.75); border:1px solid rgba(255,255,255,.18);
+      color:var(--text); padding:10px 12px; border-radius:14px;
+      display:none; z-index:9999; font-weight:700;
+    }
+    .twoCol{
+      display:grid; grid-template-columns:1fr; gap:12px;
+    }
+    @media (min-width: 860px){
+      .twoCol{grid-template-columns: 1.1fr .9fr;}
+    }
+    code.k{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background:rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.14);
+      padding:2px 6px;
+      border-radius:8px;
+      color:rgba(238,242,255,.92);
+      white-space:nowrap;
+    }
+    table.pattern{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.12);
+      margin-top:10px;
+    }
+    table.pattern th, table.pattern td{
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      vertical-align:top;
+      text-align:left;
+      color:var(--muted);
+      line-height:1.35;
+    }
+    table.pattern th{
+      color:var(--text);
+      font-weight:800;
+      background:rgba(255,255,255,.06);
+    }
+    table.pattern tr:last-child td{border-bottom:none;}
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>AQA 5.1.1 Tutorial – Atom model, symbols, charges & isotopes</h1>
+  <div class="sub">
+    This module covers <b>5.1.1</b> (AQA Trilogy Chemistry): <b>atoms, elements and compounds</b>;
+    <b>mixtures and separation</b>; <b>how the atom model developed</b>;
+    <b>subatomic charges</b>; <b>size/mass, atomic & mass number</b>;
+    <b>isotopes and relative atomic mass</b>; and <b>electronic structure (first 20)</b>.
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <span class="pill" id="pillSection">Section: 5.1.1</span>
+      <span class="pill" id="pillProgress">Progress: 0%</span>
+      <span class="pill" id="pillChecks">Checks: 0/4 done</span>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <button id="btnJumpNotes">Jump to Notes</button>
+      <button id="btnJumpPhrases">Mark-scheme phrases</button>
+      <button id="btnJumpFlash">Jump to Flashcards</button>
+      <button class="primary" id="btnJumpQuiz">Jump to Final Quiz</button>
+      <button class="danger" id="btnReset">Reset progress</button>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="card" id="notes">
+    <h2>Core ideas for 5.1.1</h2>
+    <div class="callout">
+      Everything is made of <b>atoms</b>. An <b>element</b> contains one type of atom.
+      A <b>compound</b> contains two or more different elements <b>chemically combined</b> in fixed proportions.
+    </div>
+
+    <div class="twoCol" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.1.1.1 Atoms, elements and compounds</h3>
+        <ul>
+          <li><b>Atom</b>: smallest part of an element that can exist</li>
+          <li><b>Element</b>: one type of atom (e.g. Na, O, Cl)</li>
+          <li><b>Compound</b>: elements chemically combined (e.g. NaCl, H₂O, CO₂)</li>
+          <li><b>Formula</b> shows which atoms and how many (subscripts)</li>
+          <li>Word equations and symbol equations represent reactions</li>
+        </ul>
+        <div class="diagram tiny" style="margin-top:10px;">
+          Example compounds: <code class="k">H₂O</code>, <code class="k">CO₂</code>, <code class="k">NaCl</code>, <code class="k">CaCO₃</code>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.1.2 Mixtures (and separation)</h3>
+        <ul>
+          <li><b>Mixture</b>: substances not chemically combined; properties unchanged</li>
+          <li>Separation is <b>physical</b> (no new substances formed)</li>
+        </ul>
+        <table class="pattern">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Use it when…</th>
+              <th>Key idea</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Filtration</b></td>
+              <td>solid is <b>insoluble</b> in a liquid</td>
+              <td>solid stays as residue</td>
+            </tr>
+            <tr>
+              <td><b>Crystallisation</b></td>
+              <td>get a <b>soluble solid</b> from a solution</td>
+              <td>evaporate some solvent, crystals form</td>
+            </tr>
+            <tr>
+              <td><b>Simple distillation</b></td>
+              <td>separate solvent from solution</td>
+              <td>different boiling points</td>
+            </tr>
+            <tr>
+              <td><b>Fractional distillation</b></td>
+              <td>separate <b>liquids</b> with different b.p.</td>
+              <td>column gives repeated evaporation/condensation</td>
+            </tr>
+            <tr>
+              <td><b>Chromatography</b></td>
+              <td>separate dyes/inks, mixtures of solutes</td>
+              <td>different solubility/attraction → different distances</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="twoCol" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.1.1.3 Development of the atom model</h3>
+        <ul>
+          <li>Early idea: atoms are tiny solid spheres</li>
+          <li>Discovery of <b>electron</b> → <b>plum pudding model</b></li>
+          <li><b>Alpha scattering</b> → nucleus is small, dense, positively charged (<b>nuclear model</b>)</li>
+          <li><b>Bohr</b>: electrons in fixed energy levels (shells)</li>
+          <li><b>Chadwick</b>: neutron in the nucleus (evidence-based change)</li>
+        </ul>
+        <div class="callout tiny">
+          Exam phrasing: “New experimental evidence can lead to a scientific model being changed or replaced.”
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.1.4–5.1.1.7 Subatomic particles, isotopes & electrons</h3>
+
+        <table class="pattern">
+          <thead>
+            <tr>
+              <th>Particle</th>
+              <th>Relative charge</th>
+              <th>Relative mass</th>
+              <th>Where?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><b>Proton</b></td><td>+1</td><td>1</td><td>Nucleus</td></tr>
+            <tr><td><b>Neutron</b></td><td>0</td><td>1</td><td>Nucleus</td></tr>
+            <tr><td><b>Electron</b></td><td>-1</td><td>~1/1836 (very small)</td><td>Shells / energy levels</td></tr>
+          </tbody>
+        </table>
+
+        <div class="diagram tiny" style="margin-top:10px;">
+          <b>Atomic number</b> = number of protons.<br>
+          <b>Mass number</b> = protons + neutrons.<br>
+          <b>Isotopes</b> = same protons, different neutrons.<br><br>
+          Example: <code class="k">¹²₆C</code> has 6 protons, 6 neutrons, 6 electrons.
+        </div>
+
+        <div class="diagram tiny" style="margin-top:10px;">
+          <b>Electronic structure (first 20)</b> fits shells: 2, then 8, then 8, then…<br>
+          Sodium (11): <code class="k">2,8,1</code> &nbsp; Chlorine (17): <code class="k">2,8,7</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.1.1 Check 1: element vs compound</h3>
+        <div class="q" data-check="elemcomp">
+          Which statement is correct?
+          <div class="opts" id="opts_elemcomp"></div>
+          <button class="primary" onclick="markCheck('elemcomp')">Mark</button>
+          <div class="resultLine" id="res_elemcomp"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_elemcomp"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.1 Check 2: separation method</h3>
+        <div class="q" data-check="separate">
+          Which method is best for separating an insoluble solid from a liquid?
+          <div class="opts" id="opts_separate"></div>
+          <button class="primary" onclick="markCheck('separate')">Mark</button>
+          <div class="resultLine" id="res_separate"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_separate"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.1 Check 3: atomic & mass number</h3>
+        <div class="q" data-check="numbers">
+          An atom has atomic number 13 and mass number 27. How many neutrons does it have?
+          <div class="opts" id="opts_numbers"></div>
+          <button class="primary" onclick="markCheck('numbers')">Mark</button>
+          <div class="resultLine" id="res_numbers"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_numbers"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.1 Check 4: electron structure</h3>
+        <div class="q" data-check="elec">
+          What is the electronic structure of magnesium (atomic number 12)?
+          <div class="opts" id="opts_elec"></div>
+          <button class="primary" onclick="markCheck('elec')">Mark</button>
+          <div class="resultLine" id="res_elec"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_elec"></div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <details style="margin-top:12px;">
+      <summary>Mini skill: isotopes and “average” relative atomic mass</summary>
+      <div class="muted tiny" style="margin-top:10px; line-height:1.55;">
+        Relative atomic mass is an <b>average</b> because most elements have more than one isotope.
+        Simple calculation style: <br>
+        average = (mass₁ × %₁ + mass₂ × %₂) ÷ 100.
+      </div>
+    </details>
+  </div>
+
+  <!-- MARK-SCHEME PHRASES -->
+  <div class="card" id="phrases">
+    <h2>Common mark-scheme phrases (copy-friendly)</h2>
+    <div class="muted">Use these in “describe/explain” questions (especially 2–4 mark items).</div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Atoms, elements, compounds</h3>
+        <div class="phrase">
+          <div class="muted"><b>“An atom is the smallest part of an element that can exist.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“A compound contains two or more different elements chemically combined in fixed proportions.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Mixtures and separation</h3>
+        <div class="phrase">
+          <div class="muted"><b>“A mixture contains substances that are not chemically combined, so their properties are unchanged.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Separation methods are physical processes and do not form new substances.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Atomic structure</h3>
+        <div class="phrase">
+          <div class="muted"><b>“In an atom, the number of electrons equals the number of protons, so the atom has no overall charge.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Atomic number is the number of protons; mass number is protons plus neutrons.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Models (evidence changes models)</h3>
+        <div class="phrase">
+          <div class="muted"><b>“New experimental evidence may lead to a scientific model being changed or replaced.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: For isotope questions, always include “same protons, different neutrons”.
+    </div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="card" id="flashcards">
+    <h2>Flashcards (retrieval practice)</h2>
+    <div class="muted">Click <b>Flip</b> then rate yourself. Aim for “Good” twice in a row.</div>
+
+    <div class="flash" style="margin-top:12px;">
+      <div class="flashFace" id="flashFace"></div>
+      <div class="muted tiny" id="flashHint"></div>
+      <div class="flashBtns">
+        <button id="btnFlip" class="primary">Flip</button>
+        <button id="btnAgain">Again</button>
+        <button id="btnGood">Good</button>
+        <button id="btnNext">Next</button>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: If you can do “protons, neutrons, electrons” quickly, later topics (bonding, ions, electrolysis) become much easier.
+    </div>
+  </div>
+
+  <!-- NOTES / EXPORT -->
+  <div class="card">
+    <h2>My notes (optional)</h2>
+    <div class="muted">Write what’s confusing. Export to copy/paste into a revision log.</div>
+    <textarea id="notesBox" placeholder="Example: I mix up atomic vs mass number, or I forget which separation method to use..."></textarea>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+      <button id="btnExport" class="primary">Export notes (copy)</button>
+      <button id="btnClearNotes">Clear notes</button>
+      <span class="pill" id="pillCopied" style="display:none;">Copied!</span>
+    </div>
+  </div>
+
+  <!-- FINAL QUIZ -->
+  <div class="card" id="finalQuiz">
+    <h2>Final quiz (5.1.1)</h2>
+    <div class="muted">
+      Mixture of recall + application + transfer questions. (Not identical to past papers.)
+    </div>
+
+    <div id="quizArea" style="margin-top:12px;"></div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center;">
+      <button class="primary" id="btnMarkFinal">Mark final quiz</button>
+      <button id="btnRetryFinal">Retry final quiz</button>
+      <span class="pill" id="pillFinalScore" style="display:none;"></span>
+    </div>
+    <div id="finalReview" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+  // -------------------------
+  // Quick checks (4)
+  // -------------------------
+  const checks = {
+    elemcomp: {
+      options: [
+        "An element contains two or more different atoms chemically combined",
+        "A compound contains only one type of atom",
+        "A compound contains two or more different elements chemically combined in fixed proportions",
+        "A mixture can only be separated by chemical reactions"
+      ],
+      answer: 2,
+      explanation: "Compounds are chemically combined elements in fixed ratios. Mixtures are not chemically combined and can be separated physically."
+    },
+    separate: {
+      options: [
+        "Filtration",
+        "Chromatography",
+        "Fractional distillation",
+        "Crystallisation"
+      ],
+      answer: 0,
+      explanation: "Filtration separates an insoluble solid (residue) from a liquid (filtrate)."
+    },
+    numbers: {
+      options: ["13", "14", "27", "40"],
+      answer: 1,
+      explanation: "Neutrons = mass number − atomic number = 27 − 13 = 14."
+    },
+    elec: {
+      options: ["2,8,2", "2,8,1", "2,7,3", "2,6,4"],
+      answer: 0,
+      explanation: "Magnesium has 12 electrons: fill shells 2 then 8 then 2 → 2,8,2."
+    }
+  };
+
+  // -------------------------
+  // Flashcards
+  // -------------------------
+  const flashcards = [
+    {front:"Define an atom.", back:"The smallest part of an element that can exist.", hint:"Smallest part."},
+    {front:"Define an element.", back:"A substance made of only one type of atom.", hint:"One type of atom."},
+    {front:"Define a compound.", back:"Two or more different elements chemically combined in fixed proportions.", hint:"Chemically combined."},
+    {front:"Define a mixture.", back:"Two or more substances not chemically combined; properties unchanged.", hint:"Not chemically combined."},
+    {front:"What does atomic number mean?", back:"The number of protons in the nucleus.", hint:"Protons."},
+    {front:"What does mass number mean?", back:"The total number of protons + neutrons.", hint:"p + n."},
+    {front:"What is an isotope?", back:"Atoms of the same element (same protons) with different numbers of neutrons.", hint:"Same p, different n."},
+    {front:"Relative charges of proton / neutron / electron?", back:"Proton +1, neutron 0, electron −1.", hint:"+,0,−"},
+    {front:"Why is an atom neutral?", back:"Number of electrons equals number of protons.", hint:"Equal and opposite charges."},
+    {front:"Electron structure: what’s sodium (11)?", back:"2,8,1", hint:"First shell 2, second 8, remainder."},
+    {front:"Which separation method for insoluble solid + liquid?", back:"Filtration.", hint:"Residue/filtrate."},
+    {front:"Why do scientific models change?", back:"New experimental evidence can lead to models being changed or replaced.", hint:"Evidence."}
+  ];
+
+  // -------------------------
+  // Final quiz (10)
+  // -------------------------
+  const finalQuiz = [
+    {id:"F1", q:"Which is an element?", options:["H₂O","CO₂","Na","NaCl"], a:2, exp:"Na is one type of atom (an element). The others are compounds."},
+    {id:"F2", q:"Which method separates a soluble solid from a solution?", options:["Filtration","Crystallisation","Chromatography","Sieving"], a:1, exp:"Crystallisation is used to obtain a soluble solid from a solution."},
+    {id:"F3", q:"The plum pudding model suggested…", options:[
+      "a tiny dense nucleus with electrons orbiting",
+      "a ball of positive charge with electrons embedded in it",
+      "no electrons exist in atoms",
+      "atoms are made only of neutrons"
+    ], a:1, exp:"Plum pudding: positive 'pudding' with negative electrons embedded."},
+    {id:"F4", q:"Alpha particle scattering showed that the atom…", options:[
+      "has no nucleus",
+      "is mostly empty space with a small, dense, positively charged nucleus",
+      "contains electrons in the nucleus",
+      "is a solid sphere"
+    ], a:1, exp:"Most alpha particles passed through → mostly empty space; some deflected → small dense positive nucleus."},
+    {id:"F5", q:"What is the charge of an electron?", options:["+1","0","-1","+2"], a:2, exp:"Electron has relative charge −1."},
+    {id:"F6", q:"An atom has atomic number 8 and mass number 16. Protons, neutrons, electrons?", options:[
+      "8, 8, 8",
+      "8, 16, 8",
+      "16, 8, 16",
+      "8, 8, 16"
+    ], a:0, exp:"Protons=8. Neutrons=16−8=8. Electrons=8 (neutral atom)."},
+    {id:"F7", q:"Which statement about isotopes is correct?", options:[
+      "Different elements with the same number of neutrons",
+      "Same element (same protons) but different numbers of neutrons",
+      "Same protons but different electrons so always ions",
+      "Same mass number but different atomic number"
+    ], a:1, exp:"Isotopes are same element (same protons) with different neutrons."},
+    {id:"F8", q:"Electronic structure of chlorine (17) is…", options:["2,8,7","2,8,8","2,7,8","2,8,5"], a:0, exp:"17 electrons: 2 in first, 8 in second, 7 in third → 2,8,7."},
+    {id:"F9", q:"Why is relative atomic mass usually not a whole number?", options:[
+      "Because electrons have different masses",
+      "Because it is an average of isotopes with different abundances",
+      "Because atoms change mass when they react",
+      "Because protons can disappear"
+    ], a:1, exp:"Most elements exist as isotopes; relative atomic mass is an average weighted by abundance."},
+    {id:"F10", q:"Transfer: Which is the best reason a mixture can be separated physically?", options:[
+      "Because atoms are destroyed",
+      "Because substances in a mixture are not chemically combined",
+      "Because mixtures always contain gases",
+      "Because compounds are easy to separate"
+    ], a:1, exp:"Mixtures are not chemically combined, so physical methods can separate them without new substances forming."}
+  ];
+
+  // -------------------------
+  // State
+  // -------------------------
+  const state = {
+    checksDone: {elemcomp:false, separate:false, numbers:false, elec:false},
+    finalAnswers: {},
+    flashIndex: 0,
+    flashFlipped: false
+  };
+
+  function $(id){ return document.getElementById(id); }
+  function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:"smooth", block:"start"}); }
+
+  function setPills(){
+    const doneCount = Object.values(state.checksDone).filter(Boolean).length;
+    const progress = Math.round(((doneCount) / 4) * 60 + (Object.keys(state.finalAnswers).length / finalQuiz.length) * 40);
+    $("pillProgress").textContent = `Progress: ${progress}%`;
+    $("pillChecks").textContent = `Checks: ${doneCount}/4 done`;
+  }
+
+  function renderCheck(key){
+    const c = checks[key];
+    const wrap = $("opts_"+key);
+    wrap.innerHTML = "";
+    c.options.forEach((opt, i) => {
+      const lab = document.createElement("label");
+      lab.className = "opt";
+      const inp = document.createElement("input");
+      inp.type = "radio";
+      inp.name = "chk_"+key;
+      inp.value = i;
+      const div = document.createElement("div");
+      div.textContent = opt;
+      lab.appendChild(inp);
+      lab.appendChild(div);
+      wrap.appendChild(lab);
+    });
+    $("exp_"+key).textContent = c.explanation;
+  }
+
+  function markCheck(key){
+    const c = checks[key];
+    const chosen = document.querySelector(`input[name="chk_${key}"]:checked`);
+    const res = $("res_"+key);
+    if(!chosen){
+      res.innerHTML = `<span style="color:var(--warn)"><b>Please choose an answer first.</b></span>`;
+      return;
+    }
+    const val = Number(chosen.value);
+    const ok = val === c.answer;
+    state.checksDone[key] = true;
+
+    res.innerHTML = ok
+      ? `<span class="good">✔ Correct</span> <span class="muted tiny">— ${c.options[c.answer]}</span>`
+      : `<span class="bad">✘ Incorrect</span> <span class="muted tiny">— Correct: ${c.options[c.answer]}</span>`;
+
+    setPills();
+  }
+
+  // Flashcards
+  function renderFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = false;
+    $("flashFace").textContent = card.front;
+    $("flashHint").textContent = "Hint: " + card.hint;
+    $("btnFlip").textContent = "Flip";
+  }
+  function flipFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = !state.flashFlipped;
+    $("flashFace").textContent = state.flashFlipped ? card.back : card.front;
+    $("btnFlip").textContent = state.flashFlipped ? "Show question" : "Flip";
+  }
+  function nextFlash(){
+    state.flashIndex = (state.flashIndex + 1) % flashcards.length;
+    renderFlash();
+  }
+
+  // Notes export
+  async function exportNotes(){
+    const txt = $("notesBox").value.trim();
+    if(!txt){
+      alert("No notes yet. Write a couple of lines first.");
+      return;
+    }
+    await navigator.clipboard.writeText(txt);
+    $("pillCopied").style.display = "inline-block";
+    setTimeout(()=> $("pillCopied").style.display = "none", 1200);
+  }
+
+  // Final quiz
+  function renderFinalQuiz(){
+    const qa = $("quizArea");
+    qa.innerHTML = "";
+    finalQuiz.forEach((q, idx) => {
+      const card = document.createElement("div");
+      card.className = "q";
+      card.innerHTML = `<b>Q${idx+1}.</b> ${q.q}`;
+      const opts = document.createElement("div");
+      opts.className = "opts";
+
+      q.options.forEach((opt, i) => {
+        const lab = document.createElement("label");
+        lab.className = "opt";
+        const inp = document.createElement("input");
+        inp.type = "radio";
+        inp.name = "final_"+q.id;
+        inp.value = i;
+        if(state.finalAnswers[q.id] === i) inp.checked = true;
+        inp.addEventListener("change", () => {
+          state.finalAnswers[q.id] = i;
+          setPills();
+        });
+        const div = document.createElement("div");
+        div.textContent = opt;
+        lab.appendChild(inp);
+        lab.appendChild(div);
+        opts.appendChild(lab);
+      });
+
+      card.appendChild(opts);
+      qa.appendChild(card);
+    });
+    setPills();
+  }
+
+  function markFinal(){
+    let correct = 0;
+    const total = finalQuiz.length;
+    const review = [];
+
+    finalQuiz.forEach((q) => {
+      const chosen = (q.id in state.finalAnswers) ? state.finalAnswers[q.id] : null;
+      const ok = chosen === q.a;
+      if(ok) correct++;
+      review.push({q, chosen, ok});
+    });
+
+    const pct = Math.round((correct/total)*100);
+    $("pillFinalScore").style.display = "inline-block";
+    $("pillFinalScore").textContent = `Final quiz score: ${correct}/${total} (${pct}%)`;
+
+    const fr = $("finalReview");
+    fr.innerHTML = review.map((r, i) => {
+      const tag = r.ok ? `<span class="tag good">Correct</span>` : `<span class="tag bad">Incorrect</span>`;
+      const your = (r.chosen===null) ? "<i>(blank)</i>" : r.q.options[r.chosen];
+      const cor = r.q.options[r.q.a];
+
+      return `
+        <div class="scoreBox" style="margin-top:10px;">
+          <div><b>Q${i+1}.</b> ${r.q.q} ${tag}</div>
+          <div class="muted" style="margin-top:6px;"><b>Your answer:</b> ${your}</div>
+          ${r.ok ? "" : `<div class="muted"><b>Correct answer:</b> ${cor}</div>`}
+          <div class="callout tiny"><b>Why:</b> ${r.q.exp}</div>
+        </div>
+      `;
+    }).join("");
+
+    scrollToId("finalReview");
+  }
+
+  function retryFinal(){
+    state.finalAnswers = {};
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+    renderFinalQuiz();
+    scrollToId("finalQuiz");
+  }
+
+  function resetAll(){
+    state.checksDone = {elemcomp:false, separate:false, numbers:false, elec:false};
+    state.finalAnswers = {};
+    state.flashIndex = 0;
+    state.flashFlipped = false;
+
+    $("notesBox").value = "";
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+
+    Object.keys(checks).forEach(renderCheck);
+    renderFlash();
+    renderFinalQuiz();
+    setPills();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  // Mark-scheme phrase copier
+  function showToast(msg){
+    const t = $("toast");
+    t.textContent = msg;
+    t.style.display = "block";
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=> t.style.display="none", 1100);
+  }
+  async function copyPhrase(btn){
+    const text = btn.parentElement.querySelector("div").innerText.trim();
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast("Copied!");
+    }catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      showToast("Copied!");
+    }
+  }
+
+  // Buttons
+  $("btnJumpNotes").addEventListener("click", ()=>scrollToId("notes"));
+  $("btnJumpPhrases").addEventListener("click", ()=>scrollToId("phrases"));
+  $("btnJumpFlash").addEventListener("click", ()=>scrollToId("flashcards"));
+  $("btnJumpQuiz").addEventListener("click", ()=>scrollToId("finalQuiz"));
+  $("btnReset").addEventListener("click", resetAll);
+
+  $("btnFlip").addEventListener("click", flipFlash);
+  $("btnNext").addEventListener("click", nextFlash);
+  $("btnAgain").addEventListener("click", ()=>nextFlash());
+  $("btnGood").addEventListener("click", ()=>nextFlash());
+
+  $("btnExport").addEventListener("click", exportNotes);
+  $("btnClearNotes").addEventListener("click", ()=>{$("notesBox").value="";});
+  $("btnMarkFinal").addEventListener("click", markFinal);
+  $("btnRetryFinal").addEventListener("click", retryFinal);
+
+  // Init
+  Object.keys(checks).forEach(renderCheck);
+  renderFlash();
+  renderFinalQuiz();
+  setPills();
+</script>
+</body>
+</html>
