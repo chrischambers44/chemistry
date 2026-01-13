@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AQA 5.1.2 Tutorial – The periodic table</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:rgba(255,255,255,.08); --card2:rgba(255,255,255,.06);
+      --text:#eef2ff; --muted:rgba(238,242,255,.75); --border:rgba(255,255,255,.14);
+      --accent:#7c5cff; --good:#2ecc71; --bad:#ff5c7a; --warn:#ffd166;
+    }
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:radial-gradient(1200px 650px at 10% 0%, rgba(124,92,255,.25), transparent 50%),
+                 radial-gradient(900px 550px at 90% 10%, rgba(46,204,113,.18), transparent 55%),
+                 linear-gradient(180deg, var(--bg), #050817);
+      color:var(--text);
+    }
+    header{max-width:1100px; margin:0 auto; padding:28px 18px 10px;}
+    h1{margin:0 0 8px; font-size:1.65rem;}
+    .sub{color:var(--muted); line-height:1.35; max-width:980px;}
+    .wrap{max-width:1100px; margin:0 auto; padding:12px 18px 48px; display:grid; gap:14px;}
+    .toolbar{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:var(--card);
+    }
+    .pill{padding:8px 10px; border-radius:999px; border:1px solid var(--border);
+      background:rgba(0,0,0,.18); color:var(--muted); font-size:.92rem; white-space:nowrap;}
+    button{
+      border:1px solid var(--border); background:rgba(255,255,255,.08); color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:650;
+    }
+    button:hover{border-color:rgba(255,255,255,.28);}
+    button.primary{
+      background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.55));
+      border-color:rgba(124,92,255,.65);
+    }
+    button.danger{
+      background:linear-gradient(135deg, rgba(255,92,122,.95), rgba(255,92,122,.45));
+      border-color:rgba(255,92,122,.6);
+    }
+    .card{padding:16px; border-radius:16px; border:1px solid var(--border); background:var(--card);}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:12px;}
+    h2{margin:0 0 10px; font-size:1.25rem;}
+    h3{margin:0 0 8px; font-size:1.05rem;}
+    .muted{color:var(--muted);}
+    .callout{
+      border-left:3px solid rgba(124,92,255,.7); padding:10px 12px; background:rgba(255,255,255,.05);
+      border-radius:12px; margin-top:10px; color:var(--muted); line-height:1.45;
+    }
+    .kbox{
+      border:1px solid var(--border); border-radius:14px; padding:12px; background:var(--card2);
+    }
+    ul{margin:8px 0 0 18px; color:var(--muted);}
+    .diagram{
+      border:1px dashed rgba(255,255,255,.24); border-radius:14px; padding:12px; background:rgba(0,0,0,.16);
+      color:var(--muted); line-height:1.45;
+    }
+    .q{
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.06);
+      margin-top:10px;
+    }
+    .opts{display:grid; gap:8px; margin-top:10px;}
+    label.opt{
+      display:grid; grid-template-columns:22px 1fr; gap:10px; align-items:start;
+      padding:10px 12px; border-radius:14px; border:1px solid var(--border);
+      background:rgba(0,0,0,.14); cursor:pointer;
+    }
+    label.opt:hover{border-color:rgba(255,255,255,.28);}
+    input[type="radio"]{margin-top:3px;}
+    .resultLine{margin-top:10px; font-weight:700;}
+    .good{color:#b7f7cd;}
+    .bad{color:#ffc1cb;}
+    details{border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.05); padding:10px 12px;}
+    summary{cursor:pointer; font-weight:750;}
+    .flash{
+      display:grid; gap:10px; align-items:center;
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(0,0,0,.16);
+    }
+    .flashFace{font-size:1.05rem; line-height:1.35;}
+    .flashBtns{display:flex; gap:10px; flex-wrap:wrap;}
+    .tiny{font-size:.92rem;}
+    textarea{
+      width:100%; min-height:90px; border-radius:12px; border:1px solid var(--border);
+      padding:10px; background:rgba(0,0,0,.18); color:var(--text);
+      resize:vertical;
+    }
+    .scoreBox{
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(255,255,255,.06);
+    }
+    .tag{
+      display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--border);
+      font-weight:800; font-size:.85rem; margin-left:8px;
+    }
+    .tag.good{background:rgba(46,204,113,.18); border-color:rgba(46,204,113,.35);}
+    .tag.bad{background:rgba(255,92,122,.16); border-color:rgba(255,92,122,.35);}
+    .phrase{
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.14);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .phrase button{ padding:8px 10px; border-radius:12px; }
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background:rgba(0,0,0,.75); border:1px solid rgba(255,255,255,.18);
+      color:var(--text); padding:10px 12px; border-radius:14px;
+      display:none; z-index:9999; font-weight:700;
+    }
+    .twoCol{
+      display:grid; grid-template-columns:1fr; gap:12px;
+    }
+    @media (min-width: 860px){
+      .twoCol{grid-template-columns: 1.1fr .9fr;}
+    }
+    code.k{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background:rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.14);
+      padding:2px 6px;
+      border-radius:8px;
+      color:rgba(238,242,255,.92);
+      white-space:nowrap;
+    }
+    table.pattern{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.12);
+      margin-top:10px;
+    }
+    table.pattern th, table.pattern td{
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      vertical-align:top;
+      text-align:left;
+      color:var(--muted);
+      line-height:1.35;
+    }
+    table.pattern th{
+      color:var(--text);
+      font-weight:800;
+      background:rgba(255,255,255,.06);
+    }
+    table.pattern tr:last-child td{border-bottom:none;}
+    .miniPTable{
+      display:grid;
+      grid-template-columns:repeat(10, minmax(0, 1fr));
+      gap:6px;
+      margin-top:10px;
+    }
+    .el{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.16);
+      border-radius:12px;
+      padding:8px 6px;
+      text-align:center;
+      color:var(--muted);
+      line-height:1.1;
+    }
+    .el b{display:block; color:var(--text); font-size:1rem;}
+    .el small{opacity:.85;}
+    .legend{
+      display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;
+    }
+    .chip{
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:999px;
+      padding:6px 10px;
+      background:rgba(0,0,0,.16);
+      color:var(--muted);
+      font-size:.9rem;
+      white-space:nowrap;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>AQA 5.1.2 Tutorial – The periodic table</h1>
+  <div class="sub">
+    This module covers <b>5.1.2</b>: how the periodic table is arranged; <b>groups and periods</b>;
+    <b>metals vs non-metals</b>; and trends in the <b>alkali metals (Group 1)</b>, <b>halogens (Group 7)</b> and
+    <b>noble gases (Group 0)</b>. (Plus the key idea that <b>group number links to outer electrons</b>.)
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <span class="pill" id="pillSection">Section: 5.1.2</span>
+      <span class="pill" id="pillProgress">Progress: 0%</span>
+      <span class="pill" id="pillChecks">Checks: 0/4 done</span>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <button id="btnJumpNotes">Jump to Notes</button>
+      <button id="btnJumpPhrases">Mark-scheme phrases</button>
+      <button id="btnJumpFlash">Jump to Flashcards</button>
+      <button class="primary" id="btnJumpQuiz">Jump to Final Quiz</button>
+      <button class="danger" id="btnReset">Reset progress</button>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="card" id="notes">
+    <h2>Core ideas for 5.1.2</h2>
+    <div class="callout">
+      The periodic table is arranged in order of <b>increasing atomic number</b>.
+      Elements in the same <b>group</b> have similar chemical properties because they have the same number of
+      <b>outer-shell electrons</b>.
+    </div>
+
+    <div class="twoCol" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.1.2.1 Arrangement: groups and periods</h3>
+        <ul>
+          <li><b>Atomic number</b> increases left → right (and down)</li>
+          <li><b>Group</b> = vertical column</li>
+          <li><b>Period</b> = horizontal row</li>
+          <li>For the first 20 elements: <b>group number = outer electrons</b></li>
+          <li><b>Period number = number of occupied shells</b></li>
+        </ul>
+
+        <div class="diagram tiny" style="margin-top:10px;">
+          Example: Sodium (11) is in Group 1 because it has <b>1 outer electron</b> (2,8,1).<br>
+          Chlorine (17) is in Group 7 because it has <b>7 outer electrons</b> (2,8,7).
+        </div>
+
+        <div class="legend">
+          <span class="chip"><b>Group</b> → outer electrons</span>
+          <span class="chip"><b>Period</b> → number of shells</span>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Metals and non-metals (big picture)</h3>
+        <ul>
+          <li>Most elements are <b>metals</b> (left and middle of table)</li>
+          <li><b>Non-metals</b> are on the right (plus hydrogen)</li>
+          <li>Metals generally form <b>positive ions</b> and are good conductors</li>
+          <li>Non-metals often form <b>negative ions</b> or share electrons (covalent bonding)</li>
+        </ul>
+
+        <div class="callout tiny">
+          When asked “why similar?”, say: “same number of outer electrons”.
+        </div>
+      </div>
+    </div>
+
+    <div class="twoCol" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.1.2.2 Group 1 (alkali metals) trends</h3>
+        <ul>
+          <li>Soft metals; low density (some float)</li>
+          <li>React with water to form <b>metal hydroxide + hydrogen</b></li>
+          <li>Reactivity <b>increases down the group</b></li>
+          <li>They have 1 outer electron → they form <b>+1 ions</b></li>
+        </ul>
+
+        <table class="pattern">
+          <thead>
+            <tr>
+              <th>Trend down Group 1</th>
+              <th>What happens?</th>
+              <th>Why (simple GCSE reasoning)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Reactivity</td>
+              <td><b>Increases</b></td>
+              <td>Outer electron is further from nucleus and more shielded → easier to lose</td>
+            </tr>
+            <tr>
+              <td>Melting point</td>
+              <td><b>Decreases</b> (general trend)</td>
+              <td>Weaker metallic bonding as atoms get larger</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.2.3 Group 7 (halogens) trends</h3>
+        <ul>
+          <li>Non-metals; exist as <b>diatomic molecules</b> (F₂, Cl₂, Br₂, I₂)</li>
+          <li>Form <b>−1 ions</b> by gaining one electron</li>
+          <li>Reactivity <b>decreases down the group</b></li>
+          <li>A more reactive halogen can <b>displace</b> a less reactive halogen from its salts</li>
+        </ul>
+
+        <table class="pattern">
+          <thead>
+            <tr>
+              <th>Trend down Group 7</th>
+              <th>What happens?</th>
+              <th>Why (simple GCSE reasoning)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Reactivity</td>
+              <td><b>Decreases</b></td>
+              <td>Harder to gain an electron because outer shell is further from nucleus and more shielded</td>
+            </tr>
+            <tr>
+              <td>Boiling point</td>
+              <td><b>Increases</b></td>
+              <td>Stronger intermolecular forces as molecules get larger</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="kbox" style="margin-top:12px;">
+      <h3>5.1.2.4 Group 0 (noble gases)</h3>
+      <ul>
+        <li>Very unreactive because they have a <b>full outer shell</b></li>
+        <li>Exist as <b>single atoms</b> (monatomic gases)</li>
+        <li>Boiling point <b>increases down the group</b> (bigger atoms → stronger forces)</li>
+      </ul>
+
+      <div class="callout tiny">
+        Mark-scheme idea: “They are unreactive because they have a full outer shell / stable electron arrangement.”
+      </div>
+
+      <div class="miniPTable" aria-label="mini table of key groups">
+        <div class="el"><b>Li</b><small>G1</small></div>
+        <div class="el"><b>Na</b><small>G1</small></div>
+        <div class="el"><b>K</b><small>G1</small></div>
+        <div class="el"><b>Rb</b><small>G1</small></div>
+        <div class="el"><b>Cs</b><small>G1</small></div>
+
+        <div class="el"><b>F</b><small>G7</small></div>
+        <div class="el"><b>Cl</b><small>G7</small></div>
+        <div class="el"><b>Br</b><small>G7</small></div>
+        <div class="el"><b>I</b><small>G7</small></div>
+        <div class="el"><b>At</b><small>G7</small></div>
+      </div>
+      <div class="miniPTable" style="margin-top:6px;">
+        <div class="el"><b>He</b><small>G0</small></div>
+        <div class="el"><b>Ne</b><small>G0</small></div>
+        <div class="el"><b>Ar</b><small>G0</small></div>
+        <div class="el"><b>Kr</b><small>G0</small></div>
+        <div class="el"><b>Xe</b><small>G0</small></div>
+        <div class="el"><b>Rn</b><small>G0</small></div>
+        <div class="el"><b>—</b><small>—</small></div>
+        <div class="el"><b>—</b><small>—</small></div>
+        <div class="el"><b>—</b><small>—</small></div>
+        <div class="el"><b>—</b><small>—</small></div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.1.2 Check 1: group vs period</h3>
+        <div class="q" data-check="groupp">
+          A <b>group</b> in the periodic table is a…
+          <div class="opts" id="opts_groupp"></div>
+          <button class="primary" onclick="markCheck('groupp')">Mark</button>
+          <div class="resultLine" id="res_groupp"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_groupp"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.2 Check 2: outer electrons</h3>
+        <div class="q" data-check="outer">
+          For the first 20 elements, the group number tells you the…
+          <div class="opts" id="opts_outer"></div>
+          <button class="primary" onclick="markCheck('outer')">Mark</button>
+          <div class="resultLine" id="res_outer"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_outer"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.2 Check 3: Group 1 trend</h3>
+        <div class="q" data-check="g1trend">
+          Reactivity of Group 1 metals down the group…
+          <div class="opts" id="opts_g1trend"></div>
+          <button class="primary" onclick="markCheck('g1trend')">Mark</button>
+          <div class="resultLine" id="res_g1trend"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_g1trend"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.2 Check 4: displacement idea</h3>
+        <div class="q" data-check="disp">
+          Chlorine can displace bromine from potassium bromide because…
+          <div class="opts" id="opts_disp"></div>
+          <button class="primary" onclick="markCheck('disp')">Mark</button>
+          <div class="resultLine" id="res_disp"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_disp"></div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <details style="margin-top:12px;">
+      <summary>Exam tip: “Explain the trend” questions</summary>
+      <div class="muted tiny" style="margin-top:10px; line-height:1.55;">
+        You don’t need complicated physics. AQA answers usually reward:
+        <b>distance from nucleus</b> + <b>shielding</b> + “easier/harder to lose or gain an electron”.
+      </div>
+    </details>
+  </div>
+
+  <!-- MARK-SCHEME PHRASES -->
+  <div class="card" id="phrases">
+    <h2>Common mark-scheme phrases (copy-friendly)</h2>
+    <div class="muted">Use these for short “explain why” questions and trend explanations.</div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Periodic table basics</h3>
+        <div class="phrase">
+          <div class="muted"><b>“The periodic table is arranged in order of increasing atomic number.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Elements in the same group have similar properties because they have the same number of outer-shell electrons.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Group 1</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Reactivity increases down Group 1 because the outer electron is further from the nucleus and more shielded, so it is lost more easily.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Group 7</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Reactivity decreases down Group 7 because it becomes harder to gain an electron due to increased distance and shielding.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“A more reactive halogen displaces a less reactive halogen from its salts.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Group 0</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Noble gases are unreactive because they have a full outer shell (stable electron arrangement).”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: For displacement questions, use the words <b>“more reactive”</b> and <b>“displaces”</b>.
+    </div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="card" id="flashcards">
+    <h2>Flashcards (retrieval practice)</h2>
+    <div class="muted">Click <b>Flip</b> then rate yourself. Aim for “Good” twice in a row.</div>
+
+    <div class="flash" style="margin-top:12px;">
+      <div class="flashFace" id="flashFace"></div>
+      <div class="muted tiny" id="flashHint"></div>
+      <div class="flashBtns">
+        <button id="btnFlip" class="primary">Flip</button>
+        <button id="btnAgain">Again</button>
+        <button id="btnGood">Good</button>
+        <button id="btnNext">Next</button>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: Make sure you can say the <b>trend direction</b> for each group without thinking (G1 ↑, G7 ↓, G0 unreactive).
+    </div>
+  </div>
+
+  <!-- NOTES / EXPORT -->
+  <div class="card">
+    <h2>My notes (optional)</h2>
+    <div class="muted">Write what’s confusing. Export to copy/paste into a revision log.</div>
+    <textarea id="notesBox" placeholder="Example: I confuse group and period, or I forget which way reactivity changes in Group 7..."></textarea>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+      <button id="btnExport" class="primary">Export notes (copy)</button>
+      <button id="btnClearNotes">Clear notes</button>
+      <span class="pill" id="pillCopied" style="display:none;">Copied!</span>
+    </div>
+  </div>
+
+  <!-- FINAL QUIZ -->
+  <div class="card" id="finalQuiz">
+    <h2>Final quiz (5.1.2)</h2>
+    <div class="muted">
+      Mixture of recall + application + transfer questions. (Not identical to past papers.)
+    </div>
+
+    <div id="quizArea" style="margin-top:12px;"></div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center;">
+      <button class="primary" id="btnMarkFinal">Mark final quiz</button>
+      <button id="btnRetryFinal">Retry final quiz</button>
+      <span class="pill" id="pillFinalScore" style="display:none;"></span>
+    </div>
+    <div id="finalReview" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+  // -------------------------
+  // Quick checks (4)
+  // -------------------------
+  const checks = {
+    groupp: {
+      options: [
+        "horizontal row",
+        "vertical column",
+        "diagonal line",
+        "random selection of elements"
+      ],
+      answer: 1,
+      explanation: "A group is a vertical column. A period is a horizontal row."
+    },
+    outer: {
+      options: [
+        "number of protons",
+        "number of shells",
+        "number of outer-shell electrons",
+        "atomic mass"
+      ],
+      answer: 2,
+      explanation: "For the first 20 elements, group number equals the number of outer-shell electrons."
+    },
+    g1trend: {
+      options: [
+        "decreases down the group",
+        "increases down the group",
+        "stays the same",
+        "changes randomly"
+      ],
+      answer: 1,
+      explanation: "Group 1 reactivity increases down the group because the outer electron is further from the nucleus and more shielded, so it is lost more easily."
+    },
+    disp: {
+      options: [
+        "chlorine is less reactive than bromine",
+        "chlorine is more reactive than bromine",
+        "bromine is a noble gas",
+        "potassium is a halogen"
+      ],
+      answer: 1,
+      explanation: "A more reactive halogen displaces a less reactive halogen from its salts. Chlorine is more reactive than bromine."
+    }
+  };
+
+  // -------------------------
+  // Flashcards
+  // -------------------------
+  const flashcards = [
+    {front:"How is the periodic table arranged?", back:"In order of increasing atomic number.", hint:"Atomic number ↑."},
+    {front:"What is a group?", back:"A vertical column in the periodic table.", hint:"Up/down."},
+    {front:"What is a period?", back:"A horizontal row in the periodic table.", hint:"Across."},
+    {front:"Why do elements in the same group have similar properties?", back:"They have the same number of outer-shell electrons.", hint:"Outer electrons."},
+    {front:"Group number tells you what (first 20 elements)?", back:"Number of outer-shell electrons.", hint:"Outer electrons."},
+    {front:"Period number tells you what?", back:"Number of occupied electron shells.", hint:"Shells."},
+    {front:"Group 1 reactivity down the group?", back:"Increases down the group.", hint:"G1 ↑."},
+    {front:"Why does Group 1 reactivity increase down the group?", back:"Outer electron is further from the nucleus and more shielded, so it is lost more easily.", hint:"Further + shielding."},
+    {front:"Group 7 reactivity down the group?", back:"Decreases down the group.", hint:"G7 ↓."},
+    {front:"Why does Group 7 reactivity decrease down the group?", back:"Harder to gain an electron because increased distance and shielding.", hint:"Harder to gain e⁻."},
+    {front:"What does ‘displacement’ mean (halogens)?", back:"A more reactive halogen replaces a less reactive halogen from its salts.", hint:"More reactive replaces."},
+    {front:"Why are noble gases unreactive?", back:"They have a full outer shell (stable electron arrangement).", hint:"Full outer shell."}
+  ];
+
+  // -------------------------
+  // Final quiz (10)
+  // -------------------------
+  const finalQuiz = [
+    {id:"F1", q:"The periodic table is arranged by increasing…", options:["mass number","atomic number","number of neutrons","number of shells"], a:1, exp:"Atomic number increases across the periodic table."},
+    {id:"F2", q:"A group is a…", options:["row","column","diagonal","block of metals"], a:1, exp:"Group = vertical column."},
+    {id:"F3", q:"Elements in the same group have similar properties because they have…", options:[
+      "the same number of protons",
+      "the same number of outer-shell electrons",
+      "the same mass number",
+      "the same number of shells"
+    ], a:1, exp:"Same outer electrons → similar reactions."},
+    {id:"F4", q:"Which is a correct trend for Group 1?", options:[
+      "Reactivity decreases down the group",
+      "Reactivity increases down the group",
+      "Reactivity is zero in all Group 1 metals",
+      "Reactivity changes randomly"
+    ], a:1, exp:"Reactivity increases down Group 1."},
+    {id:"F5", q:"Which is a correct trend for Group 7?", options:[
+      "Reactivity increases down the group",
+      "Reactivity decreases down the group",
+      "Boiling point decreases down the group",
+      "They form +1 ions"
+    ], a:1, exp:"Group 7 reactivity decreases down the group."},
+    {id:"F6", q:"Why are noble gases unreactive?", options:[
+      "They have no electrons",
+      "They have a full outer shell",
+      "They have extra neutrons",
+      "They are all metals"
+    ], a:1, exp:"Full outer shell = stable electron arrangement."},
+    {id:"F7", q:"Transfer: Which halogen can displace iodine from potassium iodide?", options:["iodine","bromine","chlorine","all of them"], a:2, exp:"A more reactive halogen displaces a less reactive one. Chlorine is above iodine and more reactive."},
+    {id:"F8", q:"Transfer: Which statement about halogens is correct?", options:[
+      "They exist as single atoms",
+      "They exist as diatomic molecules",
+      "They are all metals",
+      "They form +1 ions"
+    ], a:1, exp:"Halogens exist as diatomic molecules (e.g. Cl₂, Br₂)."},
+    {id:"F9", q:"For the first 20 elements, the period number tells you the…", options:[
+      "number of outer electrons",
+      "number of shells",
+      "number of neutrons",
+      "reactivity"
+    ], a:1, exp:"Period number corresponds to the number of occupied shells."},
+    {id:"F10", q:"Transfer: Potassium is more reactive than sodium because…", options:[
+      "it has more protons so it attracts electrons more strongly",
+      "its outer electron is further from the nucleus and more shielded, so it is lost more easily",
+      "it is a noble gas",
+      "it has fewer shells"
+    ], a:1, exp:"Further distance + shielding makes the outer electron easier to lose in potassium."}
+  ];
+
+  // -------------------------
+  // State
+  // -------------------------
+  const state = {
+    checksDone: {groupp:false, outer:false, g1trend:false, disp:false},
+    finalAnswers: {},
+    flashIndex: 0,
+    flashFlipped: false
+  };
+
+  function $(id){ return document.getElementById(id); }
+  function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:"smooth", block:"start"}); }
+
+  function setPills(){
+    const doneCount = Object.values(state.checksDone).filter(Boolean).length;
+    const progress = Math.round(((doneCount) / 4) * 60 + (Object.keys(state.finalAnswers).length / finalQuiz.length) * 40);
+    $("pillProgress").textContent = `Progress: ${progress}%`;
+    $("pillChecks").textContent = `Checks: ${doneCount}/4 done`;
+  }
+
+  function renderCheck(key){
+    const c = checks[key];
+    const wrap = $("opts_"+key);
+    wrap.innerHTML = "";
+    c.options.forEach((opt, i) => {
+      const lab = document.createElement("label");
+      lab.className = "opt";
+      const inp = document.createElement("input");
+      inp.type = "radio";
+      inp.name = "chk_"+key;
+      inp.value = i;
+      const div = document.createElement("div");
+      div.textContent = opt;
+      lab.appendChild(inp);
+      lab.appendChild(div);
+      wrap.appendChild(lab);
+    });
+    $("exp_"+key).textContent = c.explanation;
+  }
+
+  function markCheck(key){
+    const c = checks[key];
+    const chosen = document.querySelector(`input[name="chk_${key}"]:checked`);
+    const res = $("res_"+key);
+    if(!chosen){
+      res.innerHTML = `<span style="color:var(--warn)"><b>Please choose an answer first.</b></span>`;
+      return;
+    }
+    const val = Number(chosen.value);
+    const ok = val === c.answer;
+    state.checksDone[key] = true;
+
+    res.innerHTML = ok
+      ? `<span class="good">✔ Correct</span> <span class="muted tiny">— ${c.options[c.answer]}</span>`
+      : `<span class="bad">✘ Incorrect</span> <span class="muted tiny">— Correct: ${c.options[c.answer]}</span>`;
+
+    setPills();
+  }
+
+  // Flashcards
+  function renderFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = false;
+    $("flashFace").textContent = card.front;
+    $("flashHint").textContent = "Hint: " + card.hint;
+    $("btnFlip").textContent = "Flip";
+  }
+  function flipFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = !state.flashFlipped;
+    $("flashFace").textContent = state.flashFlipped ? card.back : card.front;
+    $("btnFlip").textContent = state.flashFlipped ? "Show question" : "Flip";
+  }
+  function nextFlash(){
+    state.flashIndex = (state.flashIndex + 1) % flashcards.length;
+    renderFlash();
+  }
+
+  // Notes export
+  async function exportNotes(){
+    const txt = $("notesBox").value.trim();
+    if(!txt){
+      alert("No notes yet. Write a couple of lines first.");
+      return;
+    }
+    await navigator.clipboard.writeText(txt);
+    $("pillCopied").style.display = "inline-block";
+    setTimeout(()=> $("pillCopied").style.display = "none", 1200);
+  }
+
+  // Final quiz
+  function renderFinalQuiz(){
+    const qa = $("quizArea");
+    qa.innerHTML = "";
+    finalQuiz.forEach((q, idx) => {
+      const card = document.createElement("div");
+      card.className = "q";
+      card.innerHTML = `<b>Q${idx+1}.</b> ${q.q}`;
+      const opts = document.createElement("div");
+      opts.className = "opts";
+
+      q.options.forEach((opt, i) => {
+        const lab = document.createElement("label");
+        lab.className = "opt";
+        const inp = document.createElement("input");
+        inp.type = "radio";
+        inp.name = "final_"+q.id;
+        inp.value = i;
+        if(state.finalAnswers[q.id] === i) inp.checked = true;
+        inp.addEventListener("change", () => {
+          state.finalAnswers[q.id] = i;
+          setPills();
+        });
+        const div = document.createElement("div");
+        div.textContent = opt;
+        lab.appendChild(inp);
+        lab.appendChild(div);
+        opts.appendChild(lab);
+      });
+
+      card.appendChild(opts);
+      qa.appendChild(card);
+    });
+    setPills();
+  }
+
+  function markFinal(){
+    let correct = 0;
+    const total = finalQuiz.length;
+    const review = [];
+
+    finalQuiz.forEach((q) => {
+      const chosen = (q.id in state.finalAnswers) ? state.finalAnswers[q.id] : null;
+      const ok = chosen === q.a;
+      if(ok) correct++;
+      review.push({q, chosen, ok});
+    });
+
+    const pct = Math.round((correct/total)*100);
+    $("pillFinalScore").style.display = "inline-block";
+    $("pillFinalScore").textContent = `Final quiz score: ${correct}/${total} (${pct}%)`;
+
+    const fr = $("finalReview");
+    fr.innerHTML = review.map((r, i) => {
+      const tag = r.ok ? `<span class="tag good">Correct</span>` : `<span class="tag bad">Incorrect</span>`;
+      const your = (r.chosen===null) ? "<i>(blank)</i>" : r.q.options[r.chosen];
+      const cor = r.q.options[r.q.a];
+
+      return `
+        <div class="scoreBox" style="margin-top:10px;">
+          <div><b>Q${i+1}.</b> ${r.q.q} ${tag}</div>
+          <div class="muted" style="margin-top:6px;"><b>Your answer:</b> ${your}</div>
+          ${r.ok ? "" : `<div class="muted"><b>Correct answer:</b> ${cor}</div>`}
+          <div class="callout tiny"><b>Why:</b> ${r.q.exp}</div>
+        </div>
+      `;
+    }).join("");
+
+    scrollToId("finalReview");
+  }
+
+  function retryFinal(){
+    state.finalAnswers = {};
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+    renderFinalQuiz();
+    scrollToId("finalQuiz");
+  }
+
+  function resetAll(){
+    state.checksDone = {groupp:false, outer:false, g1trend:false, disp:false};
+    state.finalAnswers = {};
+    state.flashIndex = 0;
+    state.flashFlipped = false;
+
+    $("notesBox").value = "";
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+
+    Object.keys(checks).forEach(renderCheck);
+    renderFlash();
+    renderFinalQuiz();
+    setPills();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  // Mark-scheme phrase copier
+  function showToast(msg){
+    const t = $("toast");
+    t.textContent = msg;
+    t.style.display = "block";
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=> t.style.display="none", 1100);
+  }
+  async function copyPhrase(btn){
+    const text = btn.parentElement.querySelector("div").innerText.trim();
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast("Copied!");
+    }catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      showToast("Copied!");
+    }
+  }
+
+  // Buttons
+  $("btnJumpNotes").addEventListener("click", ()=>scrollToId("notes"));
+  $("btnJumpPhrases").addEventListener("click", ()=>scrollToId("phrases"));
+  $("btnJumpFlash").addEventListener("click", ()=>scrollToId("flashcards"));
+  $("btnJumpQuiz").addEventListener("click", ()=>scrollToId("finalQuiz"));
+  $("btnReset").addEventListener("click", resetAll);
+
+  $("btnFlip").addEventListener("click", flipFlash);
+  $("btnNext").addEventListener("click", nextFlash);
+  $("btnAgain").addEventListener("click", ()=>nextFlash());
+  $("btnGood").addEventListener("click", ()=>nextFlash());
+
+  $("btnExport").addEventListener("click", exportNotes);
+  $("btnClearNotes").addEventListener("click", ()=>{$("notesBox").value="";});
+  $("btnMarkFinal").addEventListener("click", markFinal);
+  $("btnRetryFinal").addEventListener("click", retryFinal);
+
+  // Init
+  Object.keys(checks).forEach(renderCheck);
+  renderFlash();
+  renderFinalQuiz();
+  setPills();
+</script>
+</body>
+</html>
