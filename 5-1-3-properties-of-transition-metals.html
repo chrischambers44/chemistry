@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AQA 5.1.3 Tutorial – Structure and bonding of carbon</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:rgba(255,255,255,.08); --card2:rgba(255,255,255,.06);
+      --text:#eef2ff; --muted:rgba(238,242,255,.75); --border:rgba(255,255,255,.14);
+      --accent:#7c5cff; --good:#2ecc71; --bad:#ff5c7a; --warn:#ffd166;
+    }
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:radial-gradient(1200px 650px at 10% 0%, rgba(124,92,255,.25), transparent 50%),
+                 radial-gradient(900px 550px at 90% 10%, rgba(46,204,113,.18), transparent 55%),
+                 linear-gradient(180deg, var(--bg), #050817);
+      color:var(--text);
+    }
+    header{max-width:1100px; margin:0 auto; padding:28px 18px 10px;}
+    h1{margin:0 0 8px; font-size:1.65rem;}
+    .sub{color:var(--muted); line-height:1.35; max-width:980px;}
+    .wrap{max-width:1100px; margin:0 auto; padding:12px 18px 48px; display:grid; gap:14px;}
+    .toolbar{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:var(--card);
+    }
+    .pill{padding:8px 10px; border-radius:999px; border:1px solid var(--border);
+      background:rgba(0,0,0,.18); color:var(--muted); font-size:.92rem; white-space:nowrap;}
+    button{
+      border:1px solid var(--border); background:rgba(255,255,255,.08); color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:650;
+    }
+    button:hover{border-color:rgba(255,255,255,.28);}
+    button.primary{
+      background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.55));
+      border-color:rgba(124,92,255,.65);
+    }
+    button.danger{
+      background:linear-gradient(135deg, rgba(255,92,122,.95), rgba(255,92,122,.45));
+      border-color:rgba(255,92,122,.6);
+    }
+    .card{padding:16px; border-radius:16px; border:1px solid var(--border); background:var(--card);}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:12px;}
+    h2{margin:0 0 10px; font-size:1.25rem;}
+    h3{margin:0 0 8px; font-size:1.05rem;}
+    .muted{color:var(--muted);}
+    .callout{
+      border-left:3px solid rgba(124,92,255,.7); padding:10px 12px; background:rgba(255,255,255,.05);
+      border-radius:12px; margin-top:10px; color:var(--muted); line-height:1.45;
+    }
+    .kbox{
+      border:1px solid var(--border); border-radius:14px; padding:12px; background:var(--card2);
+    }
+    ul{margin:8px 0 0 18px; color:var(--muted);}
+    .diagram{
+      border:1px dashed rgba(255,255,255,.24); border-radius:14px; padding:12px; background:rgba(0,0,0,.16);
+      color:var(--muted); line-height:1.45;
+    }
+    .q{
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.06);
+      margin-top:10px;
+    }
+    .opts{display:grid; gap:8px; margin-top:10px;}
+    label.opt{
+      display:grid; grid-template-columns:22px 1fr; gap:10px; align-items:start;
+      padding:10px 12px; border-radius:14px; border:1px solid var(--border);
+      background:rgba(0,0,0,.14); cursor:pointer;
+    }
+    label.opt:hover{border-color:rgba(255,255,255,.28);}
+    input[type="radio"]{margin-top:3px;}
+    .resultLine{margin-top:10px; font-weight:700;}
+    .good{color:#b7f7cd;}
+    .bad{color:#ffc1cb;}
+    details{border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.05); padding:10px 12px;}
+    summary{cursor:pointer; font-weight:750;}
+    .flash{
+      display:grid; gap:10px; align-items:center;
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(0,0,0,.16);
+    }
+    .flashFace{font-size:1.05rem; line-height:1.35;}
+    .flashBtns{display:flex; gap:10px; flex-wrap:wrap;}
+    .tiny{font-size:.92rem;}
+    textarea{
+      width:100%; min-height:90px; border-radius:12px; border:1px solid var(--border);
+      padding:10px; background:rgba(0,0,0,.18); color:var(--text);
+      resize:vertical;
+    }
+    .scoreBox{
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(255,255,255,.06);
+    }
+    .tag{
+      display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--border);
+      font-weight:800; font-size:.85rem; margin-left:8px;
+    }
+    .tag.good{background:rgba(46,204,113,.18); border-color:rgba(46,204,113,.35);}
+    .tag.bad{background:rgba(255,92,122,.16); border-color:rgba(255,92,122,.35);}
+    .phrase{
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.14);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .phrase button{ padding:8px 10px; border-radius:12px; }
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background:rgba(0,0,0,.75); border:1px solid rgba(255,255,255,.18);
+      color:var(--text); padding:10px 12px; border-radius:14px;
+      display:none; z-index:9999; font-weight:700;
+    }
+    .twoCol{
+      display:grid; grid-template-columns:1fr; gap:12px;
+    }
+    @media (min-width: 860px){
+      .twoCol{grid-template-columns: 1.1fr .9fr;}
+    }
+    code.k{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background:rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.14);
+      padding:2px 6px;
+      border-radius:8px;
+      color:rgba(238,242,255,.92);
+      white-space:nowrap;
+    }
+    table.pattern{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.12);
+      margin-top:10px;
+    }
+    table.pattern th, table.pattern td{
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      vertical-align:top;
+      text-align:left;
+      color:var(--muted);
+      line-height:1.35;
+    }
+    table.pattern th{
+      color:var(--text);
+      font-weight:800;
+      background:rgba(255,255,255,.06);
+    }
+    table.pattern tr:last-child td{border-bottom:none;}
+    .sketch{
+      border:1px dashed rgba(255,255,255,.24);
+      border-radius:14px;
+      padding:12px;
+      background:rgba(0,0,0,.16);
+      color:var(--muted);
+      line-height:1.4;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      white-space:pre-wrap;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>AQA 5.1.3 Tutorial – Structure and bonding of carbon</h1>
+  <div class="sub">
+    This module covers <b>5.1.3</b>: why carbon forms so many compounds (<b>4 covalent bonds</b>),
+    and the key <b>carbon allotropes</b> you must compare: <b>diamond</b>, <b>graphite</b>, and (Higher) <b>graphene</b> and <b>fullerenes</b>,
+    including their <b>structures</b> and <b>properties</b>.
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <span class="pill" id="pillSection">Section: 5.1.3</span>
+      <span class="pill" id="pillProgress">Progress: 0%</span>
+      <span class="pill" id="pillChecks">Checks: 0/4 done</span>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <button id="btnJumpNotes">Jump to Notes</button>
+      <button id="btnJumpPhrases">Mark-scheme phrases</button>
+      <button id="btnJumpFlash">Jump to Flashcards</button>
+      <button class="primary" id="btnJumpQuiz">Jump to Final Quiz</button>
+      <button class="danger" id="btnReset">Reset progress</button>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="card" id="notes">
+    <h2>Core ideas for 5.1.3</h2>
+    <div class="callout">
+      Carbon has <b>4 outer electrons</b>, so it forms <b>4 covalent bonds</b>.
+      Carbon atoms can bond to each other, forming <b>chains</b> and <b>rings</b>. This is why there are so many carbon compounds.
+    </div>
+
+    <div class="twoCol" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Carbon bonding (why it forms many compounds)</h3>
+        <ul>
+          <li>Carbon is in <b>Group 4</b> → <b>4 outer electrons</b></li>
+          <li>It forms <b>4 covalent bonds</b> to get a full outer shell</li>
+          <li>Carbon can form <b>single bonds</b> (C–C) and (later, organic) double bonds</li>
+          <li>Carbon atoms can form <b>chains</b> and <b>rings</b></li>
+        </ul>
+        <div class="diagram tiny">
+          Example: methane is <code class="k">CH₄</code> because carbon forms 4 single covalent bonds.
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Allotropes of carbon</h3>
+        <div class="muted">
+          An <b>allotrope</b> is a different form of the same element, with atoms arranged differently.
+          Different structures → different properties.
+        </div>
+        <table class="pattern">
+          <thead>
+            <tr>
+              <th>Allotrope</th>
+              <th>Structure</th>
+              <th>Key properties (GCSE)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Diamond</b></td>
+              <td>Each carbon bonds to <b>4</b> others (giant covalent)</td>
+              <td>Very <b>hard</b>, very high melting point, <b>does not conduct</b></td>
+            </tr>
+            <tr>
+              <td><b>Graphite</b></td>
+              <td>Each carbon bonds to <b>3</b> others in layers; 1 electron per C is delocalised</td>
+              <td><b>Conducts</b>, soft/slippery (layers slide), high melting point</td>
+            </tr>
+            <tr>
+              <td><b>Graphene</b> (HT)</td>
+              <td>Single layer of graphite (one-atom thick sheet)</td>
+              <td>Very strong, conducts, flexible, huge surface area</td>
+            </tr>
+            <tr>
+              <td><b>Fullerenes</b> (HT)</td>
+              <td>Carbon arranged in hollow shapes (spheres/tubes)</td>
+              <td>Useful for drug delivery, catalysts, lubricants, electronics (examples)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="twoCol" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Diamond vs graphite: “structure → property” links</h3>
+        <div class="diagram">
+          <b>Diamond</b>: 4 covalent bonds per carbon → a rigid 3D network → <b>very hard</b>.<br>
+          No delocalised electrons → <b>does not conduct electricity</b>.
+        </div>
+        <div class="diagram" style="margin-top:10px;">
+          <b>Graphite</b>: 3 covalent bonds per carbon → layered structure.<br>
+          Layers held by weak forces → layers can slide → <b>soft / slippery</b>.<br>
+          One delocalised electron per carbon → <b>conducts electricity</b>.
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Simple “exam sketches” (words-only)</h3>
+        <div class="muted tiny">You don’t need to draw perfect hexagons, but you must describe the key features.</div>
+        <div class="sketch" style="margin-top:10px;">
+DIAMOND (3D network)
+- each carbon bonded to 4 others
+- strong covalent bonds in all directions
+
+GRAPHITE (layers)
+- each carbon bonded to 3 others in hexagonal layers
+- weak forces between layers
+- delocalised electrons within layers
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.1.3 Check 1: definition</h3>
+        <div class="q" data-check="allotrope">
+          What is an allotrope?
+          <div class="opts" id="opts_allotrope"></div>
+          <button class="primary" onclick="markCheck('allotrope')">Mark</button>
+          <div class="resultLine" id="res_allotrope"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_allotrope"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.3 Check 2: diamond property</h3>
+        <div class="q" data-check="diamond">
+          Diamond is very hard because…
+          <div class="opts" id="opts_diamond"></div>
+          <button class="primary" onclick="markCheck('diamond')">Mark</button>
+          <div class="resultLine" id="res_diamond"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_diamond"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.3 Check 3: graphite conductivity</h3>
+        <div class="q" data-check="conduct">
+          Graphite conducts electricity because…
+          <div class="opts" id="opts_conduct"></div>
+          <button class="primary" onclick="markCheck('conduct')">Mark</button>
+          <div class="resultLine" id="res_conduct"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_conduct"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.3 Check 4: graphene description</h3>
+        <div class="q" data-check="graphene">
+          Which statement best describes graphene?
+          <div class="opts" id="opts_graphene"></div>
+          <button class="primary" onclick="markCheck('graphene')">Mark</button>
+          <div class="resultLine" id="res_graphene"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_graphene"></div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <details style="margin-top:12px;">
+      <summary>Exam tip: the “magic words” for carbon allotropes</summary>
+      <div class="muted tiny" style="margin-top:10px; line-height:1.55;">
+        Diamond: <b>4 bonds</b>, <b>giant covalent</b>, <b>hard</b>, <b>no delocalised electrons</b> (no conduction).<br>
+        Graphite: <b>3 bonds</b>, <b>layers</b>, <b>weak forces between layers</b>, <b>delocalised electrons</b> (conducts).<br>
+        Graphene (HT): <b>single layer</b>, <b>strong</b>, <b>conducts</b>, <b>flexible</b>, <b>high surface area</b>.
+      </div>
+    </details>
+  </div>
+
+  <!-- MARK-SCHEME PHRASES -->
+  <div class="card" id="phrases">
+    <h2>Common mark-scheme phrases (copy-friendly)</h2>
+    <div class="muted">These are the exact kind of sentences that score marks in “explain why” questions.</div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Allotropes</h3>
+        <div class="phrase">
+          <div class="muted"><b>“An allotrope is a different form of the same element with a different arrangement of atoms.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Diamond</h3>
+        <div class="phrase">
+          <div class="muted"><b>“In diamond, each carbon atom forms four covalent bonds in a giant covalent structure, making it very hard.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Diamond does not conduct because it has no delocalised electrons.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Graphite</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Graphite has layers; weak forces between layers allow them to slide, so graphite is soft/slippery.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Graphite conducts because it has delocalised electrons that can move through the structure.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Graphene / fullerenes (HT)</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Graphene is a single layer of graphite; it is very strong and conducts electricity.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Fullerenes are carbon molecules with hollow shapes; they have potential uses such as drug delivery and catalysts.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: If you ever say “strong covalent bonds” + “giant covalent structure” + “delocalised electrons”, you are usually on the right track.
+    </div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="card" id="flashcards">
+    <h2>Flashcards (retrieval practice)</h2>
+    <div class="muted">Click <b>Flip</b> then rate yourself. Aim for “Good” twice in a row.</div>
+
+    <div class="flash" style="margin-top:12px;">
+      <div class="flashFace" id="flashFace"></div>
+      <div class="muted tiny" id="flashHint"></div>
+      <div class="flashBtns">
+        <button id="btnFlip" class="primary">Flip</button>
+        <button id="btnAgain">Again</button>
+        <button id="btnGood">Good</button>
+        <button id="btnNext">Next</button>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: Practise answering “Why does graphite conduct but diamond doesn’t?” in one sentence.
+    </div>
+  </div>
+
+  <!-- NOTES / EXPORT -->
+  <div class="card">
+    <h2>My notes (optional)</h2>
+    <div class="muted">Write what’s confusing. Export to copy/paste into a revision log.</div>
+    <textarea id="notesBox" placeholder="Example: I mix up diamond vs graphite, or I forget what an allotrope means..."></textarea>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+      <button id="btnExport" class="primary">Export notes (copy)</button>
+      <button id="btnClearNotes">Clear notes</button>
+      <span class="pill" id="pillCopied" style="display:none;">Copied!</span>
+    </div>
+  </div>
+
+  <!-- FINAL QUIZ -->
+  <div class="card" id="finalQuiz">
+    <h2>Final quiz (5.1.3)</h2>
+    <div class="muted">
+      Mixture of recall + application + transfer questions. (Not identical to past papers.)
+    </div>
+
+    <div id="quizArea" style="margin-top:12px;"></div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center;">
+      <button class="primary" id="btnMarkFinal">Mark final quiz</button>
+      <button id="btnRetryFinal">Retry final quiz</button>
+      <span class="pill" id="pillFinalScore" style="display:none;"></span>
+    </div>
+    <div id="finalReview" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+  // -------------------------
+  // Quick checks (4)
+  // -------------------------
+  const checks = {
+    allotrope: {
+      options: [
+        "A different element with the same atomic number",
+        "A compound containing carbon",
+        "A different form of the same element with a different arrangement of atoms",
+        "A mixture of carbon and oxygen"
+      ],
+      answer: 2,
+      explanation: "Allotropes are different forms of the same element (here carbon) where the atoms are arranged differently, giving different properties."
+    },
+    diamond: {
+      options: [
+        "it has weak forces between layers",
+        "each carbon forms four strong covalent bonds in a giant covalent structure",
+        "it has delocalised electrons that can move",
+        "it melts at a low temperature"
+      ],
+      answer: 1,
+      explanation: "Diamond is a giant covalent structure: each carbon bonds to 4 others, making a rigid 3D network. Strong covalent bonds make it very hard."
+    },
+    conduct: {
+      options: [
+        "it has delocalised electrons that can move through the layers",
+        "it is made of ions",
+        "it has a full outer shell",
+        "it has no electrons"
+      ],
+      answer: 0,
+      explanation: "Graphite has one delocalised electron per carbon that can move and carry charge, so graphite conducts electricity."
+    },
+    graphene: {
+      options: [
+        "a 3D network where each carbon bonds to 4 others",
+        "a single layer of carbon atoms arranged in hexagons (one atom thick)",
+        "a mixture of carbon and hydrogen",
+        "carbon atoms bonded to oxygen atoms"
+      ],
+      answer: 1,
+      explanation: "Graphene is a single layer of graphite: a one-atom-thick sheet of carbon atoms in a hexagonal arrangement."
+    }
+  };
+
+  // -------------------------
+  // Flashcards
+  // -------------------------
+  const flashcards = [
+    {front:"Why can carbon form many different compounds?", back:"Carbon forms 4 covalent bonds and can bond to itself in chains and rings.", hint:"4 bonds + chains."},
+    {front:"What is an allotrope?", back:"A different form of the same element with a different arrangement of atoms.", hint:"Same element, different structure."},
+    {front:"Diamond: how many bonds per carbon?", back:"4", hint:"3D network."},
+    {front:"Graphite: how many bonds per carbon?", back:"3", hint:"Layers."},
+    {front:"Why is diamond hard?", back:"Each carbon forms 4 strong covalent bonds in a giant covalent structure (rigid network).", hint:"Strong bonds in all directions."},
+    {front:"Why does diamond not conduct electricity?", back:"No delocalised electrons.", hint:"No mobile electrons."},
+    {front:"Why is graphite soft/slippery?", back:"Layers are held together by weak forces so they can slide over each other.", hint:"Layers slide."},
+    {front:"Why does graphite conduct electricity?", back:"It has delocalised electrons that can move through the structure.", hint:"Delocalised electrons."},
+    {front:"What is graphene?", back:"A single layer of graphite (one atom thick) in a hexagonal lattice.", hint:"Single layer."},
+    {front:"Give one use of fullerenes (HT).", back:"Drug delivery, catalysts, lubricants, or electronics (any one).", hint:"Hollow shapes → useful."}
+  ];
+
+  // -------------------------
+  // Final quiz (10)
+  // -------------------------
+  const finalQuiz = [
+    {id:"F1", q:"Carbon forms many compounds mainly because it…", options:[
+      "has a full outer shell",
+      "forms four covalent bonds and can bond to itself",
+      "is a metal",
+      "forms ionic bonds only"
+    ], a:1, exp:"Carbon forms 4 covalent bonds and can form chains/rings with itself."},
+    {id:"F2", q:"Which statement best describes an allotrope?", options:[
+      "A compound with carbon in it",
+      "A different element with similar properties",
+      "A different form of the same element with a different arrangement of atoms",
+      "A mixture of carbon and another element"
+    ], a:2, exp:"Allotropes are different structures of the same element."},
+    {id:"F3", q:"Diamond is very hard because…", options:[
+      "it has layers that slide",
+      "each carbon atom forms four strong covalent bonds in a giant covalent structure",
+      "it has delocalised ions",
+      "it has weak intermolecular forces"
+    ], a:1, exp:"Strong covalent bonds in a rigid 3D network make diamond hard."},
+    {id:"F4", q:"Diamond does not conduct electricity because…", options:[
+      "it has no protons",
+      "it has no delocalised electrons",
+      "it contains water",
+      "it is made of ions"
+    ], a:1, exp:"No mobile (delocalised) electrons in diamond."},
+    {id:"F5", q:"Graphite is soft because…", options:[
+      "it has weak forces between layers so the layers can slide",
+      "it has strong covalent bonds between layers",
+      "it is a liquid at room temperature",
+      "it contains delocalised protons"
+    ], a:0, exp:"Layers slide because forces between them are weak."},
+    {id:"F6", q:"Graphite conducts electricity because…", options:[
+      "it has delocalised electrons that can move",
+      "it has a full outer shell",
+      "it has no electrons",
+      "it is ionic"
+    ], a:0, exp:"Delocalised electrons move through the structure and carry charge."},
+    {id:"F7", q:"Which is the best description of graphene?", options:[
+      "A 3D network of carbon with 4 bonds per carbon",
+      "A single layer of carbon atoms arranged in hexagons",
+      "Carbon mixed with oxygen",
+      "A metal alloy containing carbon"
+    ], a:1, exp:"Graphene is a one-atom-thick sheet (single layer) of carbon atoms."},
+    {id:"F8", q:"Transfer: Which pair correctly matches structure to property?", options:[
+      "Diamond: layers slide → soft",
+      "Graphite: delocalised electrons → conducts",
+      "Graphene: 3D network → brittle",
+      "Diamond: delocalised electrons → conducts"
+    ], a:1, exp:"Graphite conducts due to delocalised electrons."},
+    {id:"F9", q:"Higher: fullerenes are…", options:[
+      "ionic lattices made of carbon ions",
+      "hollow structures of carbon atoms (spheres/tubes)",
+      "single oxygen atoms",
+      "mixtures of carbon and hydrogen"
+    ], a:1, exp:"Fullerenes are hollow carbon molecules, e.g. buckyballs or nanotubes."},
+    {id:"F10", q:"Transfer: The best reason diamond has a very high melting point is…", options:[
+      "it has weak forces between molecules",
+      "it is made of small molecules",
+      "it has many strong covalent bonds in a giant covalent structure",
+      "it has delocalised ions"
+    ], a:2, exp:"Giant covalent structure → many strong covalent bonds need lots of energy to break."}
+  ];
+
+  // -------------------------
+  // State
+  // -------------------------
+  const state = {
+    checksDone: {allotrope:false, diamond:false, conduct:false, graphene:false},
+    finalAnswers: {},
+    flashIndex: 0,
+    flashFlipped: false
+  };
+
+  function $(id){ return document.getElementById(id); }
+  function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:"smooth", block:"start"}); }
+
+  function setPills(){
+    const doneCount = Object.values(state.checksDone).filter(Boolean).length;
+    const progress = Math.round(((doneCount) / 4) * 60 + (Object.keys(state.finalAnswers).length / finalQuiz.length) * 40);
+    $("pillProgress").textContent = `Progress: ${progress}%`;
+    $("pillChecks").textContent = `Checks: ${doneCount}/4 done`;
+  }
+
+  function renderCheck(key){
+    const c = checks[key];
+    const wrap = $("opts_"+key);
+    wrap.innerHTML = "";
+    c.options.forEach((opt, i) => {
+      const lab = document.createElement("label");
+      lab.className = "opt";
+      const inp = document.createElement("input");
+      inp.type = "radio";
+      inp.name = "chk_"+key;
+      inp.value = i;
+      const div = document.createElement("div");
+      div.textContent = opt;
+      lab.appendChild(inp);
+      lab.appendChild(div);
+      wrap.appendChild(lab);
+    });
+    $("exp_"+key).textContent = c.explanation;
+  }
+
+  function markCheck(key){
+    const c = checks[key];
+    const chosen = document.querySelector(`input[name="chk_${key}"]:checked`);
+    const res = $("res_"+key);
+    if(!chosen){
+      res.innerHTML = `<span style="color:var(--warn)"><b>Please choose an answer first.</b></span>`;
+      return;
+    }
+    const val = Number(chosen.value);
+    const ok = val === c.answer;
+    state.checksDone[key] = true;
+
+    res.innerHTML = ok
+      ? `<span class="good">✔ Correct</span> <span class="muted tiny">— ${c.options[c.answer]}</span>`
+      : `<span class="bad">✘ Incorrect</span> <span class="muted tiny">— Correct: ${c.options[c.answer]}</span>`;
+
+    setPills();
+  }
+
+  // Flashcards
+  function renderFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = false;
+    $("flashFace").textContent = card.front;
+    $("flashHint").textContent = "Hint: " + card.hint;
+    $("btnFlip").textContent = "Flip";
+  }
+  function flipFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = !state.flashFlipped;
+    $("flashFace").textContent = state.flashFlipped ? card.back : card.front;
+    $("btnFlip").textContent = state.flashFlipped ? "Show question" : "Flip";
+  }
+  function nextFlash(){
+    state.flashIndex = (state.flashIndex + 1) % flashcards.length;
+    renderFlash();
+  }
+
+  // Notes export
+  async function exportNotes(){
+    const txt = $("notesBox").value.trim();
+    if(!txt){
+      alert("No notes yet. Write a couple of lines first.");
+      return;
+    }
+    await navigator.clipboard.writeText(txt);
+    $("pillCopied").style.display = "inline-block";
+    setTimeout(()=> $("pillCopied").style.display = "none", 1200);
+  }
+
+  // Final quiz
+  function renderFinalQuiz(){
+    const qa = $("quizArea");
+    qa.innerHTML = "";
+    finalQuiz.forEach((q, idx) => {
+      const card = document.createElement("div");
+      card.className = "q";
+      card.innerHTML = `<b>Q${idx+1}.</b> ${q.q}`;
+      const opts = document.createElement("div");
+      opts.className = "opts";
+
+      q.options.forEach((opt, i) => {
+        const lab = document.createElement("label");
+        lab.className = "opt";
+        const inp = document.createElement("input");
+        inp.type = "radio";
+        inp.name = "final_"+q.id;
+        inp.value = i;
+        if(state.finalAnswers[q.id] === i) inp.checked = true;
+        inp.addEventListener("change", () => {
+          state.finalAnswers[q.id] = i;
+          setPills();
+        });
+        const div = document.createElement("div");
+        div.textContent = opt;
+        lab.appendChild(inp);
+        lab.appendChild(div);
+        opts.appendChild(lab);
+      });
+
+      card.appendChild(opts);
+      qa.appendChild(card);
+    });
+    setPills();
+  }
+
+  function markFinal(){
+    let correct = 0;
+    const total = finalQuiz.length;
+    const review = [];
+
+    finalQuiz.forEach((q) => {
+      const chosen = (q.id in state.finalAnswers) ? state.finalAnswers[q.id] : null;
+      const ok = chosen === q.a;
+      if(ok) correct++;
+      review.push({q, chosen, ok});
+    });
+
+    const pct = Math.round((correct/total)*100);
+    $("pillFinalScore").style.display = "inline-block";
+    $("pillFinalScore").textContent = `Final quiz score: ${correct}/${total} (${pct}%)`;
+
+    const fr = $("finalReview");
+    fr.innerHTML = review.map((r, i) => {
+      const tag = r.ok ? `<span class="tag good">Correct</span>` : `<span class="tag bad">Incorrect</span>`;
+      const your = (r.chosen===null) ? "<i>(blank)</i>" : r.q.options[r.chosen];
+      const cor = r.q.options[r.q.a];
+
+      return `
+        <div class="scoreBox" style="margin-top:10px;">
+          <div><b>Q${i+1}.</b> ${r.q.q} ${tag}</div>
+          <div class="muted" style="margin-top:6px;"><b>Your answer:</b> ${your}</div>
+          ${r.ok ? "" : `<div class="muted"><b>Correct answer:</b> ${cor}</div>`}
+          <div class="callout tiny"><b>Why:</b> ${r.q.exp}</div>
+        </div>
+      `;
+    }).join("");
+
+    scrollToId("finalReview");
+  }
+
+  function retryFinal(){
+    state.finalAnswers = {};
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+    renderFinalQuiz();
+    scrollToId("finalQuiz");
+  }
+
+  function resetAll(){
+    state.checksDone = {allotrope:false, diamond:false, conduct:false, graphene:false};
+    state.finalAnswers = {};
+    state.flashIndex = 0;
+    state.flashFlipped = false;
+
+    $("notesBox").value = "";
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+
+    Object.keys(checks).forEach(renderCheck);
+    renderFlash();
+    renderFinalQuiz();
+    setPills();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  // Mark-scheme phrase copier
+  function showToast(msg){
+    const t = $("toast");
+    t.textContent = msg;
+    t.style.display = "block";
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=> t.style.display="none", 1100);
+  }
+  async function copyPhrase(btn){
+    const text = btn.parentElement.querySelector("div").innerText.trim();
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast("Copied!");
+    }catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      showToast("Copied!");
+    }
+  }
+
+  // Buttons
+  $("btnJumpNotes").addEventListener("click", ()=>scrollToId("notes"));
+  $("btnJumpPhrases").addEventListener("click", ()=>scrollToId("phrases"));
+  $("btnJumpFlash").addEventListener("click", ()=>scrollToId("flashcards"));
+  $("btnJumpQuiz").addEventListener("click", ()=>scrollToId("finalQuiz"));
+  $("btnReset").addEventListener("click", resetAll);
+
+  $("btnFlip").addEventListener("click", flipFlash);
+  $("btnNext").addEventListener("click", nextFlash);
+  $("btnAgain").addEventListener("click", ()=>nextFlash());
+  $("btnGood").addEventListener("click", ()=>nextFlash());
+
+  $("btnExport").addEventListener("click", exportNotes);
+  $("btnClearNotes").addEventListener("click", ()=>{$("notesBox").value="";});
+  $("btnMarkFinal").addEventListener("click", markFinal);
+  $("btnRetryFinal").addEventListener("click", retryFinal);
+
+  // Init
+  Object.keys(checks).forEach(renderCheck);
+  renderFlash();
+  renderFinalQuiz();
+  setPills();
+</script>
+</body>
+</html>
