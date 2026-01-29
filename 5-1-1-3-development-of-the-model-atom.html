@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AQA 5.1.1.3 Tutorial – Development of the model of the atom</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:rgba(255,255,255,.08); --card2:rgba(255,255,255,.06);
+      --text:#eef2ff; --muted:rgba(238,242,255,.75); --border:rgba(255,255,255,.14);
+      --accent:#7c5cff; --good:#2ecc71; --bad:#ff5c7a; --warn:#ffd166;
+    }
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:radial-gradient(1200px 650px at 10% 0%, rgba(124,92,255,.25), transparent 50%),
+                 radial-gradient(900px 550px at 90% 10%, rgba(46,204,113,.18), transparent 55%),
+                 linear-gradient(180deg, var(--bg), #050817);
+      color:var(--text);
+    }
+    header{max-width:1100px; margin:0 auto; padding:28px 18px 10px;}
+    h1{margin:0 0 8px; font-size:1.65rem;}
+    .sub{color:var(--muted); line-height:1.35; max-width:980px;}
+    .wrap{max-width:1100px; margin:0 auto; padding:12px 18px 48px; display:grid; gap:14px;}
+    .toolbar{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:var(--card);
+    }
+    .pill{padding:8px 10px; border-radius:999px; border:1px solid var(--border);
+      background:rgba(0,0,0,.18); color:var(--muted); font-size:.92rem; white-space:nowrap;}
+    button{
+      border:1px solid var(--border); background:rgba(255,255,255,.08); color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:650;
+    }
+    button:hover{border-color:rgba(255,255,255,.28);}
+    button.primary{
+      background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.55));
+      border-color:rgba(124,92,255,.65);
+    }
+    button.danger{
+      background:linear-gradient(135deg, rgba(255,92,122,.95), rgba(255,92,122,.45));
+      border-color:rgba(255,92,122,.6);
+    }
+    .card{padding:16px; border-radius:16px; border:1px solid var(--border); background:var(--card);}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:12px;}
+    h2{margin:0 0 10px; font-size:1.25rem;}
+    h3{margin:0 0 8px; font-size:1.05rem;}
+    .muted{color:var(--muted);}
+    .callout{
+      border-left:3px solid rgba(124,92,255,.7); padding:10px 12px; background:rgba(255,255,255,.05);
+      border-radius:12px; margin-top:10px; color:var(--muted); line-height:1.45;
+    }
+    .kbox{
+      border:1px solid var(--border); border-radius:14px; padding:12px; background:var(--card2);
+    }
+    ul{margin:8px 0 0 18px; color:var(--muted);}
+    .diagram{
+      border:1px dashed rgba(255,255,255,.24); border-radius:14px; padding:12px; background:rgba(0,0,0,.16);
+      color:var(--muted); line-height:1.45;
+    }
+    .q{
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.06);
+      margin-top:10px;
+    }
+    .opts{display:grid; gap:8px; margin-top:10px;}
+    label.opt{
+      display:grid; grid-template-columns:22px 1fr; gap:10px; align-items:start;
+      padding:10px 12px; border-radius:14px; border:1px solid var(--border);
+      background:rgba(0,0,0,.14); cursor:pointer;
+    }
+    label.opt:hover{border-color:rgba(255,255,255,.28);}
+    input[type="radio"]{margin-top:3px;}
+    .resultLine{margin-top:10px; font-weight:700;}
+    .good{color:#b7f7cd;}
+    .bad{color:#ffc1cb;}
+    details{border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.05); padding:10px 12px;}
+    summary{cursor:pointer; font-weight:750;}
+    .flash{
+      display:grid; gap:10px; align-items:center;
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(0,0,0,.16);
+    }
+    .flashFace{font-size:1.05rem; line-height:1.35;}
+    .flashBtns{display:flex; gap:10px; flex-wrap:wrap;}
+    .tiny{font-size:.92rem;}
+    textarea{
+      width:100%; min-height:90px; border-radius:12px; border:1px solid var(--border);
+      padding:10px; background:rgba(0,0,0,.18); color:var(--text);
+      resize:vertical;
+    }
+    .scoreBox{
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(255,255,255,.06);
+    }
+    .tag{
+      display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--border);
+      font-weight:800; font-size:.85rem; margin-left:8px;
+    }
+    .tag.good{background:rgba(46,204,113,.18); border-color:rgba(46,204,113,.35);}
+    .tag.bad{background:rgba(255,92,122,.16); border-color:rgba(255,92,122,.35);}
+    .phrase{
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.14);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .phrase button{ padding:8px 10px; border-radius:12px; }
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background:rgba(0,0,0,.75); border:1px solid rgba(255,255,255,.18);
+      color:var(--text); padding:10px 12px; border-radius:14px;
+      display:none; z-index:9999; font-weight:700;
+    }
+    .timeline{
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.14);
+      padding:12px;
+      color:var(--muted);
+      line-height:1.55;
+    }
+    .event{
+      border-left:3px solid rgba(124,92,255,.6);
+      padding:10px 12px;
+      margin:10px 0;
+      background:rgba(255,255,255,.04);
+      border-radius:12px;
+    }
+    .event b{color:var(--text);}
+    code.k{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background:rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.14);
+      padding:2px 6px;
+      border-radius:8px;
+      color:rgba(238,242,255,.92);
+      white-space:nowrap;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>AQA 5.1.1.3 – Development of the model of the atom</h1>
+  <div class="sub">
+    This module covers <b>5.1.1.3</b>: how scientists’ ideas about atoms changed over time.
+    You need to know the key models (<b>Dalton</b>, <b>Thomson</b>, <b>Rutherford</b>, <b>Bohr</b>) and the key experiments
+    (especially <b>alpha particle scattering</b>).
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <span class="pill" id="pillSection">Section: 5.1.1.3</span>
+      <span class="pill" id="pillProgress">Progress: 0%</span>
+      <span class="pill" id="pillChecks">Checks: 0/4 done</span>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <button id="btnJumpNotes">Jump to Notes</button>
+      <button id="btnJumpPhrases">Mark-scheme phrases</button>
+      <button id="btnJumpFlash">Jump to Flashcards</button>
+      <button class="primary" id="btnJumpQuiz">Jump to Final Quiz</button>
+      <button class="danger" id="btnReset">Reset progress</button>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="card" id="notes">
+    <h2>Core ideas for 5.1.1.3</h2>
+    <div class="callout">
+      The atomic model changed because <b>new experimental evidence</b> didn’t fit the old model.
+      GCSE questions often test the <b>sequence</b> of models and the <b>conclusions</b> from the alpha scattering experiment.
+    </div>
+
+    <div class="timeline" style="margin-top:12px;">
+      <div class="event">
+        <b>Dalton (early 1800s)</b><br>
+        Atoms are tiny <b>solid spheres</b>. Each element is made of one type of atom.
+      </div>
+      <div class="event">
+        <b>Thomson (1897)</b><br>
+        Discovery of the <b>electron</b> → “<b>plum pudding model</b>”: a ball of positive charge with negative electrons embedded.
+      </div>
+      <div class="event">
+        <b>Rutherford (1909–1911)</b><br>
+        <b>Alpha particle scattering</b> showed the atom has a <b>small, dense, positively charged nucleus</b> and is mostly <b>empty space</b>.
+      </div>
+      <div class="event">
+        <b>Bohr (1913)</b><br>
+        Electrons orbit the nucleus in <b>fixed energy levels (shells)</b>. This explained why atoms are stable.
+      </div>
+      <div class="event">
+        <b>Later development (modern model)</b><br>
+        Evidence led to the idea that electrons exist in regions called <b>orbitals</b> (beyond GCSE detail).
+      </div>
+    </div>
+
+    <div class="twoCol" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Alpha scattering: what happened?</h3>
+        <div class="diagram">
+          Scientists fired <b>alpha particles</b> at a thin sheet of gold foil.
+          They observed:
+          <ul>
+            <li>Most went straight through</li>
+            <li>Some were deflected (changed direction)</li>
+            <li>A tiny number bounced back</li>
+          </ul>
+        </div>
+        <details style="margin-top:10px;">
+          <summary>Why is this surprising?</summary>
+          <div class="muted tiny" style="margin-top:8px; line-height:1.55;">
+            If the plum pudding model were correct (positive charge spread out), alpha particles should pass through
+            with only small deflections.
+            Large deflections and bouncing back suggested a <b>concentrated positive centre</b>.
+          </div>
+        </details>
+      </div>
+
+      <div class="kbox">
+        <h3>Alpha scattering: conclusions (the mark points)</h3>
+        <ul>
+          <li>Most particles passed through → the atom is mostly <b>empty space</b></li>
+          <li>Some deflected → there is a <b>positive charge</b> in the atom</li>
+          <li>Very few bounced back → the positive charge (and mass) is in a <b>tiny, dense nucleus</b></li>
+        </ul>
+        <div class="callout tiny">
+          Exam-safe wording: “A small, dense, positively charged nucleus” + “mostly empty space”.
+        </div>
+      </div>
+    </div>
+
+    <details style="margin-top:12px;">
+      <summary>Common confusion: what did Bohr add?</summary>
+      <div class="muted tiny" style="margin-top:10px; line-height:1.6;">
+        Rutherford’s model had a nucleus, but electrons orbiting like planets didn’t explain why electrons
+        don’t spiral into the nucleus. Bohr proposed electrons are in <b>fixed energy levels</b>.
+      </div>
+    </details>
+
+    <!-- QUICK CHECKS -->
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.1.1.3 Check 1: order</h3>
+        <div class="q" data-check="order">
+          Which order is correct (old → new)?
+          <div class="opts" id="opts_order"></div>
+          <button class="primary" onclick="markCheck('order')">Mark</button>
+          <div class="resultLine" id="res_order"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_order"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.1.3 Check 2: most particles</h3>
+        <div class="q" data-check="most">
+          In the alpha scattering experiment, most alpha particles passed straight through the gold foil. This suggests…
+          <div class="opts" id="opts_most"></div>
+          <button class="primary" onclick="markCheck('most')">Mark</button>
+          <div class="resultLine" id="res_most"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_most"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.1.3 Check 3: bouncing back</h3>
+        <div class="q" data-check="back">
+          A tiny number of alpha particles bounced back. This suggests…
+          <div class="opts" id="opts_back"></div>
+          <button class="primary" onclick="markCheck('back')">Mark</button>
+          <div class="resultLine" id="res_back"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_back"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.1.1.3 Check 4: Thomson model</h3>
+        <div class="q" data-check="thomson">
+          What key discovery led to Thomson’s plum pudding model?
+          <div class="opts" id="opts_thomson"></div>
+          <button class="primary" onclick="markCheck('thomson')">Mark</button>
+          <div class="resultLine" id="res_thomson"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_thomson"></div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARK-SCHEME PHRASES -->
+  <div class="card" id="phrases">
+    <h2>Common mark-scheme phrases (copy-friendly)</h2>
+    <div class="muted">Useful sentences for 2–6 mark questions about atomic models and alpha scattering.</div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Alpha scattering conclusions</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Most alpha particles passed straight through, so the atom is mostly empty space.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Some alpha particles were deflected, so the nucleus is positively charged.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“A few alpha particles bounced back, so the nucleus is small, dense and contains most of the mass.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Model changes</h3>
+        <div class="phrase">
+          <div class="muted"><b>“The atomic model changed because new experimental evidence did not fit the previous model.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Bohr proposed electrons orbit the nucleus in fixed energy levels (shells).”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Named models (short descriptions)</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Dalton described atoms as solid spheres.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Thomson’s plum pudding model had electrons embedded in a sphere of positive charge.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: In a 6-marker, structure your answer: <b>observations</b> → <b>conclusions</b> → <b>model change</b>.
+    </div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="card" id="flashcards">
+    <h2>Flashcards (retrieval practice)</h2>
+    <div class="muted">Click <b>Flip</b> then rate yourself. Aim for “Good” twice in a row.</div>
+
+    <div class="flash" style="margin-top:12px;">
+      <div class="flashFace" id="flashFace"></div>
+      <div class="muted tiny" id="flashHint"></div>
+      <div class="flashBtns">
+        <button id="btnFlip" class="primary">Flip</button>
+        <button id="btnAgain">Again</button>
+        <button id="btnGood">Good</button>
+        <button id="btnNext">Next</button>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: Practise saying the 3 alpha-scattering conclusions out loud without looking.
+    </div>
+  </div>
+
+  <!-- NOTES / EXPORT -->
+  <div class="card">
+    <h2>My notes (optional)</h2>
+    <div class="muted">Write what’s confusing. Export to copy/paste into a revision log.</div>
+    <textarea id="notesBox" placeholder="Example: I forget which observation links to which conclusion..."></textarea>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+      <button id="btnExport" class="primary">Export notes (copy)</button>
+      <button id="btnClearNotes">Clear notes</button>
+      <span class="pill" id="pillCopied" style="display:none;">Copied!</span>
+    </div>
+  </div>
+
+  <!-- FINAL QUIZ -->
+  <div class="card" id="finalQuiz">
+    <h2>Final quiz (5.1.1.3)</h2>
+    <div class="muted">Recall + application questions to prepare for exam-style answers.</div>
+
+    <div id="quizArea" style="margin-top:12px;"></div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center;">
+      <button class="primary" id="btnMarkFinal">Mark final quiz</button>
+      <button id="btnRetryFinal">Retry final quiz</button>
+      <span class="pill" id="pillFinalScore" style="display:none;"></span>
+    </div>
+    <div id="finalReview" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+  // -------------------------
+  // Quick checks (4)
+  // -------------------------
+  const checks = {
+    order: {
+      options: [
+        "Rutherford → Dalton → Thomson → Bohr",
+        "Dalton → Thomson → Rutherford → Bohr",
+        "Thomson → Dalton → Bohr → Rutherford",
+        "Bohr → Rutherford → Thomson → Dalton"
+      ],
+      answer: 1,
+      explanation: "The standard GCSE sequence is Dalton (solid sphere) → Thomson (plum pudding) → Rutherford (nuclear model) → Bohr (fixed shells)."
+    },
+    most: {
+      options: [
+        "Atoms contain no positive charge",
+        "Atoms are mostly empty space",
+        "Atoms are solid spheres",
+        "Electrons are in the nucleus"
+      ],
+      answer: 1,
+      explanation: "Most alpha particles passing through means most of the atom is empty space."
+    },
+    back: {
+      options: [
+        "The positive charge is spread out",
+        "The nucleus is large and fluffy",
+        "There is a small, dense, positively charged nucleus",
+        "Electrons are heavier than protons"
+      ],
+      answer: 2,
+      explanation: "Bouncing back requires a strong repulsion from a concentrated positive region: a small, dense nucleus."
+    },
+    thomson: {
+      options: [
+        "Discovery of the neutron",
+        "Discovery of the electron",
+        "Discovery of isotopes",
+        "Discovery of orbitals"
+      ],
+      answer: 1,
+      explanation: "Thomson discovered the electron, which led to the plum pudding model."
+    }
+  };
+
+  // -------------------------
+  // Flashcards
+  // -------------------------
+  const flashcards = [
+    {front:"Dalton’s model described atoms as…", back:"Solid spheres.", hint:"solid spheres"},
+    {front:"What did Thomson discover?", back:"The electron.", hint:"electron"},
+    {front:"Thomson’s model is called…", back:"The plum pudding model.", hint:"plum pudding"},
+    {front:"What particles were used in Rutherford’s experiment?", back:"Alpha particles.", hint:"alpha"},
+    {front:"Most alpha particles passed through. Conclusion?", back:"The atom is mostly empty space.", hint:"empty space"},
+    {front:"Some alpha particles were deflected. Conclusion?", back:"There is positive charge in a small region (nucleus).", hint:"positive nucleus"},
+    {front:"A few alpha particles bounced back. Conclusion?", back:"The nucleus is small, dense and contains most of the mass.", hint:"dense nucleus"},
+    {front:"What did Bohr add to Rutherford’s model?", back:"Electrons orbit in fixed energy levels (shells).", hint:"fixed shells"},
+    {front:"Why do models change in science?", back:"New experimental evidence may not fit the old model.", hint:"new evidence"}
+  ];
+
+  // -------------------------
+  // Final quiz (10)
+  // -------------------------
+  const finalQuiz = [
+    {id:"F1", q:"Which model came first historically?", options:["Bohr","Dalton","Rutherford","Thomson"], a:1, exp:"Dalton’s solid sphere model is the earliest in the GCSE sequence."},
+    {id:"F2", q:"What discovery led to Thomson’s plum pudding model?", options:["Neutron","Electron","Nucleus","Isotope"], a:1, exp:"Thomson discovered the electron, so atoms must contain smaller negative particles."},
+    {id:"F3", q:"In the alpha scattering experiment, most alpha particles passed straight through. This suggests…", options:[
+      "the atom is a solid sphere",
+      "the atom is mostly empty space",
+      "positive charge is spread out evenly",
+      "electrons are in the nucleus"
+    ], a:1, exp:"Passing through implies there is very little matter to collide with: mostly empty space."},
+    {id:"F4", q:"Some alpha particles were deflected. This suggests…", options:[
+      "there is a positive charge in the atom",
+      "the nucleus is negative",
+      "electrons are heavy",
+      "atoms have no mass"
+    ], a:0, exp:"Deflection means repulsion by positive charge (alpha particles are positive)."},
+    {id:"F5", q:"A tiny number of alpha particles bounced back. This suggests…", options:[
+      "the atom is full of electrons",
+      "the positive charge is spread throughout",
+      "a small, dense nucleus contains most of the mass",
+      "atoms have no nucleus"
+    ], a:2, exp:"Only a strong repulsion from a dense positive nucleus can reverse an alpha particle’s path."},
+    {id:"F6", q:"Rutherford’s model replaced Thomson’s because…", options:[
+      "Thomson proved there were no electrons",
+      "new evidence from scattering didn’t fit the plum pudding model",
+      "Dalton changed his mind",
+      "Bohr discovered isotopes"
+    ], a:1, exp:"The results (large deflections) could not be explained if positive charge was spread out."},
+    {id:"F7", q:"What did Bohr propose about electrons?", options:[
+      "They are in the nucleus",
+      "They orbit in fixed energy levels (shells)",
+      "They have no charge",
+      "They are positive"
+    ], a:1, exp:"Bohr’s key idea is fixed shells (energy levels)."},
+    {id:"F8", q:"Transfer: Which observation best supports ‘nucleus is small’?", options:[
+      "Most alpha particles passed through",
+      "Some deflected slightly",
+      "Most bounced back",
+      "All particles stopped"
+    ], a:0, exp:"If most pass through, the dense region must take up very little space → nucleus is tiny."},
+    {id:"F9", q:"Transfer: Which statement is most exam-safe?", options:[
+      "All atoms are solid",
+      "Atoms are mostly empty space with a small dense nucleus",
+      "Electrons are embedded in the nucleus",
+      "Positive charge is spread evenly"
+    ], a:1, exp:"This summarises Rutherford’s nuclear model correctly."},
+    {id:"F10", q:"Transfer: Science models change when…", options:[
+      "scientists get bored",
+      "a new instrument is invented",
+      "new evidence does not fit the current model",
+      "a textbook is updated"
+    ], a:2, exp:"New experimental evidence forces models to be revised."}
+  ];
+
+  // -------------------------
+  // State
+  // -------------------------
+  const state = {
+    checksDone: {order:false, most:false, back:false, thomson:false},
+    finalAnswers: {},
+    flashIndex: 0,
+    flashFlipped: false
+  };
+
+  function $(id){ return document.getElementById(id); }
+  function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:"smooth", block:"start"}); }
+
+  function setPills(){
+    const doneCount = Object.values(state.checksDone).filter(Boolean).length;
+    const progress = Math.round(((doneCount) / 4) * 60 + (Object.keys(state.finalAnswers).length / finalQuiz.length) * 40);
+    $("pillProgress").textContent = `Progress: ${progress}%`;
+    $("pillChecks").textContent = `Checks: ${doneCount}/4 done`;
+  }
+
+  function renderCheck(key){
+    const c = checks[key];
+    const wrap = $("opts_"+key);
+    wrap.innerHTML = "";
+    c.options.forEach((opt, i) => {
+      const lab = document.createElement("label");
+      lab.className = "opt";
+      const inp = document.createElement("input");
+      inp.type = "radio";
+      inp.name = "chk_"+key;
+      inp.value = i;
+      const div = document.createElement("div");
+      div.textContent = opt;
+      lab.appendChild(inp);
+      lab.appendChild(div);
+      wrap.appendChild(lab);
+    });
+    $("exp_"+key).textContent = c.explanation;
+  }
+
+  function markCheck(key){
+    const c = checks[key];
+    const chosen = document.querySelector(`input[name="chk_${key}"]:checked`);
+    const res = $("res_"+key);
+    if(!chosen){
+      res.innerHTML = `<span style="color:var(--warn)"><b>Please choose an answer first.</b></span>`;
+      return;
+    }
+    const val = Number(chosen.value);
+    const ok = val === c.answer;
+    state.checksDone[key] = true;
+
+    res.innerHTML = ok
+      ? `<span class="good">✔ Correct</span> <span class="muted tiny">— ${c.options[c.answer]}</span>`
+      : `<span class="bad">✘ Incorrect</span> <span class="muted tiny">— Correct: ${c.options[c.answer]}</span>`;
+
+    setPills();
+  }
+
+  // Flashcards
+  function renderFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = false;
+    $("flashFace").textContent = card.front;
+    $("flashHint").textContent = "Hint: " + card.hint;
+    $("btnFlip").textContent = "Flip";
+  }
+  function flipFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = !state.flashFlipped;
+    $("flashFace").textContent = state.flashFlipped ? card.back : card.front;
+    $("btnFlip").textContent = state.flashFlipped ? "Show question" : "Flip";
+  }
+  function nextFlash(){
+    state.flashIndex = (state.flashIndex + 1) % flashcards.length;
+    renderFlash();
+  }
+
+  // Notes export
+  async function exportNotes(){
+    const txt = $("notesBox").value.trim();
+    if(!txt){
+      alert("No notes yet. Write a couple of lines first.");
+      return;
+    }
+    await navigator.clipboard.writeText(txt);
+    $("pillCopied").style.display = "inline-block";
+    setTimeout(()=> $("pillCopied").style.display = "none", 1200);
+  }
+
+  // Final quiz
+  function renderFinalQuiz(){
+    const qa = $("quizArea");
+    qa.innerHTML = "";
+    finalQuiz.forEach((q, idx) => {
+      const card = document.createElement("div");
+      card.className = "q";
+      card.innerHTML = `<b>Q${idx+1}.</b> ${q.q}`;
+      const opts = document.createElement("div");
+      opts.className = "opts";
+
+      q.options.forEach((opt, i) => {
+        const lab = document.createElement("label");
+        lab.className = "opt";
+        const inp = document.createElement("input");
+        inp.type = "radio";
+        inp.name = "final_"+q.id;
+        inp.value = i;
+        if(state.finalAnswers[q.id] === i) inp.checked = true;
+        inp.addEventListener("change", () => {
+          state.finalAnswers[q.id] = i;
+          setPills();
+        });
+        const div = document.createElement("div");
+        div.textContent = opt;
+        lab.appendChild(inp);
+        lab.appendChild(div);
+        opts.appendChild(lab);
+      });
+
+      card.appendChild(opts);
+      qa.appendChild(card);
+    });
+    setPills();
+  }
+
+  function markFinal(){
+    let correct = 0;
+    const total = finalQuiz.length;
+    const review = [];
+
+    finalQuiz.forEach((q) => {
+      const chosen = (q.id in state.finalAnswers) ? state.finalAnswers[q.id] : null;
+      const ok = chosen === q.a;
+      if(ok) correct++;
+      review.push({q, chosen, ok});
+    });
+
+    const pct = Math.round((correct/total)*100);
+    $("pillFinalScore").style.display = "inline-block";
+    $("pillFinalScore").textContent = `Final quiz score: ${correct}/${total} (${pct}%)`;
+
+    const fr = $("finalReview");
+    fr.innerHTML = review.map((r, i) => {
+      const tag = r.ok ? `<span class="tag good">Correct</span>` : `<span class="tag bad">Incorrect</span>`;
+      const your = (r.chosen===null) ? "<i>(blank)</i>" : r.q.options[r.chosen];
+
+      return `
+        <div class="scoreBox" style="margin-top:10px;">
+          <div><b>Q${i+1}.</b> ${r.q.q} ${tag}</div>
+          <div class="muted" style="margin-top:6px;"><b>Your answer:</b> ${your}</div>
+          ${r.ok ? "" : `<div class="muted"><b>Correct answer:</b> ${r.q.options[r.q.a]}</div>`}
+          <div class="callout tiny"><b>Why:</b> ${r.q.exp}</div>
+        </div>
+      `;
+    }).join("");
+
+    scrollToId("finalReview");
+  }
+
+  function retryFinal(){
+    state.finalAnswers = {};
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+    renderFinalQuiz();
+    scrollToId("finalQuiz");
+  }
+
+  function resetAll(){
+    state.checksDone = {order:false, most:false, back:false, thomson:false};
+    state.finalAnswers = {};
+    state.flashIndex = 0;
+    state.flashFlipped = false;
+
+    $("notesBox").value = "";
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+
+    Object.keys(checks).forEach(renderCheck);
+    renderFlash();
+    renderFinalQuiz();
+    setPills();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  // Mark-scheme phrase copier
+  function showToast(msg){
+    const t = $("toast");
+    t.textContent = msg;
+    t.style.display = "block";
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=> t.style.display="none", 1100);
+  }
+  async function copyPhrase(btn){
+    const text = btn.parentElement.querySelector("div").innerText.trim();
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast("Copied!");
+    }catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      showToast("Copied!");
+    }
+  }
+
+  // Buttons
+  $("btnJumpNotes").addEventListener("click", ()=>scrollToId("notes"));
+  $("btnJumpPhrases").addEventListener("click", ()=>scrollToId("phrases"));
+  $("btnJumpFlash").addEventListener("click", ()=>scrollToId("flashcards"));
+  $("btnJumpQuiz").addEventListener("click", ()=>scrollToId("finalQuiz"));
+  $("btnReset").addEventListener("click", resetAll);
+
+  $("btnFlip").addEventListener("click", flipFlash);
+  $("btnNext").addEventListener("click", nextFlash);
+  $("btnAgain").addEventListener("click", ()=>nextFlash());
+  $("btnGood").addEventListener("click", ()=>nextFlash());
+
+  $("btnExport").addEventListener("click", exportNotes);
+  $("btnClearNotes").addEventListener("click", ()=>{$("notesBox").value="";});
+  $("btnMarkFinal").addEventListener("click", markFinal);
+  $("btnRetryFinal").addEventListener("click", retryFinal);
+
+  // Init
+  Object.keys(checks).forEach(renderCheck);
+  renderFlash();
+  renderFinalQuiz();
+  setPills();
+</script>
+</body>
+</html>
