@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AQA 5.1.1.1 – Atoms, elements, compounds and mixtures</title>
+
+<style>
+/* === SAME CORE THEME / SKELETON === */
+:root{
+  --bg:#0b1020; --card:rgba(255,255,255,.08); --card2:rgba(255,255,255,.06);
+  --text:#eef2ff; --muted:rgba(238,242,255,.75); --border:rgba(255,255,255,.14);
+  --accent:#7c5cff; --good:#2ecc71; --bad:#ff5c7a; --warn:#ffd166;
+}
+body{
+  margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:linear-gradient(180deg, var(--bg), #050817);
+  color:var(--text);
+}
+header{max-width:1100px; margin:0 auto; padding:28px 18px 10px;}
+h1{margin:0 0 8px; font-size:1.65rem;}
+.sub{color:var(--muted); line-height:1.35;}
+.wrap{max-width:1100px; margin:0 auto; padding:12px 18px 48px; display:grid; gap:14px;}
+.card{padding:16px; border-radius:16px; border:1px solid var(--border); background:var(--card);}
+.toolbar{display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between;
+padding:12px; border:1px solid var(--border); border-radius:14px; background:var(--card);}
+button{border:1px solid var(--border); background:rgba(255,255,255,.08); color:var(--text);
+padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:650;}
+button.primary{background:linear-gradient(135deg,#7c5cff,#5a3cff);}
+button.danger{background:linear-gradient(135deg,#ff5c7a,#c13a54);}
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px;}
+.kbox{border:1px solid var(--border); border-radius:14px; padding:12px; background:var(--card2);}
+.callout{border-left:3px solid #7c5cff; padding:10px 12px; background:rgba(255,255,255,.05); border-radius:12px; color:var(--muted);}
+.q{padding:12px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.06);}
+.opts{display:grid; gap:8px; margin-top:10px;}
+label.opt{display:grid; grid-template-columns:22px 1fr; gap:10px; padding:10px;
+border-radius:12px; border:1px solid var(--border); cursor:pointer;}
+.resultLine{margin-top:8px; font-weight:700;}
+.good{color:#2ecc71;} .bad{color:#ff5c7a;}
+.flash{border:1px solid var(--border); border-radius:14px; padding:12px; background:rgba(0,0,0,.2);}
+textarea{width:100%; min-height:90px; border-radius:12px; padding:10px;}
+.tag{padding:4px 10px; border-radius:999px; font-size:.8rem;}
+.tag.good{background:#2ecc7133;} .tag.bad{background:#ff5c7a33;}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>AQA 5.1.1.1 – Atoms, elements, compounds and mixtures</h1>
+<div class="sub">
+Foundation concept for all chemistry: what matter is made of, and how substances are classified.
+</div>
+</header>
+
+<div class="wrap">
+
+<div class="toolbar">
+<div>
+<button onclick="scrollToId('notes')">Notes</button>
+<button onclick="scrollToId('phrases')">Mark-scheme phrases</button>
+<button onclick="scrollToId('flashcards')">Flashcards</button>
+<button class="primary" onclick="scrollToId('finalQuiz')">Final quiz</button>
+</div>
+<div>
+<button class="danger" onclick="resetAll()">Reset</button>
+</div>
+</div>
+
+<!-- NOTES -->
+<div class="card" id="notes">
+<h2>Core knowledge</h2>
+
+<div class="callout">
+All substances are made of <b>atoms</b>. How atoms are arranged and combined determines whether a substance is an
+<b>element</b>, <b>compound</b>, or <b>mixture</b>.
+</div>
+
+<div class="grid">
+<div class="kbox">
+<h3>Atom</h3>
+<ul>
+<li>Smallest particle of an element</li>
+<li>Cannot be broken down by chemical reactions</li>
+<li>All matter is made of atoms</li>
+</ul>
+</div>
+
+<div class="kbox">
+<h3>Element</h3>
+<ul>
+<li>Substance made of only one type of atom</li>
+<li>Cannot be chemically broken down</li>
+<li>Examples: oxygen (O₂), iron (Fe), carbon (C)</li>
+</ul>
+</div>
+
+<div class="kbox">
+<h3>Compound</h3>
+<ul>
+<li>Two or more different elements chemically bonded</li>
+<li>Fixed ratio of atoms</li>
+<li>Can be chemically broken down</li>
+<li>Example: water (H₂O), sodium chloride (NaCl)</li>
+</ul>
+</div>
+
+<div class="kbox">
+<h3>Mixture</h3>
+<ul>
+<li>Two or more substances not chemically bonded</li>
+<li>No fixed ratio</li>
+<li>Can be separated by physical methods</li>
+<li>Example: air, seawater</li>
+</ul>
+</div>
+</div>
+
+<!-- QUICK CHECKS -->
+<div class="grid" style="margin-top:12px;">
+
+<div class="kbox">
+<h3>Check 1</h3>
+<div class="q">
+Which best describes an element?
+<div class="opts" id="opts_c1"></div>
+<button class="primary" onclick="mark('c1')">Mark</button>
+<div class="resultLine" id="res_c1"></div>
+</div>
+</div>
+
+<div class="kbox">
+<h3>Check 2</h3>
+<div class="q">
+Which is a compound?
+<div class="opts" id="opts_c2"></div>
+<button class="primary" onclick="mark('c2')">Mark</button>
+<div class="resultLine" id="res_c2"></div>
+</div>
+</div>
+
+<div class="kbox">
+<h3>Check 3</h3>
+<div class="q">
+Which can be separated physically?
+<div class="opts" id="opts_c3"></div>
+<button class="primary" onclick="mark('c3')">Mark</button>
+<div class="resultLine" id="res_c3"></div>
+</div>
+</div>
+
+<div class="kbox">
+<h3>Check 4</h3>
+<div class="q">
+Which statement about compounds is correct?
+<div class="opts" id="opts_c4"></div>
+<button class="primary" onclick="mark('c4')">Mark</button>
+<div class="resultLine" id="res_c4"></div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- MARK SCHEME -->
+<div class="card" id="phrases">
+<h2>Mark-scheme phrases</h2>
+
+<div class="grid">
+<div class="kbox">
+<p><b>“An element is a substance made of only one type of atom.”</b></p>
+</div>
+<div class="kbox">
+<p><b>“A compound contains two or more different elements chemically bonded.”</b></p>
+</div>
+<div class="kbox">
+<p><b>“A mixture is not chemically bonded and can be separated physically.”</b></p>
+</div>
+<div class="kbox">
+<p><b>“Compounds have fixed ratios of atoms.”</b></p>
+</div>
+</div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="card" id="flashcards">
+<h2>Flashcards</h2>
+<div class="flash">
+<div id="flashFace"></div>
+<div style="margin-top:10px;">
+<button class="primary" onclick="flip()">Flip</button>
+<button onclick="next()">Next</button>
+</div>
+</div>
+</div>
+
+<!-- FINAL QUIZ -->
+<div class="card" id="finalQuiz">
+<h2>Final quiz</h2>
+<div id="quizArea"></div>
+<button class="primary" onclick="markFinal()">Mark quiz</button>
+<div id="finalResults"></div>
+</div>
+
+</div>
+
+<script>
+const checks = {
+c1:{opts:["Made of one type of atom","Contains many substances","Can be separated physically"],ans:0},
+c2:{opts:["Oxygen","Water","Iron"],ans:1},
+c3:{opts:["Compound","Mixture","Element"],ans:1},
+c4:{opts:["Can be physically separated","Fixed ratio of atoms","No chemical bonds"],ans:1}
+};
+
+const flashcards = [
+["What is an atom?","Smallest particle of an element"],
+["What is an element?","One type of atom only"],
+["What is a compound?","Two or more elements chemically bonded"],
+["What is a mixture?","Substances not chemically bonded"],
+["How are mixtures separated?","Physical methods"],
+["How are compounds separated?","Chemical reactions"]
+];
+
+let fIndex=0, flipped=false;
+
+function loadChecks(){
+for(let k in checks){
+const box=document.getElementById("opts_"+k);
+checks[k].opts.forEach((o,i)=>{
+box.innerHTML+=`<label class="opt"><input type="radio" name="${k}" value="${i}"> ${o}</label>`;
+});
+}
+}
+function mark(k){
+const sel=document.querySelector(`input[name="${k}"]:checked`);
+if(!sel)return;
+const ok=+sel.value===checks[k].ans;
+document.getElementById("res_"+k).innerHTML= ok?"<span class='good'>Correct</span>":"<span class='bad'>Incorrect</span>";
+}
+
+function renderFlash(){
+document.getElementById("flashFace").innerText=flipped?flashcards[fIndex][1]:flashcards[fIndex][0];
+}
+function flip(){flipped=!flipped;renderFlash();}
+function next(){fIndex=(fIndex+1)%flashcards.length;flipped=false;renderFlash();}
+
+const finalQuiz = [
+{q:"Which is an element?",opts:["Water","Iron","Air"],a:1},
+{q:"Which is a mixture?",opts:["NaCl","Air","CO2"],a:1},
+{q:"Which is a compound?",opts:["Oxygen","Water","Iron"],a:1},
+{q:"Which can be separated chemically?",opts:["Mixture","Compound","Element"],a:1},
+{q:"Which has fixed ratios?",opts:["Mixture","Compound","Element"],a:1},
+{q:"Which has no chemical bonds?",opts:["Mixture","Compound","Element"],a:0},
+{q:"H2O is a…",opts:["Mixture","Compound","Element"],a:1},
+{q:"Air is a…",opts:["Compound","Mixture","Element"],a:1},
+{q:"Gold is a…",opts:["Compound","Mixture","Element"],a:2},
+{q:"Salt water is a…",opts:["Mixture","Compound","Element"],a:0}
+];
+
+function loadQuiz(){
+const qz=document.getElementById("quizArea");
+finalQuiz.forEach((q,i)=>{
+let html=`<div class='q'><b>Q${i+1}:</b> ${q.q}<div class='opts'>`;
+q.opts.forEach((o,j)=>{
+html+=`<label class='opt'><input type='radio' name='f${i}' value='${j}'> ${o}</label>`;
+});
+html+=`</div></div>`;
+qz.innerHTML+=html;
+});
+}
+
+function markFinal(){
+let score=0;
+finalQuiz.forEach((q,i)=>{
+const sel=document.querySelector(`input[name='f${i}']:checked`);
+if(sel && +sel.value===q.a) score++;
+});
+document.getElementById("finalResults").innerHTML=`<h3>Score: ${score}/${finalQuiz.length}</h3>`;
+}
+
+function resetAll(){
+location.reload();
+}
+
+loadChecks();
+renderFlash();
+loadQuiz();
+</script>
+
+</body>
+</html>
