@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AQA 5.4.2 – Reactions of Acids (5.4.2.1–5.4.2.3)</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:rgba(255,255,255,.08); --card2:rgba(255,255,255,.06);
+      --text:#eef2ff; --muted:rgba(238,242,255,.75); --border:rgba(255,255,255,.14);
+      --accent:#7c5cff; --good:#2ecc71; --bad:#ff5c7a; --warn:#ffd166;
+    }
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:radial-gradient(1200px 650px at 10% 0%, rgba(124,92,255,.25), transparent 50%),
+                 radial-gradient(900px 550px at 90% 10%, rgba(46,204,113,.18), transparent 55%),
+                 linear-gradient(180deg, var(--bg), #050817);
+      color:var(--text);
+    }
+    header{max-width:1100px; margin:0 auto; padding:28px 18px 10px;}
+    h1{margin:0 0 8px; font-size:1.65rem;}
+    .sub{color:var(--muted); line-height:1.35; max-width:980px;}
+    .wrap{max-width:1100px; margin:0 auto; padding:12px 18px 48px; display:grid; gap:14px;}
+    .toolbar{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:var(--card);
+    }
+    .pill{padding:8px 10px; border-radius:999px; border:1px solid var(--border);
+      background:rgba(0,0,0,.18); color:var(--muted); font-size:.92rem; white-space:nowrap;}
+    button{
+      border:1px solid var(--border); background:rgba(255,255,255,.08); color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:650;
+    }
+    button:hover{border-color:rgba(255,255,255,.28);}
+    button.primary{
+      background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.55));
+      border-color:rgba(124,92,255,.65);
+    }
+    button.danger{
+      background:linear-gradient(135deg, rgba(255,92,122,.95), rgba(255,92,122,.45));
+      border-color:rgba(255,92,122,.6);
+    }
+    .card{padding:16px; border-radius:16px; border:1px solid var(--border); background:var(--card);}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:12px;}
+    h2{margin:0 0 10px; font-size:1.25rem;}
+    h3{margin:0 0 8px; font-size:1.05rem;}
+    .muted{color:var(--muted);}
+    .callout{
+      border-left:3px solid rgba(124,92,255,.7); padding:10px 12px; background:rgba(255,255,255,.05);
+      border-radius:12px; margin-top:10px; color:var(--muted); line-height:1.45;
+    }
+    .kbox{
+      border:1px solid var(--border); border-radius:14px; padding:12px; background:var(--card2);
+    }
+    ul{margin:8px 0 0 18px; color:var(--muted);}
+    .diagram{
+      border:1px dashed rgba(255,255,255,.24); border-radius:14px; padding:12px; background:rgba(0,0,0,.16);
+      color:var(--muted); line-height:1.45;
+    }
+    .q{
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.06);
+      margin-top:10px;
+    }
+    .opts{display:grid; gap:8px; margin-top:10px;}
+    label.opt{
+      display:grid; grid-template-columns:22px 1fr; gap:10px; align-items:start;
+      padding:10px 12px; border-radius:14px; border:1px solid var(--border);
+      background:rgba(0,0,0,.14); cursor:pointer;
+    }
+    label.opt:hover{border-color:rgba(255,255,255,.28);}
+    input[type="radio"]{margin-top:3px;}
+    .resultLine{margin-top:10px; font-weight:700;}
+    .good{color:#b7f7cd;}
+    .bad{color:#ffc1cb;}
+    details{border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.05); padding:10px 12px;}
+    summary{cursor:pointer; font-weight:750;}
+    .flash{
+      display:grid; gap:10px; align-items:center;
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(0,0,0,.16);
+    }
+    .flashFace{font-size:1.05rem; line-height:1.35;}
+    .flashBtns{display:flex; gap:10px; flex-wrap:wrap;}
+    .tiny{font-size:.92rem;}
+    textarea{
+      width:100%; min-height:90px; border-radius:12px; border:1px solid var(--border);
+      padding:10px; background:rgba(0,0,0,.18); color:var(--text);
+      resize:vertical;
+    }
+    .scoreBox{
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(255,255,255,.06);
+    }
+    .tag{
+      display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--border);
+      font-weight:800; font-size:.85rem; margin-left:8px;
+    }
+    .tag.good{background:rgba(46,204,113,.18); border-color:rgba(46,204,113,.35);}
+    .tag.bad{background:rgba(255,92,122,.16); border-color:rgba(255,92,122,.35);}
+    .phrase{
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.14);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .phrase button{ padding:8px 10px; border-radius:12px; }
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background:rgba(0,0,0,.75); border:1px solid rgba(255,255,255,.18);
+      color:var(--text); padding:10px 12px; border-radius:14px;
+      display:none; z-index:9999; font-weight:700;
+    }
+    .twoCol{display:grid; grid-template-columns:1fr; gap:12px;}
+    @media (min-width: 860px){ .twoCol{grid-template-columns: 1.1fr .9fr;} }
+    code.k{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background:rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.14);
+      padding:2px 6px;
+      border-radius:8px;
+      color:rgba(238,242,255,.92);
+      white-space:nowrap;
+    }
+    table.tbl{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.12);
+      margin-top:10px;
+    }
+    table.tbl th, table.tbl td{
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      vertical-align:top;
+      text-align:left;
+      color:var(--muted);
+      line-height:1.35;
+    }
+    table.tbl th{color:var(--text); font-weight:800; background:rgba(255,255,255,.06);}
+    table.tbl tr:last-child td{border-bottom:none;}
+    .equation{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.14);
+      border-radius:14px;
+      padding:10px 12px;
+      color:var(--muted);
+      line-height:1.45;
+      margin-top:10px;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>AQA 5.4.2 – Reactions of Acids (5.4.2.1–5.4.2.3)</h1>
+  <div class="sub">
+    One combined module covering: <b>acids reacting with metals</b>, <b>neutralisation (acids + bases/alkalis)</b>,
+    and <b>making salts</b> (including the key test-tube / practical style methods).
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <span class="pill" id="pillSection">Section: 5.4.2 (5.4.2.1–5.4.2.3)</span>
+      <span class="pill" id="pillProgress">Progress: 0%</span>
+      <span class="pill" id="pillChecks">Checks: 0/4 done</span>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <button id="btnJumpNotes">Jump to Notes</button>
+      <button id="btnJumpPhrases">Mark-scheme phrases</button>
+      <button id="btnJumpFlash">Jump to Flashcards</button>
+      <button class="primary" id="btnJumpQuiz">Jump to Final Quiz</button>
+      <button class="danger" id="btnReset">Reset progress</button>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="card" id="notes">
+    <h2>Core ideas for 5.4.2</h2>
+    <div class="callout">
+      Most exam questions on acids boil down to three big patterns:
+      <b>(1) acids + metals → salt + hydrogen</b>,
+      <b>(2) acids + bases/alkalis → salt + water</b> (neutralisation),
+      and <b>(3) choosing the right method to make a salt</b>.
+    </div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Key definitions</h3>
+        <ul>
+          <li><b>Acid</b>: produces H<sup>+</sup> ions in water</li>
+          <li><b>Base</b>: neutralises acids (often metal oxides/hydroxides/carbonates)</li>
+          <li><b>Alkali</b>: a soluble base (e.g. NaOH)</li>
+          <li><b>Neutralisation</b>: H<sup>+</sup> + OH<sup>−</sup> → H<sub>2</sub>O</li>
+          <li><b>Salt</b>: ionic compound formed when H<sup>+</sup> in an acid is replaced by a metal (or NH<sub>4</sub><sup>+</sup>)</li>
+        </ul>
+      </div>
+
+      <div class="kbox">
+        <h3>Common acids & the salts they form</h3>
+        <table class="tbl">
+          <thead>
+            <tr><th>Acid</th><th>Formula</th><th>Salt name</th><th>Example salt</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Hydrochloric acid</td><td>HCl</td><td><b>chloride</b></td><td>NaCl</td></tr>
+            <tr><td>Sulfuric acid</td><td>H<sub>2</sub>SO<sub>4</sub></td><td><b>sulfate</b></td><td>CuSO<sub>4</sub></td></tr>
+            <tr><td>Nitric acid</td><td>HNO<sub>3</sub></td><td><b>nitrate</b></td><td>KNO<sub>3</sub></td></tr>
+          </tbody>
+        </table>
+        <div class="callout tiny">Memory trick: <b>HCl → chlorides</b>, <b>H₂SO₄ → sulfates</b>, <b>HNO₃ → nitrates</b>.</div>
+      </div>
+    </div>
+
+    <div class="twoCol" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.4.2.1 Acids + metals</h3>
+        <div class="equation">
+          <b>General word equation:</b><br>
+          <span class="muted"><b>acid + metal → salt + hydrogen</b></span>
+        </div>
+        <div class="equation">
+          <b>Example:</b> magnesium + hydrochloric acid → magnesium chloride + hydrogen<br>
+          <span class="muted"><code class="k">Mg + 2HCl → MgCl<sub>2</sub> + H<sub>2</sub></code></span>
+        </div>
+        <div class="diagram">
+          <b>Observations:</b>
+          <ul>
+            <li>Fizzing/bubbles (hydrogen gas)</li>
+            <li>Metal dissolves (often)</li>
+            <li>Solution warms (exothermic)</li>
+          </ul>
+          <div class="callout tiny">
+            Test for hydrogen: <b>lighted splint → squeaky pop</b>.
+          </div>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.4.2.2 Neutralisation (acids + bases/alkalis)</h3>
+        <div class="equation">
+          <b>General word equation:</b><br>
+          <span class="muted"><b>acid + base → salt + water</b></span>
+        </div>
+        <div class="equation">
+          <b>Ionic equation (the core idea):</b><br>
+          <span class="muted"><code class="k">H<sup>+</sup> + OH<sup>−</sup> → H<sub>2</sub>O</code></span>
+        </div>
+        <div class="diagram">
+          <b>Examples:</b>
+          <ul>
+            <li><code class="k">HCl + NaOH → NaCl + H<sub>2</sub>O</code></li>
+            <li><code class="k">H<sub>2</sub>SO<sub>4</sub> + CuO → CuSO<sub>4</sub> + H<sub>2</sub>O</code></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Acids + carbonates (very common)</h3>
+        <div class="equation">
+          <b>acid + carbonate → salt + water + carbon dioxide</b>
+        </div>
+        <div class="equation">
+          Example: <code class="k">2HCl + CaCO<sub>3</sub> → CaCl<sub>2</sub> + H<sub>2</sub>O + CO<sub>2</sub></code>
+        </div>
+        <div class="callout tiny">
+          Test for carbon dioxide: bubble through limewater → <b>turns milky/cloudy</b>.
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.4.2.3 Making salts: which method?</h3>
+        <div class="diagram">
+          The “right” method depends on whether the base is <b>soluble</b> or <b>insoluble</b>.
+          <table class="tbl">
+            <thead>
+              <tr><th>Goal</th><th>Use this method</th><th>Key steps / keywords</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Make a salt from an <b>insoluble</b> base (e.g. CuO)</td>
+                <td><b>Excess insoluble base</b> + acid</td>
+                <td>Add excess base → filter → crystallise</td>
+              </tr>
+              <tr>
+                <td>Make a salt containing Na⁺ / K⁺ / NH₄⁺ (all soluble)</td>
+                <td><b>Titration</b> (acid + alkali)</td>
+                <td>Indicator → repeat without indicator → crystallise</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <details style="margin-top:10px;">
+          <summary>Method: excess insoluble base (example CuSO₄)</summary>
+          <div class="muted tiny" style="margin-top:8px; line-height:1.6;">
+            <ol style="margin:6px 0 0 18px;">
+              <li>Warm acid (e.g. dilute sulfuric acid).</li>
+              <li>Add <b>excess</b> copper oxide until no more reacts.</li>
+              <li>Filter to remove leftover solid.</li>
+              <li>Evaporate some water, leave to cool → crystals form.</li>
+              <li>Filter and dry crystals.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details style="margin-top:10px;">
+          <summary>Method: titration (example NaCl)</summary>
+          <div class="muted tiny" style="margin-top:8px; line-height:1.6;">
+            <ol style="margin:6px 0 0 18px;">
+              <li>Use a pipette to add a measured alkali (e.g. NaOH) into a flask.</li>
+              <li>Add a few drops of indicator.</li>
+              <li>Add acid from a burette until the end-point colour change.</li>
+              <li>Repeat using the same volumes but <b>without indicator</b>.</li>
+              <li>Evaporate and crystallise.</li>
+            </ol>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- QUICK CHECKS -->
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Check 1: word equation</h3>
+        <div class="q" data-check="metal">
+          Complete the word equation: acid + metal → ______ + ______
+          <div class="opts" id="opts_metal"></div>
+          <button class="primary" onclick="markCheck('metal')">Mark</button>
+          <div class="resultLine" id="res_metal"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_metal"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Check 2: salt names</h3>
+        <div class="q" data-check="salts">
+          Hydrochloric acid forms which type of salt?
+          <div class="opts" id="opts_salts"></div>
+          <button class="primary" onclick="markCheck('salts')">Mark</button>
+          <div class="resultLine" id="res_salts"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_salts"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Check 3: gas tests</h3>
+        <div class="q" data-check="gas">
+          Which test matches hydrogen gas?
+          <div class="opts" id="opts_gas"></div>
+          <button class="primary" onclick="markCheck('gas')">Mark</button>
+          <div class="resultLine" id="res_gas"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_gas"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Check 4: choosing a method</h3>
+        <div class="q" data-check="method">
+          You need to make pure potassium nitrate (KNO₃) crystals. Which method is best?
+          <div class="opts" id="opts_method"></div>
+          <button class="primary" onclick="markCheck('method')">Mark</button>
+          <div class="resultLine" id="res_method"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_method"></div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARK-SCHEME PHRASES -->
+  <div class="card" id="phrases">
+    <h2>Common mark-scheme phrases (copy-friendly)</h2>
+    <div class="muted">These are the “safe phrases” that match typical AQA mark schemes.</div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Patterns</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Acid + metal produces a salt and hydrogen.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Neutralisation is when an acid reacts with a base to form a salt and water.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“The ionic equation for neutralisation is H<sup>+</sup> + OH<sup>−</sup> → H<sub>2</sub>O.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Gas tests</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Hydrogen is identified using a lighted splint; it burns with a squeaky pop.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Carbon dioxide turns limewater milky/cloudy.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Making salts</h3>
+        <div class="phrase">
+          <div class="muted"><b>“An insoluble base is added in excess so all the acid is neutralised.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“The mixture is filtered to remove excess solid, then the filtrate is crystallised to obtain the salt.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Titration is used when both reactants are soluble because you can’t filter off excess.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="card" id="flashcards">
+    <h2>Flashcards (retrieval practice)</h2>
+    <div class="muted">Click <b>Flip</b> then rate yourself. Aim for “Good” twice in a row.</div>
+
+    <div class="flash" style="margin-top:12px;">
+      <div class="flashFace" id="flashFace"></div>
+      <div class="muted tiny" id="flashHint"></div>
+      <div class="flashBtns">
+        <button id="btnFlip" class="primary">Flip</button>
+        <button id="btnAgain">Again</button>
+        <button id="btnGood">Good</button>
+        <button id="btnNext">Next</button>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: Most “acids” exam questions are actually about choosing the correct <b>method</b> and using the <b>keywords</b>.
+    </div>
+  </div>
+
+  <!-- NOTES / EXPORT -->
+  <div class="card">
+    <h2>My notes (optional)</h2>
+    <div class="muted">Write what’s confusing. Export to copy/paste into a revision log.</div>
+    <textarea id="notesBox" placeholder="Example: I mix up residue/filtrate vs distillate, or I forget which acid makes which salt..."></textarea>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+      <button id="btnExport" class="primary">Export notes (copy)</button>
+      <button id="btnClearNotes">Clear notes</button>
+      <span class="pill" id="pillCopied" style="display:none;">Copied!</span>
+    </div>
+  </div>
+
+  <!-- FINAL QUIZ -->
+  <div class="card" id="finalQuiz">
+    <h2>Final quiz (5.4.2)</h2>
+    <div class="muted">Mix of recall + application (not just past-paper repeats).</div>
+
+    <div id="quizArea" style="margin-top:12px;"></div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center;">
+      <button class="primary" id="btnMarkFinal">Mark final quiz</button>
+      <button id="btnRetryFinal">Retry final quiz</button>
+      <span class="pill" id="pillFinalScore" style="display:none;"></span>
+    </div>
+    <div id="finalReview" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+  // -------------------------
+  // Quick checks (4)
+  // -------------------------
+  const checks = {
+    metal: {
+      options: ["water + oxygen", "salt + hydrogen", "salt + carbon dioxide", "water + carbon dioxide"],
+      answer: 1,
+      explanation: "Acid + metal → salt + hydrogen (H₂)."
+    },
+    salts: {
+      options: ["Sulfates", "Chlorides", "Nitrates", "Carbonates"],
+      answer: 1,
+      explanation: "Hydrochloric acid (HCl) forms chloride salts."
+    },
+    gas: {
+      options: ["Turns limewater milky", "Squeaky pop with a lighted splint", "Relights a glowing splint", "Bleaches damp litmus paper"],
+      answer: 1,
+      explanation: "Hydrogen burns with a squeaky pop when tested with a lighted splint."
+    },
+    method: {
+      options: ["Excess insoluble base + acid, then filter and crystallise", "Titration, then crystallise", "Filtration only", "Chromatography"],
+      answer: 1,
+      explanation: "Potassium salts are soluble, so you must use titration (you cannot filter off excess)."
+    }
+  };
+
+  // -------------------------
+  // Flashcards
+  // -------------------------
+  const flashcards = [
+    {front:"Complete: acid + metal → ?", back:"salt + hydrogen", hint:"H₂ gas"},
+    {front:"Complete: acid + base → ?", back:"salt + water (neutralisation)", hint:"H⁺ + OH⁻ → H₂O"},
+    {front:"Complete: acid + carbonate → ?", back:"salt + water + carbon dioxide", hint:"CO₂ produced"},
+    {front:"Hydrochloric acid forms which salts?", back:"Chlorides", hint:"HCl"},
+    {front:"Sulfuric acid forms which salts?", back:"Sulfates", hint:"H₂SO₄"},
+    {front:"Nitric acid forms which salts?", back:"Nitrates", hint:"HNO₃"},
+    {front:"Test for hydrogen?", back:"Lighted splint → squeaky pop", hint:"pop"},
+    {front:"Test for carbon dioxide?", back:"Limewater turns milky/cloudy", hint:"limewater"},
+    {front:"When do you use titration to make a salt?", back:"When both reactants are soluble (e.g. Na⁺/K⁺/NH₄⁺ salts).", hint:"can’t filter"},
+    {front:"When do you use excess insoluble base?", back:"When the base is insoluble (e.g. CuO). Add excess, filter, crystallise.", hint:"filter then crystallise"}
+  ];
+
+  // -------------------------
+  // Final quiz (10)
+  // -------------------------
+  const finalQuiz = [
+    {id:"F1", q:"Which products form when zinc reacts with hydrochloric acid?", options:[
+      "zinc hydroxide and oxygen",
+      "zinc chloride and hydrogen",
+      "zinc sulfate and hydrogen",
+      "zinc chloride and carbon dioxide"
+    ], a:1, exp:"Acid + metal → salt + hydrogen. HCl gives chloride salts → zinc chloride + hydrogen."},
+    {id:"F2", q:"Which word equation is correct for neutralisation?", options:[
+      "acid + metal → salt + hydrogen",
+      "acid + alkali → salt + water",
+      "acid + carbonate → salt + carbon dioxide",
+      "acid + base → salt + hydrogen"
+    ], a:1, exp:"Neutralisation is acid + base/alkali → salt + water."},
+    {id:"F3", q:"What is the ionic equation for neutralisation?", options:[
+      "H⁺ + Cl⁻ → HCl",
+      "H⁺ + OH⁻ → H₂O",
+      "Na⁺ + OH⁻ → NaOH",
+      "H₂ + O₂ → H₂O"
+    ], a:1, exp:"Neutralisation removes H⁺ and OH⁻ ions to form water."},
+    {id:"F4", q:"Which test identifies carbon dioxide?", options:[
+      "Squeaky pop with lighted splint",
+      "Relights a glowing splint",
+      "Turns limewater milky/cloudy",
+      "Bleaches damp litmus paper"
+    ], a:2, exp:"CO₂ turns limewater milky/cloudy."},
+    {id:"F5", q:"Acid + carbonate produces CO₂. Which other product ALWAYS forms?", options:[
+      "Hydrogen",
+      "Water",
+      "Oxygen",
+      "Ammonia"
+    ], a:1, exp:"Acid + carbonate → salt + water + carbon dioxide."},
+    {id:"F6", q:"Which acid forms nitrate salts?", options:[
+      "Hydrochloric acid",
+      "Sulfuric acid",
+      "Nitric acid",
+      "Carbonic acid"
+    ], a:2, exp:"Nitric acid (HNO₃) forms nitrates."},
+    {id:"F7", q:"Best method to make copper sulfate crystals (CuSO₄) from dilute sulfuric acid and copper oxide:", options:[
+      "Titration with indicator only",
+      "Add excess insoluble copper oxide, filter, then crystallise",
+      "Chromatography",
+      "Simple distillation"
+    ], a:1, exp:"CuO is insoluble, so use excess base + acid, then filter and crystallise."},
+    {id:"F8", q:"Why is titration used to make sodium chloride from HCl and NaOH?", options:[
+      "NaCl is insoluble and must be filtered",
+      "Both reactants are soluble so you cannot remove excess by filtration",
+      "Hydrogen gas is produced",
+      "It makes crystals instantly"
+    ], a:1, exp:"With soluble acid + soluble alkali, you can’t filter off excess. Titration finds exact volumes."},
+    {id:"F9", q:"Transfer: Calcium carbonate reacts with nitric acid. What salt forms?", options:[
+      "Calcium chloride",
+      "Calcium nitrate",
+      "Calcium sulfate",
+      "Calcium hydroxide"
+    ], a:1, exp:"Nitric acid forms nitrate salts → calcium nitrate."},
+    {id:"F10", q:"Transfer: A student adds copper oxide to warm sulfuric acid until no more reacts. Why is ‘excess’ copper oxide used?", options:[
+      "To make more acid",
+      "To ensure all the acid is neutralised",
+      "To produce hydrogen gas",
+      "To make the salt insoluble"
+    ], a:1, exp:"Excess base ensures there is no acid left; leftover solid is removed by filtration."}
+  ];
+
+  // -------------------------
+  // State
+  // -------------------------
+  const state = {
+    checksDone: {metal:false, salts:false, gas:false, method:false},
+    finalAnswers: {},
+    flashIndex: 0,
+    flashFlipped: false
+  };
+
+  function $(id){ return document.getElementById(id); }
+  function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:"smooth", block:"start"}); }
+
+  function setPills(){
+    const doneCount = Object.values(state.checksDone).filter(Boolean).length;
+    const progress = Math.round(((doneCount) / 4) * 60 + (Object.keys(state.finalAnswers).length / finalQuiz.length) * 40);
+    $("pillProgress").textContent = `Progress: ${progress}%`;
+    $("pillChecks").textContent = `Checks: ${doneCount}/4 done`;
+  }
+
+  function renderCheck(key){
+    const c = checks[key];
+    const wrap = $("opts_"+key);
+    wrap.innerHTML = "";
+    c.options.forEach((opt, i) => {
+      const lab = document.createElement("label");
+      lab.className = "opt";
+      const inp = document.createElement("input");
+      inp.type = "radio";
+      inp.name = "chk_"+key;
+      inp.value = i;
+      const div = document.createElement("div");
+      div.textContent = opt;
+      lab.appendChild(inp);
+      lab.appendChild(div);
+      wrap.appendChild(lab);
+    });
+    $("exp_"+key).textContent = c.explanation;
+  }
+
+  function markCheck(key){
+    const c = checks[key];
+    const chosen = document.querySelector(`input[name="chk_${key}"]:checked`);
+    const res = $("res_"+key);
+    if(!chosen){
+      res.innerHTML = `<span style="color:var(--warn)"><b>Please choose an answer first.</b></span>`;
+      return;
+    }
+    const val = Number(chosen.value);
+    const ok = val === c.answer;
+    state.checksDone[key] = true;
+
+    res.innerHTML = ok
+      ? `<span class="good">✔ Correct</span> <span class="muted tiny">— ${c.options[c.answer]}</span>`
+      : `<span class="bad">✘ Incorrect</span> <span class="muted tiny">— Correct: ${c.options[c.answer]}</span>`;
+
+    setPills();
+  }
+
+  // Flashcards
+  function renderFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = false;
+    $("flashFace").textContent = card.front;
+    $("flashHint").textContent = "Hint: " + card.hint;
+    $("btnFlip").textContent = "Flip";
+  }
+  function flipFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = !state.flashFlipped;
+    $("flashFace").textContent = state.flashFlipped ? card.back : card.front;
+    $("btnFlip").textContent = state.flashFlipped ? "Show question" : "Flip";
+  }
+  function nextFlash(){
+    state.flashIndex = (state.flashIndex + 1) % flashcards.length;
+    renderFlash();
+  }
+
+  // Notes export
+  async function exportNotes(){
+    const txt = $("notesBox").value.trim();
+    if(!txt){
+      alert("No notes yet. Write a couple of lines first.");
+      return;
+    }
+    await navigator.clipboard.writeText(txt);
+    $("pillCopied").style.display = "inline-block";
+    setTimeout(()=> $("pillCopied").style.display = "none", 1200);
+  }
+
+  // Final quiz
+  function renderFinalQuiz(){
+    const qa = $("quizArea");
+    qa.innerHTML = "";
+    finalQuiz.forEach((q, idx) => {
+      const card = document.createElement("div");
+      card.className = "q";
+      card.innerHTML = `<b>Q${idx+1}.</b> ${q.q}`;
+      const opts = document.createElement("div");
+      opts.className = "opts";
+
+      q.options.forEach((opt, i) => {
+        const lab = document.createElement("label");
+        lab.className = "opt";
+        const inp = document.createElement("input");
+        inp.type = "radio";
+        inp.name = "final_"+q.id;
+        inp.value = i;
+        if(state.finalAnswers[q.id] === i) inp.checked = true;
+        inp.addEventListener("change", () => {
+          state.finalAnswers[q.id] = i;
+          setPills();
+        });
+        const div = document.createElement("div");
+        div.textContent = opt;
+        lab.appendChild(inp);
+        lab.appendChild(div);
+        opts.appendChild(lab);
+      });
+
+      card.appendChild(opts);
+      qa.appendChild(card);
+    });
+    setPills();
+  }
+
+  function markFinal(){
+    let correct = 0;
+    const total = finalQuiz.length;
+    const review = [];
+
+    finalQuiz.forEach((q) => {
+      const chosen = (q.id in state.finalAnswers) ? state.finalAnswers[q.id] : null;
+      const ok = chosen === q.a;
+      if(ok) correct++;
+      review.push({q, chosen, ok});
+    });
+
+    const pct = Math.round((correct/total)*100);
+    $("pillFinalScore").style.display = "inline-block";
+    $("pillFinalScore").textContent = `Final quiz score: ${correct}/${total} (${pct}%)`;
+
+    const fr = $("finalReview");
+    fr.innerHTML = review.map((r, i) => {
+      const tag = r.ok ? `<span class="tag good">Correct</span>` : `<span class="tag bad">Incorrect</span>`;
+      const your = (r.chosen===null) ? "<i>(blank)</i>" : r.q.options[r.chosen];
+
+      return `
+        <div class="scoreBox" style="margin-top:10px;">
+          <div><b>Q${i+1}.</b> ${r.q.q} ${tag}</div>
+          <div class="muted" style="margin-top:6px;"><b>Your answer:</b> ${your}</div>
+          ${r.ok ? "" : `<div class="muted"><b>Correct answer:</b> ${r.q.options[r.q.a]}</div>`}
+          <div class="callout tiny"><b>Why:</b> ${r.q.exp}</div>
+        </div>
+      `;
+    }).join("");
+
+    scrollToId("finalReview");
+  }
+
+  function retryFinal(){
+    state.finalAnswers = {};
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+    renderFinalQuiz();
+    scrollToId("finalQuiz");
+  }
+
+  function resetAll(){
+    state.checksDone = {metal:false, salts:false, gas:false, method:false};
+    state.finalAnswers = {};
+    state.flashIndex = 0;
+    state.flashFlipped = false;
+
+    $("notesBox").value = "";
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+
+    Object.keys(checks).forEach(renderCheck);
+    renderFlash();
+    renderFinalQuiz();
+    setPills();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  // Mark-scheme phrase copier
+  function showToast(msg){
+    const t = $("toast");
+    t.textContent = msg;
+    t.style.display = "block";
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=> t.style.display="none", 1100);
+  }
+  async function copyPhrase(btn){
+    const text = btn.parentElement.querySelector("div").innerText.trim();
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast("Copied!");
+    }catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      showToast("Copied!");
+    }
+  }
+
+  // Buttons
+  $("btnJumpNotes").addEventListener("click", ()=>scrollToId("notes"));
+  $("btnJumpPhrases").addEventListener("click", ()=>scrollToId("phrases"));
+  $("btnJumpFlash").addEventListener("click", ()=>scrollToId("flashcards"));
+  $("btnJumpQuiz").addEventListener("click", ()=>scrollToId("finalQuiz"));
+  $("btnReset").addEventListener("click", resetAll);
+
+  $("btnFlip").addEventListener("click", flipFlash);
+  $("btnNext").addEventListener("click", nextFlash);
+  $("btnAgain").addEventListener("click", ()=>nextFlash());
+  $("btnGood").addEventListener("click", ()=>nextFlash());
+
+  $("btnExport").addEventListener("click", exportNotes);
+  $("btnClearNotes").addEventListener("click", ()=>{$("notesBox").value="";});
+  $("btnMarkFinal").addEventListener("click", markFinal);
+  $("btnRetryFinal").addEventListener("click", retryFinal);
+
+  // Init
+  Object.keys(checks).forEach(renderCheck);
+  renderFlash();
+  renderFinalQuiz();
+  setPills();
+</script>
+</body>
+</html>
