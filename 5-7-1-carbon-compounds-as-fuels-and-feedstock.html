@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AQA 5.7.1 – Carbon compounds as fuels and feedstock (5.7.1.1–5.7.1.3)</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:rgba(255,255,255,.08); --card2:rgba(255,255,255,.06);
+      --text:#eef2ff; --muted:rgba(238,242,255,.75); --border:rgba(255,255,255,.14);
+      --accent:#7c5cff; --good:#2ecc71; --bad:#ff5c7a; --warn:#ffd166;
+    }
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:radial-gradient(1200px 650px at 10% 0%, rgba(124,92,255,.25), transparent 50%),
+                 radial-gradient(900px 550px at 90% 10%, rgba(46,204,113,.18), transparent 55%),
+                 linear-gradient(180deg, var(--bg), #050817);
+      color:var(--text);
+    }
+    header{max-width:1100px; margin:0 auto; padding:28px 18px 10px;}
+    h1{margin:0 0 8px; font-size:1.65rem;}
+    .sub{color:var(--muted); line-height:1.35; max-width:980px;}
+    .wrap{max-width:1100px; margin:0 auto; padding:12px 18px 48px; display:grid; gap:14px;}
+    .toolbar{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:var(--card);
+    }
+    .pill{padding:8px 10px; border-radius:999px; border:1px solid var(--border);
+      background:rgba(0,0,0,.18); color:var(--muted); font-size:.92rem; white-space:nowrap;}
+    button{
+      border:1px solid var(--border); background:rgba(255,255,255,.08); color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:650;
+    }
+    button:hover{border-color:rgba(255,255,255,.28);}
+    button.primary{
+      background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.55));
+      border-color:rgba(124,92,255,.65);
+    }
+    button.danger{
+      background:linear-gradient(135deg, rgba(255,92,122,.95), rgba(255,92,122,.45));
+      border-color:rgba(255,92,122,.6);
+    }
+    .card{padding:16px; border-radius:16px; border:1px solid var(--border); background:var(--card);}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:12px;}
+    h2{margin:0 0 10px; font-size:1.25rem;}
+    h3{margin:0 0 8px; font-size:1.05rem;}
+    .muted{color:var(--muted);}
+    .callout{
+      border-left:3px solid rgba(124,92,255,.7); padding:10px 12px; background:rgba(255,255,255,.05);
+      border-radius:12px; margin-top:10px; color:var(--muted); line-height:1.45;
+    }
+    .kbox{
+      border:1px solid var(--border); border-radius:14px; padding:12px; background:var(--card2);
+    }
+    ul{margin:8px 0 0 18px; color:var(--muted);}
+    .diagram{
+      border:1px dashed rgba(255,255,255,.24); border-radius:14px; padding:12px; background:rgba(0,0,0,.16);
+      color:var(--muted); line-height:1.45;
+    }
+    .equation{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.14);
+      border-radius:14px;
+      padding:10px 12px;
+      color:var(--muted);
+      line-height:1.45;
+      margin-top:10px;
+    }
+    .q{
+      padding:12px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.06);
+      margin-top:10px;
+    }
+    .opts{display:grid; gap:8px; margin-top:10px;}
+    label.opt{
+      display:grid; grid-template-columns:22px 1fr; gap:10px; align-items:start;
+      padding:10px 12px; border-radius:14px; border:1px solid var(--border);
+      background:rgba(0,0,0,.14); cursor:pointer;
+    }
+    label.opt:hover{border-color:rgba(255,255,255,.28);}
+    input[type="radio"]{margin-top:3px;}
+    .resultLine{margin-top:10px; font-weight:700;}
+    .good{color:#b7f7cd;}
+    .bad{color:#ffc1cb;}
+    details{border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.05); padding:10px 12px;}
+    summary{cursor:pointer; font-weight:750;}
+    .flash{
+      display:grid; gap:10px; align-items:center;
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(0,0,0,.16);
+    }
+    .flashFace{font-size:1.05rem; line-height:1.35;}
+    .flashBtns{display:flex; gap:10px; flex-wrap:wrap;}
+    .tiny{font-size:.92rem;}
+    textarea{
+      width:100%; min-height:90px; border-radius:12px; border:1px solid var(--border);
+      padding:10px; background:rgba(0,0,0,.18); color:var(--text);
+      resize:vertical;
+    }
+    .scoreBox{
+      border:1px solid var(--border); border-radius:16px; padding:14px;
+      background:rgba(255,255,255,.06);
+    }
+    .tag{
+      display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--border);
+      font-weight:800; font-size:.85rem; margin-left:8px;
+    }
+    .tag.good{background:rgba(46,204,113,.18); border-color:rgba(46,204,113,.35);}
+    .tag.bad{background:rgba(255,92,122,.16); border-color:rgba(255,92,122,.35);}
+    .phrase{
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.14);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .phrase button{ padding:8px 10px; border-radius:12px; }
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background:rgba(0,0,0,.75); border:1px solid rgba(255,255,255,.18);
+      color:var(--text); padding:10px 12px; border-radius:14px;
+      display:none; z-index:9999; font-weight:700;
+    }
+    .twoCol{display:grid; grid-template-columns:1fr; gap:12px;}
+    @media (min-width: 860px){ .twoCol{grid-template-columns: 1.1fr .9fr;} }
+    code.k{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background:rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.14);
+      padding:2px 6px;
+      border-radius:8px;
+      color:rgba(238,242,255,.92);
+      white-space:nowrap;
+    }
+    table.tbl{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(0,0,0,.12);
+      margin-top:10px;
+    }
+    table.tbl th, table.tbl td{
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      vertical-align:top;
+      text-align:left;
+      color:var(--muted);
+      line-height:1.35;
+    }
+    table.tbl th{color:var(--text); font-weight:800; background:rgba(255,255,255,.06);}
+    table.tbl tr:last-child td{border-bottom:none;}
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>AQA 5.7.1 – Carbon compounds as fuels and feedstock (5.7.1.1–5.7.1.3)</h1>
+  <div class="sub">
+    One combined module for <b>crude oil</b>, <b>hydrocarbons & alkanes</b>, <b>fractional distillation & petrochemicals</b>,
+    and the key <b>property trends</b> of hydrocarbon fractions (plus <b>complete combustion equations</b>).
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <span class="pill" id="pillSection">Section: 5.7.1 (5.7.1.1–5.7.1.3)</span>
+      <span class="pill" id="pillProgress">Progress: 0%</span>
+      <span class="pill" id="pillChecks">Checks: 0/4 done</span>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <button id="btnJumpNotes">Jump to Notes</button>
+      <button id="btnJumpPhrases">Mark-scheme phrases</button>
+      <button id="btnJumpFlash">Jump to Flashcards</button>
+      <button class="primary" id="btnJumpQuiz">Jump to Final Quiz</button>
+      <button class="danger" id="btnReset">Reset progress</button>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="card" id="notes">
+    <h2>Core ideas for 5.7.1</h2>
+    <div class="callout">
+      Crude oil is a <b>finite</b> resource and is a <b>mixture</b> of many hydrocarbons.
+      We separate crude oil into <b>fractions</b> using <b>fractional distillation</b>.
+      As molecules get bigger, <b>boiling point and viscosity increase</b>, but <b>flammability decreases</b>.
+    </div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>5.7.1.1 Crude oil</h3>
+        <ul>
+          <li><b>Finite resource</b> (used faster than it forms)</li>
+          <li>Formed from ancient biomass (mainly plankton) buried in mud</li>
+          <li>A <b>mixture</b> of a very large number of compounds</li>
+          <li>Most are <b>hydrocarbons</b> (made of carbon and hydrogen only)</li>
+        </ul>
+        <div class="diagram tiny">
+          Exam wording: “Crude oil is a mixture of hydrocarbons.”
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Hydrocarbons & alkanes</h3>
+        <ul>
+          <li><b>Hydrocarbon</b> = compound containing <b>carbon and hydrogen only</b></li>
+          <li><b>Alkanes</b> are a family (homologous series) of hydrocarbons</li>
+          <li>General formula: <b>C<sub>n</sub>H<sub>2n+2</sub></b></li>
+          <li>First four alkanes: <b>methane</b>, <b>ethane</b>, <b>propane</b>, <b>butane</b></li>
+        </ul>
+
+        <table class="tbl">
+          <thead>
+            <tr><th>Name</th><th>Molecular formula</th><th>Atoms count idea</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Methane</td><td>CH<sub>4</sub></td><td>n=1 → H=2(1)+2=4</td></tr>
+            <tr><td>Ethane</td><td>C<sub>2</sub>H<sub>6</sub></td><td>n=2 → H=6</td></tr>
+            <tr><td>Propane</td><td>C<sub>3</sub>H<sub>8</sub></td><td>n=3 → H=8</td></tr>
+            <tr><td>Butane</td><td>C<sub>4</sub>H<sub>10</sub></td><td>n=4 → H=10</td></tr>
+          </tbody>
+        </table>
+
+        <details style="margin-top:10px;">
+          <summary>Formula styles (what you might see)</summary>
+          <div class="muted tiny" style="margin-top:8px; line-height:1.6;">
+            You might be given:
+            <ul>
+              <li><b>Molecular formula</b>: C<sub>3</sub>H<sub>8</sub></li>
+              <li><b>Displayed formula</b>: shows every bond</li>
+              <li><b>Structural formula</b>: condensed, e.g. CH<sub>3</sub>CH<sub>2</sub>CH<sub>3</sub></li>
+            </ul>
+          </div>
+        </details>
+      </div>
+
+      <div class="kbox">
+        <h3>5.7.1.2 Fractional distillation</h3>
+        <div class="diagram">
+          Separates crude oil because different hydrocarbons have <b>different boiling points</b>.
+          <ul>
+            <li>Crude oil is heated → vapours rise up a column</li>
+            <li>Column is <b>hot at the bottom</b>, <b>cooler at the top</b></li>
+            <li>Each fraction condenses at a different height</li>
+            <li>Fractions contain molecules with a <b>similar number of carbon atoms</b></li>
+          </ul>
+        </div>
+        <table class="tbl">
+          <thead>
+            <tr><th>Typical fractions (examples)</th><th>Main uses</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>LPG, petrol, kerosene, diesel, heavy fuel oil</td><td>Fuels for heating/transport</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="kbox">
+        <h3>Petrochemicals (feedstock)</h3>
+        <div class="diagram">
+          Fractions can be processed to make useful materials (feedstock for the petrochemical industry), e.g.:
+          <ul>
+            <li>Solvents</li>
+            <li>Lubricants</li>
+            <li>Polymers</li>
+            <li>Detergents</li>
+          </ul>
+        </div>
+        <div class="callout tiny">
+          “Feedstock” = raw material used to make other chemicals/products.
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>5.7.1.3 Properties of hydrocarbons (trend with size)</h3>
+        <table class="tbl">
+          <thead>
+            <tr><th>As hydrocarbon molecules get bigger…</th><th>Trend</th><th>Why it matters</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Boiling point</td><td><b>increases</b></td><td>Harder to vaporise; condense lower in the column</td></tr>
+            <tr><td>Viscosity</td><td><b>increases</b></td><td>Thicker/less runny (e.g. oils)</td></tr>
+            <tr><td>Flammability</td><td><b>decreases</b></td><td>Harder to ignite (less volatile)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="kbox">
+        <h3>Complete combustion of hydrocarbons</h3>
+        <div class="equation">
+          <b>Complete combustion (plenty of oxygen):</b><br>
+          hydrocarbon + oxygen → carbon dioxide + water
+        </div>
+        <div class="equation">
+          Example (propane):<br>
+          <code class="k">C<sub>3</sub>H<sub>8</sub> + 5O<sub>2</sub> → 3CO<sub>2</sub> + 4H<sub>2</sub>O</code>
+        </div>
+        <details style="margin-top:10px;">
+          <summary>Quick method to balance combustion equations</summary>
+          <div class="muted tiny" style="margin-top:8px; line-height:1.6;">
+            1) Balance C → make CO<sub>2</sub> match carbon atoms.<br>
+            2) Balance H → make H<sub>2</sub>O match hydrogen atoms (divide by 2).<br>
+            3) Count O on the right → balance O<sub>2</sub> on the left.<br>
+            If you get a half, multiply everything by 2.
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- QUICK CHECKS -->
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Check 1: definitions</h3>
+        <div class="q" data-check="hydrocarbon">
+          A hydrocarbon is a compound containing…
+          <div class="opts" id="opts_hydrocarbon"></div>
+          <button class="primary" onclick="markCheck('hydrocarbon')">Mark</button>
+          <div class="resultLine" id="res_hydrocarbon"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_hydrocarbon"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Check 2: alkane formula</h3>
+        <div class="q" data-check="alkane">
+          Which formula fits the alkane general formula C<sub>n</sub>H<sub>2n+2</sub>?
+          <div class="opts" id="opts_alkane"></div>
+          <button class="primary" onclick="markCheck('alkane')">Mark</button>
+          <div class="resultLine" id="res_alkane"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_alkane"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Check 3: fractional distillation idea</h3>
+        <div class="q" data-check="distil">
+          Crude oil is separated into fractions by fractional distillation because…
+          <div class="opts" id="opts_distil"></div>
+          <button class="primary" onclick="markCheck('distil')">Mark</button>
+          <div class="resultLine" id="res_distil"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_distil"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Check 4: trend question</h3>
+        <div class="q" data-check="trend">
+          As hydrocarbon molecules get bigger, viscosity and boiling point…
+          <div class="opts" id="opts_trend"></div>
+          <button class="primary" onclick="markCheck('trend')">Mark</button>
+          <div class="resultLine" id="res_trend"></div>
+          <details style="margin-top:8px;">
+            <summary>Explanation</summary>
+            <div class="muted tiny" id="exp_trend"></div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARK-SCHEME PHRASES -->
+  <div class="card" id="phrases">
+    <h2>Common mark-scheme phrases (copy-friendly)</h2>
+    <div class="muted">Short sentences that match typical GCSE mark schemes for this topic.</div>
+
+    <div class="grid" style="margin-top:12px;">
+      <div class="kbox">
+        <h3>Crude oil</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Crude oil is a finite resource and is a mixture of hydrocarbons.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“A hydrocarbon is a compound containing carbon and hydrogen only.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Fractional distillation</h3>
+        <div class="phrase">
+          <div class="muted"><b>“Fractions are separated because they have different boiling points.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Fractions contain hydrocarbons with a similar number of carbon atoms.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="kbox">
+        <h3>Trends and combustion</h3>
+        <div class="phrase">
+          <div class="muted"><b>“As molecular size increases, boiling point and viscosity increase, but flammability decreases.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+        <div class="phrase" style="margin-top:10px;">
+          <div class="muted"><b>“Complete combustion of a hydrocarbon produces carbon dioxide and water.”</b></div>
+          <button class="primary" onclick="copyPhrase(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="card" id="flashcards">
+    <h2>Flashcards (retrieval practice)</h2>
+    <div class="muted">Click <b>Flip</b> then rate yourself. Aim for “Good” twice in a row.</div>
+
+    <div class="flash" style="margin-top:12px;">
+      <div class="flashFace" id="flashFace"></div>
+      <div class="muted tiny" id="flashHint"></div>
+      <div class="flashBtns">
+        <button id="btnFlip" class="primary">Flip</button>
+        <button id="btnAgain">Again</button>
+        <button id="btnGood">Good</button>
+        <button id="btnNext">Next</button>
+      </div>
+    </div>
+
+    <div class="callout tiny">
+      Tip: If you can instantly recall the 3 trends (boiling point ↑, viscosity ↑, flammability ↓), you’ll pick up easy marks.
+    </div>
+  </div>
+
+  <!-- NOTES / EXPORT -->
+  <div class="card">
+    <h2>My notes (optional)</h2>
+    <div class="muted">Write what’s confusing. Export to copy/paste into a revision log.</div>
+    <textarea id="notesBox" placeholder="Example: I forget why larger molecules have higher boiling points, or I mix up fractions and petrochemicals..."></textarea>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+      <button id="btnExport" class="primary">Export notes (copy)</button>
+      <button id="btnClearNotes">Clear notes</button>
+      <span class="pill" id="pillCopied" style="display:none;">Copied!</span>
+    </div>
+  </div>
+
+  <!-- FINAL QUIZ -->
+  <div class="card" id="finalQuiz">
+    <h2>Final quiz (5.7.1)</h2>
+    <div class="muted">Mix of recall + application (not just past-paper repeats).</div>
+
+    <div id="quizArea" style="margin-top:12px;"></div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center;">
+      <button class="primary" id="btnMarkFinal">Mark final quiz</button>
+      <button id="btnRetryFinal">Retry final quiz</button>
+      <span class="pill" id="pillFinalScore" style="display:none;"></span>
+    </div>
+    <div id="finalReview" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+  // -------------------------
+  // Quick checks (4)
+  // -------------------------
+  const checks = {
+    hydrocarbon: {
+      options: ["carbon and hydrogen only", "hydrogen and oxygen only", "carbon and oxygen only", "any two elements"],
+      answer: 0,
+      explanation: "Hydrocarbon means ONLY carbon and hydrogen atoms."
+    },
+    alkane: {
+      options: ["C2H4", "C3H8", "C4H8", "CH2"],
+      answer: 1,
+      explanation: "For n=3, H = 2n+2 = 8, so C3H8 is an alkane (propane)."
+    },
+    distil: {
+      options: [
+        "hydrocarbons have different boiling points",
+        "hydrocarbons have different colours",
+        "hydrocarbons are magnetic",
+        "hydrocarbons are all solids"
+      ],
+      answer: 0,
+      explanation: "Fractional distillation separates substances by different boiling points (condense at different heights)."
+    },
+    trend: {
+      options: ["both increase", "both decrease", "one increases and one decreases", "no change"],
+      answer: 0,
+      explanation: "As molecules get larger, boiling point increases and viscosity increases."
+    }
+  };
+
+  // -------------------------
+  // Flashcards
+  // -------------------------
+  const flashcards = [
+    {front:"Define crude oil (GCSE exam style).", back:"A finite resource and a mixture of hydrocarbons.", hint:"finite + mixture"},
+    {front:"Define a hydrocarbon.", back:"A compound containing carbon and hydrogen only.", hint:"only"},
+    {front:"What is the general formula for alkanes?", back:"CnH2n+2", hint:"2n+2"},
+    {front:"Name the first four alkanes.", back:"Methane, ethane, propane, butane.", hint:"M E P B"},
+    {front:"Why does fractional distillation work?", back:"Different hydrocarbons have different boiling points.", hint:"boiling point"},
+    {front:"What is a fraction?", back:"A mixture of hydrocarbons with a similar number of carbon atoms (similar boiling points).", hint:"similar size"},
+    {front:"As hydrocarbon size increases, boiling point…", back:"Increases.", hint:"b.p. ↑"},
+    {front:"As hydrocarbon size increases, viscosity…", back:"Increases.", hint:"viscosity ↑"},
+    {front:"As hydrocarbon size increases, flammability…", back:"Decreases.", hint:"flammability ↓"},
+    {front:"Products of complete combustion of a hydrocarbon?", back:"Carbon dioxide and water.", hint:"CO2 + H2O"}
+  ];
+
+  // -------------------------
+  // Final quiz (10)
+  // -------------------------
+  const finalQuiz = [
+    {id:"F1", q:"Crude oil is best described as…", options:[
+      "a pure compound",
+      "a mixture of hydrocarbons",
+      "a mixture of metals",
+      "a solution of salts"
+    ], a:1, exp:"Crude oil is a mixture of many hydrocarbons."},
+
+    {id:"F2", q:"A hydrocarbon must contain…", options:[
+      "carbon only",
+      "hydrogen only",
+      "carbon and hydrogen only",
+      "carbon, hydrogen and oxygen"
+    ], a:2, exp:"Hydrocarbons contain ONLY carbon and hydrogen atoms."},
+
+    {id:"F3", q:"Which is an alkane?", options:[
+      "C2H4",
+      "C3H6",
+      "C4H10",
+      "CH2"
+    ], a:2, exp:"Alkanes follow CnH2n+2. For n=4 → H=10, so C4H10 (butane) is an alkane."},
+
+    {id:"F4", q:"Fractional distillation separates crude oil because…", options:[
+      "fractions have different colours",
+      "hydrocarbons have different boiling points",
+      "hydrocarbons have different charges",
+      "hydrocarbons are different metals"
+    ], a:1, exp:"Different hydrocarbons have different boiling points, so they condense at different heights."},
+
+    {id:"F5", q:"Which trend is correct as hydrocarbon chain length increases?", options:[
+      "boiling point decreases and viscosity decreases",
+      "boiling point increases and viscosity increases",
+      "boiling point increases and flammability increases",
+      "viscosity decreases and flammability decreases"
+    ], a:1, exp:"As size increases: boiling point ↑, viscosity ↑, flammability ↓."},
+
+    {id:"F6", q:"Which statement about larger hydrocarbon fractions is most accurate?", options:[
+      "they are more volatile and ignite easily",
+      "they have lower boiling points",
+      "they are thicker (more viscous)",
+      "they are more flammable"
+    ], a:2, exp:"Larger molecules tend to be more viscous (thicker) and less flammable, with higher boiling points."},
+
+    {id:"F7", q:"Complete combustion of a hydrocarbon produces…", options:[
+      "carbon monoxide and water",
+      "carbon dioxide and water",
+      "carbon dioxide and hydrogen",
+      "carbon and water"
+    ], a:1, exp:"Complete combustion (in plenty of oxygen) produces CO2 and H2O."},
+
+    {id:"F8", q:"Balance: ____ C2H6 + ____ O2 → ____ CO2 + ____ H2O", options:[
+      "1, 3.5, 2, 3",
+      "2, 7, 4, 6",
+      "1, 2, 2, 2",
+      "2, 5, 4, 4"
+    ], a:1, exp:"Ethane combustion balances as 2C2H6 + 7O2 → 4CO2 + 6H2O."},
+
+    {id:"F9", q:"Petrochemicals are best described as…", options:[
+      "metals extracted from crude oil",
+      "chemicals made from crude oil fractions used as feedstock",
+      "salts dissolved in crude oil",
+      "fractions collected only for heating"
+    ], a:1, exp:"Petrochemicals are produced from fractions and used to make materials like polymers, solvents, detergents."},
+
+    {id:"F10", q:"Transfer: Which fraction is most likely to be used as lubricants?", options:[
+      "small molecules with low boiling points",
+      "larger molecules with higher viscosity",
+      "gases with very low boiling points",
+      "anything with oxygen in it"
+    ], a:1, exp:"Lubricants are typically larger molecules: thicker (higher viscosity) and higher boiling points."}
+  ];
+
+  // -------------------------
+  // State
+  // -------------------------
+  const state = {
+    checksDone: {hydrocarbon:false, alkane:false, distil:false, trend:false},
+    finalAnswers: {},
+    flashIndex: 0,
+    flashFlipped: false
+  };
+
+  function $(id){ return document.getElementById(id); }
+  function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:"smooth", block:"start"}); }
+
+  function setPills(){
+    const doneCount = Object.values(state.checksDone).filter(Boolean).length;
+    const progress = Math.round(((doneCount) / 4) * 60 + (Object.keys(state.finalAnswers).length / finalQuiz.length) * 40);
+    $("pillProgress").textContent = `Progress: ${progress}%`;
+    $("pillChecks").textContent = `Checks: ${doneCount}/4 done`;
+  }
+
+  function renderCheck(key){
+    const c = checks[key];
+    const wrap = $("opts_"+key);
+    wrap.innerHTML = "";
+    c.options.forEach((opt, i) => {
+      const lab = document.createElement("label");
+      lab.className = "opt";
+      const inp = document.createElement("input");
+      inp.type = "radio";
+      inp.name = "chk_"+key;
+      inp.value = i;
+      const div = document.createElement("div");
+      div.innerHTML = opt;
+      lab.appendChild(inp);
+      lab.appendChild(div);
+      wrap.appendChild(lab);
+    });
+    $("exp_"+key).textContent = c.explanation;
+  }
+
+  function markCheck(key){
+    const c = checks[key];
+    const chosen = document.querySelector(`input[name="chk_${key}"]:checked`);
+    const res = $("res_"+key);
+    if(!chosen){
+      res.innerHTML = `<span style="color:var(--warn)"><b>Please choose an answer first.</b></span>`;
+      return;
+    }
+    const val = Number(chosen.value);
+    const ok = val === c.answer;
+    state.checksDone[key] = true;
+
+    res.innerHTML = ok
+      ? `<span class="good">✔ Correct</span> <span class="muted tiny">— ${c.options[c.answer]}</span>`
+      : `<span class="bad">✘ Incorrect</span> <span class="muted tiny">— Correct: ${c.options[c.answer]}</span>`;
+
+    setPills();
+  }
+
+  // Flashcards
+  function renderFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = false;
+    $("flashFace").innerHTML = card.front;
+    $("flashHint").textContent = "Hint: " + card.hint;
+    $("btnFlip").textContent = "Flip";
+  }
+  function flipFlash(){
+    const card = flashcards[state.flashIndex];
+    state.flashFlipped = !state.flashFlipped;
+    $("flashFace").innerHTML = state.flashFlipped ? card.back : card.front;
+    $("btnFlip").textContent = state.flashFlipped ? "Show question" : "Flip";
+  }
+  function nextFlash(){
+    state.flashIndex = (state.flashIndex + 1) % flashcards.length;
+    renderFlash();
+  }
+
+  // Notes export
+  async function exportNotes(){
+    const txt = $("notesBox").value.trim();
+    if(!txt){
+      alert("No notes yet. Write a couple of lines first.");
+      return;
+    }
+    await navigator.clipboard.writeText(txt);
+    $("pillCopied").style.display = "inline-block";
+    setTimeout(()=> $("pillCopied").style.display = "none", 1200);
+  }
+
+  // Final quiz
+  function renderFinalQuiz(){
+    const qa = $("quizArea");
+    qa.innerHTML = "";
+    finalQuiz.forEach((q, idx) => {
+      const card = document.createElement("div");
+      card.className = "q";
+      card.innerHTML = `<b>Q${idx+1}.</b> ${q.q}`;
+      const opts = document.createElement("div");
+      opts.className = "opts";
+
+      q.options.forEach((opt, i) => {
+        const lab = document.createElement("label");
+        lab.className = "opt";
+        const inp = document.createElement("input");
+        inp.type = "radio";
+        inp.name = "final_"+q.id;
+        inp.value = i;
+        if(state.finalAnswers[q.id] === i) inp.checked = true;
+        inp.addEventListener("change", () => {
+          state.finalAnswers[q.id] = i;
+          setPills();
+        });
+        const div = document.createElement("div");
+        div.innerHTML = opt;
+        lab.appendChild(inp);
+        lab.appendChild(div);
+        opts.appendChild(lab);
+      });
+
+      card.appendChild(opts);
+      qa.appendChild(card);
+    });
+    setPills();
+  }
+
+  function markFinal(){
+    let correct = 0;
+    const total = finalQuiz.length;
+    const review = [];
+
+    finalQuiz.forEach((q) => {
+      const chosen = (q.id in state.finalAnswers) ? state.finalAnswers[q.id] : null;
+      const ok = chosen === q.a;
+      if(ok) correct++;
+      review.push({q, chosen, ok});
+    });
+
+    const pct = Math.round((correct/total)*100);
+    $("pillFinalScore").style.display = "inline-block";
+    $("pillFinalScore").textContent = `Final quiz score: ${correct}/${total} (${pct}%)`;
+
+    const fr = $("finalReview");
+    fr.innerHTML = review.map((r, i) => {
+      const tag = r.ok ? `<span class="tag good">Correct</span>` : `<span class="tag bad">Incorrect</span>`;
+      const your = (r.chosen===null) ? "<i>(blank)</i>" : r.q.options[r.chosen];
+
+      return `
+        <div class="scoreBox" style="margin-top:10px;">
+          <div><b>Q${i+1}.</b> ${r.q.q} ${tag}</div>
+          <div class="muted" style="margin-top:6px;"><b>Your answer:</b> ${your}</div>
+          ${r.ok ? "" : `<div class="muted"><b>Correct answer:</b> ${r.q.options[r.q.a]}</div>`}
+          <div class="callout tiny"><b>Why:</b> ${r.q.exp}</div>
+        </div>
+      `;
+    }).join("");
+
+    scrollToId("finalReview");
+  }
+
+  function retryFinal(){
+    state.finalAnswers = {};
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+    renderFinalQuiz();
+    scrollToId("finalQuiz");
+  }
+
+  function resetAll(){
+    state.checksDone = {hydrocarbon:false, alkane:false, distil:false, trend:false};
+    state.finalAnswers = {};
+    state.flashIndex = 0;
+    state.flashFlipped = false;
+
+    $("notesBox").value = "";
+    $("pillFinalScore").style.display = "none";
+    $("finalReview").innerHTML = "";
+
+    Object.keys(checks).forEach(renderCheck);
+    renderFlash();
+    renderFinalQuiz();
+    setPills();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  // Mark-scheme phrase copier
+  function showToast(msg){
+    const t = $("toast");
+    t.textContent = msg;
+    t.style.display = "block";
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=> t.style.display="none", 1100);
+  }
+  async function copyPhrase(btn){
+    const text = btn.parentElement.querySelector("div").innerText.trim();
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast("Copied!");
+    }catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      showToast("Copied!");
+    }
+  }
+
+  // Buttons
+  $("btnJumpNotes").addEventListener("click", ()=>scrollToId("notes"));
+  $("btnJumpPhrases").addEventListener("click", ()=>scrollToId("phrases"));
+  $("btnJumpFlash").addEventListener("click", ()=>scrollToId("flashcards"));
+  $("btnJumpQuiz").addEventListener("click", ()=>scrollToId("finalQuiz"));
+  $("btnReset").addEventListener("click", resetAll);
+
+  $("btnFlip").addEventListener("click", flipFlash);
+  $("btnNext").addEventListener("click", nextFlash);
+  $("btnAgain").addEventListener("click", ()=>nextFlash());
+  $("btnGood").addEventListener("click", ()=>nextFlash());
+
+  $("btnExport").addEventListener("click", exportNotes);
+  $("btnClearNotes").addEventListener("click", ()=>{$("notesBox").value="";});
+  $("btnMarkFinal").addEventListener("click", markFinal);
+  $("btnRetryFinal").addEventListener("click", retryFinal);
+
+  // Init
+  Object.keys(checks).forEach(renderCheck);
+  renderFlash();
+  renderFinalQuiz();
+  setPills();
+</script>
+</body>
+</html>
